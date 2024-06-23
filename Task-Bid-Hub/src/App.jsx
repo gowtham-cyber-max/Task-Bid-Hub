@@ -8,19 +8,21 @@ function App() {
     fetch('http://localhost:5000/api').then(
        (response) => response.json() 
       ).then(
-        (data) => {updatebackdata(data)
-        }
+        (data) => {updatebackdata(data.users)
+        } 
 
       )
     },[])
   
   return (
     <div>
-    <h1> Welcome to my app</h1>
+    <h1>My App</h1>
     <ul>
       {backData.map((item,index)=>{
+        console.log(backData)
         return <li key={index}>{item.name}</li>
         })}
+
     </ul>
     </div>
   )
