@@ -5,7 +5,7 @@ function App() {
   const [backData,updatebackdata]=useState([{}]) // list of json
 
   useEffect(()=>{
-    fetch('http://localhost:5000/api').then(
+    fetch('http://localhost:5000/api1').then(
        (response) => response.json() 
       ).then(
         (data) => {updatebackdata(data.users)
@@ -17,13 +17,14 @@ function App() {
   return (
     <div>
     <h1>My App</h1>
-    <ul>
+    <ol>
       {backData.map((item,index)=>{
         console.log(backData)
-        return <li key={index}>{item.name}</li>
+        return <li key={index}>{item}</li>
+
         })}
 
-    </ul>
+    </ol>
     </div>
   )
 }
