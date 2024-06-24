@@ -20,7 +20,7 @@ function App() {
     <ol>
       {backData.map((item,index)=>{
         console.log(backData)
-        return <li key={index}>{item}</li>
+        return <li key={index}>{"hi"            }</li>
 
         })}
 
