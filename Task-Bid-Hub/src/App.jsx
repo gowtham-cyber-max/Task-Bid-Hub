@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 function App() {
 
-  const [backData,updatebackdata]=useState([{}]) // list of json
+  const [backData,updatebackdata]=useState([]) // list of json
 
   useEffect(()=>{
     fetch('http://localhost:5000/api1').then(
@@ -18,9 +18,9 @@ function App() {
     <div>
     <h1>My App</h1>
     <ol>
-      {backData.map((item,index)=>{
+      {backData.map((list,index)=>{
         console.log(backData)
-        return <li key={index}>{"hi"            }</li>
+        return <li key={index}>{list}</li>
 
         })}
 
