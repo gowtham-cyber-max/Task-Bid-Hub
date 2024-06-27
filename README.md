@@ -33,8 +33,36 @@ Backend :
     "start":"node server",
     "dev":"nodemon server"
 
+Mongodb connection using mongoose:
+
+npm install mongoose
+npm install mongodb
+
+![alt text](image.png)
+![alt text](image-1.png)
+
+Model create panna :
+![alt text](image.png)
+
+Code for Model :
+
+const mongoose=require('mongoose')
+
+const userSchema=new mongoose.Schema({
+    userName:String,
+    email:String,
+    passWord:String
+})
+const UserModel=mongoose.model('User',userSchema)
+module.exports=UserModel
 
 
+code for connectivity and post:
+![alt text](image-1.png)
+
+Environment variable mongodb connectivity
+
+npm insatall dotenv
 Front End:
 
 
