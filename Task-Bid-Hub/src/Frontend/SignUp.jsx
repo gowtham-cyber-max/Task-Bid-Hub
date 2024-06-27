@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const [data,setData]=useState({
-        userName:"",
+        user:"",
         pass:"",
         email:""
     })
@@ -14,7 +14,7 @@ function SignUp() {
         console.log(data);
         axios.post('http://localhost:5000/newuser/register',{data}).then((res=>{
             console.log(res.data);
-        })).catch(er=>console.log(er))
+        })).catch(er=>console.log(er+" ----> hi"))
         
     }
   return (

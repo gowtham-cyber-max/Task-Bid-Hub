@@ -13,6 +13,9 @@ function Login() {
       axios.post("http://localhost:5000/newuser/register",{data})
         navi("/home");
     }
+    const onSignUp=()=>{
+      navi("/signup");
+    }
   return (
     <div>
         <div>
@@ -20,7 +23,7 @@ function Login() {
             <input placeholder='Password' onClick={(e)=>{setData({...data,password:e.target.value})}} ></input>
             <button type='submit' onClick={onSubmiting
             }>Login</button>
-            <button onClick={onSubmiting}>signUp</button>
+            <button onClick={onSignUp}>signUp</button>
 
         </div>
     </div>

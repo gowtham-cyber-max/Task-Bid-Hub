@@ -65,6 +65,13 @@ Environment variable mongodb connectivity
 npm insatall dotenv
 Front End:
 
+Backend connection to mongodb:
+
+.env use:
+
+https://www.geeksforgeeks.org/how-to-access-expressjs-env-variables-in-an-api-endpoint/ 
+
+use the database connect link with rules in database of our project no compose connect
 
 # React + Vite
 
