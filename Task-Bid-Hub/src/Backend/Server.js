@@ -54,6 +54,19 @@ async function connectToMongo() {
       res.status(500).json({ message: "Error creating user" });
     }
   });
+  
+app.get("/get/alluser",async(req,res)=>{
+  try{
+    const user=await UserModel.find();
+    res.json(user);
+    }catch(err){
+      console.error(err);
+      res.status(500).json({message:"Error getting user"}
+        );
+        }
+})
+
+
 app.listen(5000, () => {
     console.log("hi");
 })
