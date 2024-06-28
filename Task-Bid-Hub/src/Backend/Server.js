@@ -5,7 +5,8 @@ const UserModel=require('./Models/User')
 const Mongoclient=require("mongodb").MongoClient;
 const multer=require("multer")
 //.env ya access panna
-const dotenv=require('dotenv')
+const dotenv=require('dotenv');
+const { json } = require("react-router-dom");
 dotenv.config({path:'./.env'});
 
 // itha use panni access pannikalam 
@@ -59,6 +60,28 @@ app.get("/get/alluser",async(req,res)=>{
   try{
     const user=await UserModel.find();
     res.json(user);
+    }catch(err){
+      console.error(err);
+      res.status(500).json({message:"Error getting user"}
+        );
+        }
+})
+app.post("/login",async(req,res)=>{
+  try{
+    const user=await UserModel.findOne({$or:[{email:req.body.data.email },{userName:req.body.data.email }]});
+    
+    if(user){
+      if(user.passWord===req.body.data.passWord){
+        res.json("success");
+      }
+      else{
+        res.json("fail");
+        }
+    }
+    else{
+      res.json("not exist");
+    }
+
     }catch(err){
       console.error(err);
       res.status(500).json({message:"Error getting user"}

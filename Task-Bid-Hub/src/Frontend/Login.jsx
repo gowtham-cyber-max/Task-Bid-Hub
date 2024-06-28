@@ -4,14 +4,27 @@ import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [data,setData]=useState({
-    email: '',
-    password: ''
+    email:"",
+    passWord:""
     })
   
     const navi=useNavigate();
-    const onSubmiting=()=>{
-      axios.post("http://localhost:5000/newuser/register",{data})
-        navi("/home");
+    const onSubmiting=async()=>{
+      await axios.post("http://localhost:5000/login",{data}).then(
+        (res)=>{
+          console.log(data);
+          console.log(res.data);
+          if(res.data==="success"){
+            navi("/home");
+          }
+          else if(res.data==="fail"){
+            alert("Password Wrong")
+          }
+          else if(res.data==="not exist"){
+            alert("Email Not Found")
+            }
+        }
+      )
     }
     const onSignUp=()=>{
       navi("/signup");
@@ -19,10 +32,10 @@ function Login() {
   return (
     <div>
         <div>
-            <input placeholder='email/username' onClick={(e)=>{setData({...data,email:e.target.value})}}></input>
-            <input placeholder='Password' onClick={(e)=>{setData({...data,password:e.target.value})}} ></input>
-            <button type='submit' onClick={onSubmiting
-            }>Login</button>
+        <input type='email' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}></input>
+        <input type='pass' placeholder='password' onChange={(e)=>{setData({...data,passWord:e.target.value})}}></input>
+            <button type='submit' onClick={onSubmiting}>Login</button>
+            <br/>
             <button onClick={onSignUp}>signUp</button>
 
         </div>
