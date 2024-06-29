@@ -27,7 +27,7 @@ const DATABASENAME="Tasks";
 var database;
 async function connectToMongo() {
     try {
-      await mongoose.connect("mongodb+srv://gowtham-cyber-max:GoWtHaM%404262472@tasks.e1xhnw2.mongodb.net/?retryWrites=true&w=majority&appName=Tasks");
+      await mongoose.connect(process.env.MONGODB_URI);
       console.log("MongoDB connection established");
       console.log("Server is running on port 5000");
     } catch (error) {
