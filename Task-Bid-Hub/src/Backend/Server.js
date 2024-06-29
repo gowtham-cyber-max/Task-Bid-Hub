@@ -8,6 +8,8 @@ const multer=require("multer")
 const dotenv=require('dotenv');
 const { json } = require("react-router-dom");
 dotenv.config({path:'./.env'});
+const BidListModel=require("./Models/BidList");
+const TaskBidderModel=require("./Models/TaskBidder")
 
 // itha use panni access pannikalam 
 // process.env.MONGODB_URI
@@ -39,16 +41,16 @@ async function connectToMongo() {
   
   
   //getter
-  //const upload = multer({ dest: './uploads/' });
+  //post the signup page
   app.post("/newuser/register", async (req, res) => {
     const user = new UserModel({
       userName: req.body.data.userName,
       email: req.body.data.email,
       passWord: req.body.data.pass
+
     });
     try {
       await user.save();
-      console.log(user);
       res.json({ message: "User created successfully" });
     } catch (err) {
       console.error(err);
@@ -89,7 +91,33 @@ app.post("/login",async(req,res)=>{
         }
 })
 
+// bid posting 
+app.post("/upload/bid",async (req,res)=>{
+  const bid=new BidListModel(req.body);
+  try{
+    await bid.save();
+    res.json(bid);
+  }
+  catch(err){
+    console.error(err);
+  }
+
+})
+
+// bid posting 
+app.post("/upload/taskbidder",async (req,res)=>{
+  const taskBidder=new TaskBidderModel(req.body);
+  try{
+    await taskBidder.save();
+    res.json(taskBidder);
+  }
+  catch(err){
+    console.error(err);
+  }
+
+})
+
 
 app.listen(5000, () => {
-    console.log("hi");
+    console.log("i am genie");
 })
