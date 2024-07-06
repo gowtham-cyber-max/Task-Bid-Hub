@@ -1,0 +1,44 @@
+.body-csv-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.csv-input {
+  border: 2px dashed #bbb;
+  border-radius: 5px;
+  padding: 25px;
+  text-align: center;
+  font: 20pt bold;
+  color: #bbb;
+  cursor: pointer;
+  width: 300px;
+}
+
+.input-field {
+  margin-bottom: 20px;
+}
+
+.file-label {
+  background-color: #f0f0f0;
+  border: 1px solid #bbb;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.file-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}

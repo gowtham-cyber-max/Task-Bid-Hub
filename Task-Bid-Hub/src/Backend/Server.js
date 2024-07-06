@@ -10,6 +10,11 @@ const { json } = require("react-router-dom");
 dotenv.config({path:'./.env'});
 const BidListModel=require("./Models/BidList");
 const TaskBidderModel=require("./Models/TaskBidder")
+const File_up=require("./uploads/Filing")
+
+const Grid = require("gridfs-stream");
+const { Readable } = require("stream");
+const { GridFsStorage } = require('multer-gridfs-storage');
 
 // itha use panni access pannikalam 
 // process.env.MONGODB_URI
@@ -26,12 +31,13 @@ app.use(cors());
 
 
 const DATABASENAME="Tasks";
-var database;
+var database,conn;
+let gfs;
 async function connectToMongo() {
-    try {
-      await mongoose.connect(process.env.MONGODB_URI);
-      console.log("MongoDB connection established");
-      console.log("Server is running on port 5000");
+      try {
+          conn=mongoose.connect(process.env.MONGODB_URI);
+          console.log("MongoDB connection established");
+          console.log("Server is running on port 5000");
     } catch (error) {
       console.error("Error connecting to MongoDB:", error);
     }
@@ -117,7 +123,47 @@ app.post("/upload/taskbidder",async (req,res)=>{
 
 })
 
+// file upload
+
+
+//Create GridFS storage engine
+
+// const storage = new GridFsStorage({
+//   url: process.env.MONGODB_URI,
+//   options: { useNewUrlParser: true, useUnifiedTopology: true },
+//   file: (req, file) => {
+//     return {
+//       bucketName: 'uploads',
+//       filename: file.originalname
+//     };
+//   }
+// });
+// init  gridfs
+
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    const {file}=req;
+    if (!file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+    
+    const fileMetadata = new File_up({
+      filename: file.filename,
+      length: file.size,
+      originalName: file.originalname,
+      fileType: file.mimetype
+    });
+    await fileMetadata.save();
+    res.status(200).json({ message: 'File uploaded successfully', file: fileMetadata });
+  } catch (error) {
+    res.status(500).json({ message: 'File upload failed', error: error.message });
+  }
+});
+
 
 app.listen(5000, () => {
     console.log("i am genie");
 })
+
