@@ -1,9 +1,9 @@
 import React from 'react'
-import Home from './Home'
-import Login from './Login'
-import SignUp from './SignUp'
+import Home from './Provider/Home'
+import Login from './Provider/Login'
+import SignUp from './Provider/SignUp'
 import {Route,Routes} from 'react-router-dom';
-import CsvInput from './CsvInput';
+import CsvInput from './Provider/CsvInput';
 
 function Path() {
   return (
