@@ -1,12 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
-const connectToMongo=require("./DB/mongo")
-const { Readable } = require('stream');
-const {getAllUser}=require("./Controllers/BidList")
-const {addUser}=require("./Controllers/User");
-
+const connectToMongo=require("./DB/mongo");
 dotenv.config({ path: './.env' });
 
 // middle
@@ -23,16 +18,17 @@ const conn=connectToMongo();
 //routes
 const userRoutes = require('./Routes/UserRoutes')
 const fileRoutes=require('./Routes/FileRoutes')
+const BidderRoutes=require("./Routes/BidderRoutes")
+const TaskRoutes=require("./Routes/TaskRoutes")
 
 
 app.use("/newuser",userRoutes);
 
-app.use("/file",fileRoutes)
+app.use("/file",fileRoutes);
 
+app.use("/task",TaskRoutes);
 
-
-
-app.get("/get/alluser", getAllUser);
+app.use("/bidder",BidderRoutes);
 
 
 app.listen(5000, () => {

@@ -1,6 +1,6 @@
 const mongoose=require("mongoose")
 
-const BidListSchema=new mongoose.Schema({
+const TaskSchema=new mongoose.Schema({
     taskName:String,
     taskDescription:String,
     location:{
@@ -10,10 +10,11 @@ const BidListSchema=new mongoose.Schema({
     currentDate:Date,
     endDate:Date,
     budget:Number,
-    TaskBidderList:{
+    TaskBidderList:[{
         TaskBidderId:String,
-        bidAmount:Number
-    }
+        bidAmount:Number,
+        bidDescription:String
+    }]
 })
-const BidListModel=mongoose.model('BidList',BidListSchema)
-module.exports=BidListModel;
+const TaskModel=mongoose.model('Task',TaskSchema)
+module.exports=TaskModel;

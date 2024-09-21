@@ -1,6 +1,6 @@
 const mongoose=require("mongoose")
 
-const TaskBidderSchema=new mongoose.Schema(
+const BidderSchema=new mongoose.Schema(
     {
         companyName:String,
         name:String,
@@ -15,5 +15,5 @@ const TaskBidderSchema=new mongoose.Schema(
         skills:[String]
     }
 )
-const TaskBidderModel=mongoose.model("TaskBidder",TaskBidderSchema);
-module.exports=TaskBidderModel;
+const BidderModel=mongoose.model("Bidder",BidderSchema);
+module.exports=BidderModel;

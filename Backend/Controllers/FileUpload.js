@@ -72,7 +72,7 @@ const addFile = (req, res) => {
 // Fetch file by ID
 async function getFile(req, res) {
   try {
-    const fileId = new ObjectId(req.params.id);
+    const fileId = ObjectId.createFromHexString(req.params.id);
     console.log(`Fetching file with id: ${req.params.id}`);
 
     const bucket = new GridFSBucket(mongoose.connection.db, { bucketName: 'photos' });
