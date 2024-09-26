@@ -10,9 +10,20 @@ const BidderSchema=new mongoose.Schema(
         proof:String,
         taskList:[String],
         stars:Number,
-        passWord:String,
-        noOfProjects:Number,
-        skills:[String]
+        pass:String,
+        noOfCompletion:Number,
+        skills:[String],
+        TaskCompleted:{
+            type:[mongoose.Types.ObjectId],
+            ref:"Task",
+            default:[]
+        },
+        TaskBidded:{
+            type:[mongoose.Types.ObjectId],
+            ref:"Task",
+            default:[]
+        },// if i want to know the details of task bidded details, i will filter the task who is biidedid is equal to this biddedid
+        
     }
 )
 const BidderModel=mongoose.model("Bidder",BidderSchema);

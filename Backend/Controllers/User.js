@@ -2,14 +2,12 @@ const UserModel=require("../Models/User")
 
 // User registration
 async function addUser(req, res){
-    const userdata = req.body.data;
-    console.log(req.body); 
-    
+    const userdata = req.body;
     const user = new UserModel(userdata);
-    console.log(user);
     
     try {
-        await user.save();
+        const r=await user.save();
+        console.log(r);
         res.json({ message: "User created successfully" });
     } catch (err) {
         console.error(err);
@@ -31,11 +29,11 @@ async function getAllUser(req, res){
 
 async function login(req, res){
     try {
-        const user = await UserModel.findOne({ $or: [{ email: req.body.data.email }, { userName: req.body.data.email }] });
+        const user = await UserModel.findOne({ $or: [{ email: req.body.email }, { name: req.body.email }] });
 
         if (user) {
-            if (user.passWord === req.body.data.passWord) {
-                res.json("success");
+            if (user.passWord === req.body.passWord) {
+                res.json(user);
             } else {
                 res.json("fail");
             }

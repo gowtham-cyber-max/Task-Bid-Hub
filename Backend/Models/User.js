@@ -1,10 +1,14 @@
 const mongoose=require('mongoose')
 
 const userSchema=new mongoose.Schema({
-    userName:String,
+    name:String,
     email:String,
-    passWord:String,
-    taskList:[String]
+    pass:String,
+    taskList:{
+        type:[mongoose.Types.ObjectId],
+        ref:"Task",
+        default:[]
+    }
 })
 const UserModel=mongoose.model('User',userSchema)
 module.exports=UserModel

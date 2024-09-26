@@ -22,7 +22,7 @@ const BidderRoutes=require("./Routes/BidderRoutes")
 const TaskRoutes=require("./Routes/TaskRoutes")
 
 
-app.use("/newuser",userRoutes);
+app.use("/user",userRoutes);
 
 app.use("/file",fileRoutes);
 
@@ -31,7 +31,9 @@ app.use("/task",TaskRoutes);
 app.use("/bidder",BidderRoutes);
 
 
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
+  console.log('Are you ready to check me');
 });
 
