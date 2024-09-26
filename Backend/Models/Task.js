@@ -32,6 +32,11 @@ const TaskSchema = new mongoose.Schema({
     completedAt: {
         type: Date
     },
+    skills:{
+        type: [String],
+        default: []
+    }
+    ,
     location: {
         type: { type: String, enum: ['Point'], required: true },  //  GeoJSON format
         coordinates: { type: [Number], required: true }

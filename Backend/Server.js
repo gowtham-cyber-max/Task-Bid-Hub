@@ -20,6 +20,7 @@ const userRoutes = require('./Routes/UserRoutes')
 const fileRoutes=require('./Routes/FileRoutes')
 const BidderRoutes=require("./Routes/BidderRoutes")
 const TaskRoutes=require("./Routes/TaskRoutes")
+const ComponentRoutes=require("./Routes/ComponentRoutes")
 
 
 app.use("/user",userRoutes);
@@ -29,6 +30,8 @@ app.use("/file",fileRoutes);
 app.use("/task",TaskRoutes);
 
 app.use("/bidder",BidderRoutes);
+
+app.use("/components",ComponentRoutes);
 
 
 

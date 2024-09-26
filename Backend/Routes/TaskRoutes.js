@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {addTask,addLog,getAllTask,markAsCompleted}=require("../Controllers/Task")
+const {addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder}=require("../Controllers/Task")
 
 router.route("/addnew")
         .post(addTask)
@@ -14,6 +14,9 @@ router.route("/getall")
 
 router.route("/completedby")
         .put(markAsCompleted)
+
+router.route("/getforbidders")
+        .get(getTasksForBidder)
 
 
 

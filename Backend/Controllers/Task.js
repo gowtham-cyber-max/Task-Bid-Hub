@@ -73,4 +73,38 @@ async function markAsCompleted(req,res){
 
 // 2dsphere Index on chatgpt  https://chatgpt.com/share/66f52fec-96bc-8013-8836-37979f50723b find using $geoWithin 
 
-module.exports={addTask,addLog,getAllTask,markAsCompleted};
+
+async function getTasksForBidder(req, res) {
+    const { longitude, latitude, bidderSkills } = req.body;
+    
+    try {
+        const distance = 25 / 6378.1;  // 25 km in radians
+
+        const tasks = await TaskModel.find({
+            $and: [
+                {
+                    location: {
+                        $geoWithin: {
+                            $centerSphere: [
+                                [parseFloat(longitude), parseFloat(latitude)],  // Corrected longitude and latitude
+                                distance
+                            ]
+                        }
+                    }
+                },
+                {
+                    skills: { $in: bidderSkills }  
+                }
+            ]
+        })
+        .select('taskName userId endDate budget BidderList imageIds completedBy location -_id');  // Project the required fields
+
+        res.json(tasks);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error fetching tasks" });
+    }
+}
+
+
+module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder};
