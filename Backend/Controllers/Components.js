@@ -24,4 +24,9 @@ async function getSkillSet(req,res){
       res.json(skillSet);
 }
 
-module.exports={getSkillSet};
+async function otpGenerator(req,res){
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  res.otp=otp
+}
+
+module.exports={getSkillSet,otpGenerator};

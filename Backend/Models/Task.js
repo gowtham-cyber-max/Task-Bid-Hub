@@ -8,7 +8,7 @@ const TaskSchema = new mongoose.Schema({
         required: [true, "user id is empty"]
     },
     taskDescription: String,
-    currentDate: {
+    PostedDate: {
         type: Date,
         default: Date.now  
     },
@@ -29,6 +29,9 @@ const TaskSchema = new mongoose.Schema({
         ref: 'Bidder',
         default: null
     },
+    startTime:{
+        type:Date
+    },
     completedAt: {
         type: Date
     },
@@ -40,6 +43,23 @@ const TaskSchema = new mongoose.Schema({
     location: {
         type: { type: String, enum: ['Point'], required: true },  //  GeoJSON format
         coordinates: { type: [Number], required: true }
+    },
+    otp:{
+        type:Number,
+        default:null
+    },
+    allogatedTo:{
+        type: mongoose.Types.ObjectId,
+        ref: 'Bidder',
+        default: null
+    },
+    allogatedDate:{
+        type:Date,
+        default:null
+    },
+    completeRequest:{
+        type:Boolean,
+        default:false
     }
 });
 // 2d sphere

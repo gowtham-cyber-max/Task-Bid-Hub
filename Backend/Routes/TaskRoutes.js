@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder}=require("../Controllers/Task")
+const {addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted}=require("../Controllers/Task")
 
 router.route("/addnew")
         .post(addTask)
@@ -18,7 +18,8 @@ router.route("/completedby")
 router.route("/getforbidders")
         .get(getTasksForBidder)
 
-
+router.route("/accepted")
+        .post(accepted)
 
 
 module.exports = router

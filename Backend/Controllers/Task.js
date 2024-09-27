@@ -1,7 +1,7 @@
 const TaskModel=require('../Models/Task');
-const {addLogToBidder}=require("../Controllers/Bidder");
+const {addLogToBidder,addTaskToQueue}=require("../Controllers/Bidder");
 
-
+const {otpGenerator}=require("../Controllers/Components")
 
 
 
@@ -97,7 +97,7 @@ async function getTasksForBidder(req, res) {
                 }
             ]
         })
-        .select('taskName userId endDate budget BidderList imageIds completedBy location -_id');  // Project the required fields
+        .select('taskName userId endDate budget BidderList imageIds completedBy location _id');  // Project the required fields
 
         res.json(tasks);
     } catch (err) {
@@ -106,5 +106,38 @@ async function getTasksForBidder(req, res) {
     }
 }
 
+async function accepted(req,res){
+    const {taskId,bidderId}=req.body;
+    addTaskToQueue(req,res);
+    try{
+        otpGenerator(req,res);
+        const task=await TaskModel.findById(taskId);
+        task.allogatedTo=bidderId;
+        task.allogatedDate=Date.now();
+        task.otp=res.otp;
+        await task.save();
+        res.json(task);
+    }
+    catch(er){
+        console.log(er);
+        res.status(500).json({message:"Error accepting task"})
+    }
+}
 
-module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder};
+async function setTheRequest(req,res){
+    const {taskId}=req.body;
+    try{
+        const task=await TaskModel.findById(taskId);
+        task.completeRequest=!task.completeRequest;
+        await task.save();
+    }
+    catch(er){
+        console.log(er);
+        res.status(500).json({ message: "Error setting request" });
+
+
+    }
+}
+
+
+module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted,setTheRequest};
