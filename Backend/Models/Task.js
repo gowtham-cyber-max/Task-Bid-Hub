@@ -60,6 +60,10 @@ const TaskSchema = new mongoose.Schema({
     completeRequest:{
         type:Boolean,
         default:false
+    },
+    views:{
+        type:Number,
+        default:0
     }
 });
 // 2d sphere

@@ -1,12 +1,12 @@
 const TaskModel=require('../Models/Task');
-const {addLogToBidder,addTaskToQueue}=require("../Controllers/Bidder");
+const {addLogToBidder,addTaskToQueue,addTaskToCompleted}=require("../Controllers/Bidder");
 
 const {otpGenerator}=require("../Controllers/Components")
 
 
 
 
-// add task 
+// add new task 
 async function addTask(req, res)  {
     try {
         // LOCATION MATTUM eduthuttu others aa ...taskData la pottu vachuruvom
@@ -34,8 +34,11 @@ async function addTask(req, res)  {
 };
 
 
+// add one bid into both task model and bidder model
 async function addLog(req,res){
+    // add task into bidder model
      addLogToBidder(req,res);
+
     console.log(req.body.TaskId);
     const task=await TaskModel.findById(req.body.TaskId);
      task.BidderList.push(req.body.BidderId);
@@ -44,6 +47,7 @@ async function addLog(req,res){
     res.json(task);
 }
 
+// get all task from the task model
 async function getAllTask(req,res){
     try{
         const task=await TaskModel.find();
@@ -55,10 +59,13 @@ async function getAllTask(req,res){
             }
 
 }
+
+// mark one task completed after all process
 async function markAsCompleted(req,res){
     try{
-        const task=await TaskModel.findById(req.body.TaskId);
-        task.completedBy=req.body.BidderId;
+        addTaskToCompleted(req,res);
+        const task=await TaskModel.findById(req.body.taskId);
+        task.completedBy=req.body.bidderId;
         task.completedAt=Date.now();
         await task.save();
         res.json(task);
@@ -74,11 +81,15 @@ async function markAsCompleted(req,res){
 // 2dsphere Index on chatgpt  https://chatgpt.com/share/66f52fec-96bc-8013-8836-37979f50723b find using $geoWithin 
 
 
+// get tasks for the bidder based on location and skill set
 async function getTasksForBidder(req, res) {
-    const { longitude, latitude, bidderSkills } = req.body;
-    
+    const { longitude, latitude, bidderSkills, radiusKM } = req.body;
+        if(!radiusKM){
+            radiusKM = 20;
+            //  default 20 km in radians
+        }
     try {
-        const distance = 25 / 6378.1;  // 25 km in radians
+        const distance = radiusKm / 6378.1;  
 
         const tasks = await TaskModel.find({
             $and: [
@@ -106,6 +117,8 @@ async function getTasksForBidder(req, res) {
     }
 }
 
+
+// after messaging user will select that bidder for their task by accept
 async function accepted(req,res){
     const {taskId,bidderId}=req.body;
     addTaskToQueue(req,res);
@@ -124,6 +137,7 @@ async function accepted(req,res){
     }
 }
 
+// bidder send the completed request to the task which is accepted by the user and declare task is completed
 async function setTheRequest(req,res){
     const {taskId}=req.body;
     try{
@@ -139,5 +153,19 @@ async function setTheRequest(req,res){
     }
 }
 
+// add the views
+async function addViews(req,res){
+    try{
+        const id=req.query.id;
+        const task=await TaskModel.findById(id);
+        task.views+=1;
+        await task.save();
 
-module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted,setTheRequest};
+        res.json(task)
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+
+module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted,setTheRequest,addViews};

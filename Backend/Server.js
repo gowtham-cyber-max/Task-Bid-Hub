@@ -21,6 +21,8 @@ const fileRoutes=require('./Routes/FileRoutes')
 const BidderRoutes=require("./Routes/BidderRoutes")
 const TaskRoutes=require("./Routes/TaskRoutes")
 const ComponentRoutes=require("./Routes/ComponentRoutes")
+const MessageRoutes=require("./Routes/Message")
+
 
 
 app.use("/user",userRoutes);
@@ -33,6 +35,7 @@ app.use("/bidder",BidderRoutes);
 
 app.use("/components",ComponentRoutes);
 
+app.use("/message",MessageRoutes);
 
 
 app.listen(5000, () => {

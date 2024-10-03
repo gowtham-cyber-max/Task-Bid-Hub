@@ -32,14 +32,18 @@ async function addBidder (req, res) {
         res.status(500).json({ message: "Error adding bidder" });
     }
 };
+
+//add the bid in bidder Model
 async function addLogToBidder(req,res){
-    const Bidder=await BidderModel.findById(req.body.BidderId);
+    const Bidder=await BidderModel.findById(req.body.bidderId);
     console.log(Bidder);
-    Bidder.TaskBidded.push(req.body.TaskId);
+    Bidder.TaskBidded.push(req.body.taskId);
 
     await Bidder.save();
 
 }
+
+// get All Bidders from model
 async function getAllBidder(req,res){
     try{
         const Bidder=await BidderModel.find();
@@ -51,6 +55,7 @@ async function getAllBidder(req,res){
     
 }
 
+// add the tasks into bidder queue which is yet to completed
 async function addTaskToQueue(req,res){
     const {bidderId,taskId}=req.body;
     try{
@@ -64,6 +69,7 @@ async function addTaskToQueue(req,res){
     }
 }
 
+//send the request to the task model which is accepted by the user to complete the task
 async function sendCompletedRequest(req,res){
     const {bidderId,taskId}=req.body;
     try{
@@ -78,4 +84,23 @@ async function sendCompletedRequest(req,res){
     }
 }
 
-module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToQueue,sendCompletedRequest};
+// add task into completed task list in bidder model
+async function addTaskToCompleted(req,res){
+    const {bidderId,taskId}=req.body;
+    try{
+        const bidder=await BidderModel.findById(bidderId);
+        bidder.TaskCompleted.push(taskId);
+        await bidder.save();
+    }
+    catch(er){
+        console.error(er);
+        res.status(500).json({message:"error on add completed task in bidder's List"})
+    }
+}
+
+
+
+
+
+
+module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToQueue,sendCompletedRequest,addTaskToCompleted};
