@@ -98,9 +98,30 @@ async function addTaskToCompleted(req,res){
     }
 }
 
+//bidder login by name or mail
+async function bidderLogin(req,res){
+    const {email,password}=req.body;
+    try{
+        const bidder=await BidderModel.findOne({ $or: [{ email: req.body.email }, { name: req.body.email }] });
+        if(bidder){
+            if(bidder.pass===password){
+                res.json(bidder);
+            }
+            else{
+                res.status(401).json({message:"Invalid password"})
+                }
+        
+        }
+        else{
+            res.status(401).json({message:"Invalid email"})
+        }
+    }
+    catch(er){
+        console.error(er);
+    }
+}
 
 
 
 
-
-module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToQueue,sendCompletedRequest,addTaskToCompleted};
+module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin};

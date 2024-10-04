@@ -1,30 +1,26 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import { bidderLogin } from '../Redux/Action/BidderAction';
 
-function Login() {
+function BidderLogin() {
+  const dispatch=useDispatch();
+  const selector=useSelector(state=>state.bidder);
   const [data,setData]=useState({
     email:"",
-    passWord:""
+    password:""
     })
   
     const navi=useNavigate();
-    const onSubmiting=async()=>{
-      await axios.post("http://localhost:5000/login",{data}).then(
-        (res)=>{
-          console.log(data);
-          console.log(res.data);
-          if(res.data==="success"){
-            navi("/home");
-          }
-          else if(res.data==="fail"){
-            alert("Password Wrong")
-          }
-          else if(res.data==="not exist"){
-            alert("Email Not Found")
-            }
-        }
-      )
+    const onSubmiting=(e)=>{
+      e.preventDefault();
+      dispatch(bidderLogin(data));
+      if(selector?.bidder){
+        console.log(selector.bidder);
+        navi("/bidder-home")
+      }
+
     }
     const onSignUp=()=>{
       navi("/signup");
@@ -32,10 +28,13 @@ function Login() {
   return (
     <div>
         <div>
-        <input type='email' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}></input>
-        <input type='pass' placeholder='password' onChange={(e)=>{setData({...data,passWord:e.target.value})}}></input>
-            <button type='submit' onClick={onSubmiting}>Login</button>
+        <form onSubmit={onSubmiting}>
+
+        <input type='email' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}/>
+        <input type='pass' placeholder='password' onChange={(e)=>{setData({...data,password:e.target.value})}}/>
+            <button type='submit' >Login</button>
             <br/>
+        </form>
             <button onClick={onSignUp}>signUp</button>
 
         </div>
@@ -43,4 +42,5 @@ function Login() {
   )
 }
 
-export default Login
+
+export default BidderLogin

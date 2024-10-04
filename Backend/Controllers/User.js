@@ -30,12 +30,12 @@ async function getAllUser(req, res){
 async function login(req, res){
     try {
         const user = await UserModel.findOne({ $or: [{ email: req.body.email }, { name: req.body.email }] });
-
+        
         if (user) {
-            if (user.passWord === req.body.passWord) {
+            if (user.pass === req.body.passWord) {
                 res.json(user);
             } else {
-                res.json("fail");
+                res.json("pass failfail");
             }
         } else {
             res.json("not exist");

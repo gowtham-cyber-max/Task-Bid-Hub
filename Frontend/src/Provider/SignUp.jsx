@@ -12,9 +12,6 @@ function SignUp() {
 
     const onSubmiting=async (event)=>{
         console.log(data);
-        axios.post('http://localhost:5000/newuser/register',{data}).then((res=>{
-            console.log(res.data);
-        })).catch(er=>console.log(er+" ----> hi"))
         
     }
   return (
