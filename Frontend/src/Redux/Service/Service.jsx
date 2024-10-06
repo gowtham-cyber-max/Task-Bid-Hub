@@ -21,12 +21,35 @@ class Service {
     bidder_login(data) {
         const { email, password } = data;
         console.log(email+" "+password);
-        // Use this.apiUrl instead of hardcoded URL
         return this.axios.post(`${this.apiUrl}/bidder/login`, {
             email,
             password
         });
     }
+    user_signup(data){
+        const { name, email, pass, mobile } = data;
+        return this.axios.post(`${this.apiUrl}/user/sign-up`, {
+            name,
+            email,
+            pass,
+            mobile
+        });
+    }
+    bidder_signup(data){
+        const { name, email, pass, mobile,companyName,latitude,longitude,proof,skills} = data;
+        return this.axios.post(`${this.apiUrl}/bidder/sign-up`, {
+            name,
+            email,
+            pass,
+            mobile,
+            companyName,
+            latitude,
+            longitude,
+            proof,
+            skills
+        })
+}
+
 }
 
 export default new Service();

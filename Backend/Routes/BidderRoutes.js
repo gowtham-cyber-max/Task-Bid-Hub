@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {addBidder,getAllBidder,bidderLogin}=require("../Controllers/Bidder")
 
-router.route("/addnew")
+router.route("/sign-up")
         .post(addBidder)
 
 

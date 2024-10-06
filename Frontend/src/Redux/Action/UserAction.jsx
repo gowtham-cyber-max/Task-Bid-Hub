@@ -13,3 +13,12 @@ export const userLogin=(data)=>async(dispatch,getState)=>{
         console.log(error);
     }
 }
+export const userSinup=(data)=>async(dispatch,getState)=>{
+    try{
+        console.log(data);
+        const res=await serv.user_signup(data);    
+    }
+    catch(er){
+        console.log(er);
+    }
+}

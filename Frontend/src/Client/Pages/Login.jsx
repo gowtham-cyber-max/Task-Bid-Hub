@@ -22,7 +22,7 @@ function UserLogin() {
 
     }
     const onSignUp=()=>{
-      navi("/signup");
+      navi("/user-signup");
     }
   return (
     <div>

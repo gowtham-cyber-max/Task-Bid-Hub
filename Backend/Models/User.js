@@ -4,6 +4,7 @@ const userSchema=new mongoose.Schema({
     name:String,
     email:String,
     pass:String,
+    mobile:String,
     taskList:{
         type:[mongoose.Types.ObjectId],
         ref:"Task",

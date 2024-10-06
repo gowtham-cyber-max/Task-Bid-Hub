@@ -4,7 +4,7 @@ const router = express.Router()
 const { addUser,getAllUser,login} = require('../Controllers/User')
 
 
-router.route('/register')
+router.route('/sign-up')
        .post(addUser)
 
 router.route('/getall')

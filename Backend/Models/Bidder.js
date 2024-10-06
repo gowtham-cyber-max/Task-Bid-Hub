@@ -5,7 +5,7 @@ const BidderSchema=new mongoose.Schema(
         companyName:String,
         name:String,
         email:String,
-        phone:String,
+        mobile:String,
         proof:String,
         taskList:[String],
         stars:Number,
