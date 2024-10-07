@@ -41,7 +41,7 @@ export const taskList_Bidders=()=>async(dispatch,getState)=>{
         const res = await serv.getTaskList_bidder(data);
 
         dispatch({ type: "EMPTY_TASK_BIDDERS" });
-        dispatch({ type: "GET_TASK_BIDDER", payload: JSON.stringify(res.data) });
+        dispatch({ type: "GET_TASK_BIDDER", payload:(res.data) });
     } catch (error) {
         console.error('Error fetching tasks:', error.message);
     }

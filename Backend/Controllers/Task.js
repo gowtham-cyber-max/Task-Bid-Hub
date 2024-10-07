@@ -110,7 +110,7 @@ async function getTasksForBidder(req, res) {
                 }
             ]
         })
-        .select('taskName userId endDate budget BidderList imageIds completedBy location _id');  // Project the required fields
+        .select('taskName taskDescription userId endDate budget BidderList imageIds completedBy location views skills _id ');  // Project the required fields
 
         res.json(tasks);
     } catch (err) {

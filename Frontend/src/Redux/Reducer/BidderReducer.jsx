@@ -14,23 +14,21 @@ const BidderReducer=(state=initialState,action)=>{
             return{
                 ...state,
                 bidder:null,
-                task:[]
+                task_explore: []
             }
         case "GET_TASK_BIDDER":
             return {
-                ...state,
-                task_explore: [...state.task_explore, action.payload], // Use state.task_explore here
-            };
+              ...state,
+              task_explore: [...state.task_explore, ...action.payload]
+        };
+              
         case "EMPTY_TASK_BIDDERS":
             return{
                 ...state,
                 task_explore:[]
             }
         default:
-            return{
-                state
-            }
-
+            return state
     }
 }
 export default BidderReducer;
