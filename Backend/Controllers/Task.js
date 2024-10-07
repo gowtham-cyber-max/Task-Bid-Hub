@@ -83,13 +83,15 @@ async function markAsCompleted(req,res){
 
 // get tasks for the bidder based on location and skill set
 async function getTasksForBidder(req, res) {
-    const { longitude, latitude, bidderSkills, radiusKM } = req.body;
-        if(!radiusKM){
-            radiusKM = 20;
-            //  default 20 km in radians
-        }
+    const { longitude, latitude, skills, radiusKM = 20 } = req.body;
+    if (!(latitude) || !(longitude)) {
+        return res.status(400).json({ error: "Invalid latitude or longitude" });
+    }
+    
+    // Ensure radiusKM is a valid number
+    const radius = isNaN(radiusKM) ? 20 : radiusKM;  
     try {
-        const distance = radiusKm / 6378.1;  
+        const distance = radius/ 6378.1;  
 
         const tasks = await TaskModel.find({
             $and: [
@@ -104,7 +106,7 @@ async function getTasksForBidder(req, res) {
                     }
                 },
                 {
-                    skills: { $in: bidderSkills }  
+                    skills: { $in: skills }  
                 }
             ]
         })

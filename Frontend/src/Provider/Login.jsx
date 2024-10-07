@@ -23,14 +23,14 @@ function BidderLogin() {
 
     }
     const onSignUp=()=>{
-      navi("/signup");
+      navi("/bidder-signup");
     }
   return (
     <div>
         <div>
         <form onSubmit={onSubmiting}>
 
-        <input type='email' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}/>
+        <input type='text' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}/>
         <input type='pass' placeholder='password' onChange={(e)=>{setData({...data,password:e.target.value})}}/>
             <button type='submit' >Login</button>
             <br/>

@@ -16,7 +16,7 @@ router.route("/completedby")
         .put(markAsCompleted)
 
 router.route("/getforbidders")
-        .get(getTasksForBidder)
+        .post(getTasksForBidder)
 
 router.route("/accepted")
         .post(accepted)

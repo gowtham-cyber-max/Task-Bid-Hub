@@ -22,3 +22,4 @@ export const userSinup=(data)=>async(dispatch,getState)=>{
         console.log(er);
     }
 }
+

@@ -15,6 +15,7 @@ import ServiceList from './Client/Pages/ServiceList';
 import BidderProfile from './Provider/Profile';
 import UserSignUp from './Client/Pages/SignUp';
 import BidderSignUp from './Provider/SignUp';
+import TaskExplore from './Provider/TaskExplore';
 
 function Path() {
   return (
@@ -26,6 +27,7 @@ function Path() {
             <Route path='/bidder-home' element={<BidderHome/>}/>
             <Route path='/upload' element={<CsvInput/>}/>
             <Route path='/bidder-profile' element={<BidderProfile/>}/>
+            <Route path='/bidder-task-explore' element={<TaskExplore/>}/>
 
             {/* client */}
             <Route path='/user-login' element={<UserLogin/>}/>

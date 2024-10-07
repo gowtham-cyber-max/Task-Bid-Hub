@@ -1,6 +1,6 @@
 const initialState={
     bidder:null,
-    task:[]
+    task_explore:[]
 }
 
 const BidderReducer=(state=initialState,action)=>{
@@ -15,6 +15,16 @@ const BidderReducer=(state=initialState,action)=>{
                 ...state,
                 bidder:null,
                 task:[]
+            }
+        case "GET_TASK_BIDDER":
+            return {
+                ...state,
+                task_explore: [...state.task_explore, action.payload], // Use state.task_explore here
+            };
+        case "EMPTY_TASK_BIDDERS":
+            return{
+                ...state,
+                task_explore:[]
             }
         default:
             return{

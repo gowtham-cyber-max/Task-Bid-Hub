@@ -48,7 +48,17 @@ class Service {
             proof,
             skills
         })
-}
+    }
+    getTaskList_bidder(data){
+        const {skills,longitude,latitude} = data;
+        return this.axios.post(`${this.apiUrl}/task/getforbidders`, {
+            skills,
+            latitude,
+            longitude,
+            radiusKM:1000000
+        })
+        
+    }
 
 }
 

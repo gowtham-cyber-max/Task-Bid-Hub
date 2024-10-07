@@ -22,3 +22,30 @@ export const bidderSignup=(data)=>async(dispatch,getState)=>{
         }
 
 }
+export const taskList_Bidders=()=>async(dispatch,getState)=>{
+    try {
+        // Extract bidder skills and location from the state
+        const skills = getState().bidder.bidder?.skills;
+        const coordinates = getState().bidder.bidder.location.coordinates;
+        const longitude = coordinates[0];
+        const latitude = coordinates[1];
+    
+    
+        // Prepare the data to be sent
+        const data = {
+            skills,
+            latitude,
+            longitude,
+        };
+    
+        const res = await serv.getTaskList_bidder(data);
+
+        dispatch({ type: "EMPTY_TASK_BIDDERS" });
+        dispatch({ type: "GET_TASK_BIDDER", payload: JSON.stringify(res.data) });
+    } catch (error) {
+        console.error('Error fetching tasks:', error.message);
+    }
+    
+    
+
+}
