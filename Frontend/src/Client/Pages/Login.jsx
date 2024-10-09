@@ -29,7 +29,7 @@ function UserLogin() {
         <div>
         <form onSubmit={onSubmiting}>
 
-        <input type='email' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}></input>
+        <input type='text' placeholder='email/userName' onChange={(e)=>{setData({...data,email:e.target.value})}}></input>
         <input type='pass' placeholder='password' onChange={(e)=>{setData({...data,passWord:e.target.value})}}></input>
             <button type='submit'>Login</button>
             <br/>

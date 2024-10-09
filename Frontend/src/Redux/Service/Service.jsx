@@ -59,6 +59,10 @@ class Service {
         })
         
     }
+    user_addTask(data){
+        console.log(data)
+        return this.axios.post(`${this.apiUrl}/task/addnew`,data);
+    }
 
 }
 

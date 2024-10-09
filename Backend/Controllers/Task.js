@@ -10,6 +10,7 @@ const {otpGenerator}=require("../Controllers/Components")
 async function addTask(req, res)  {
     try {
         // LOCATION MATTUM eduthuttu others aa ...taskData la pottu vachuruvom
+        console.log(req.body);
         const { longitude, latitude, ...taskData } = req.body; //separate longitude and latitude
 
         if (!longitude || !latitude) {
