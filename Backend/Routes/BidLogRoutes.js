@@ -1,10 +1,12 @@
 const express=require("express")
 const router = express.Router()
 
-const {getAllBidsForTask}=require("../Controllers/BidLogController");
+const {getAllBidsForTask,getAllBidsForBidder}=require("../Controllers/BidLogController");
 
 router.route("/log-task")
         .get(getAllBidsForTask)
+router.route("/log-bidder")
+        .get(getAllBidsForBidder)
 
 
 

@@ -11,6 +11,11 @@ const BidLogSchema=mongoose.Schema({
         ref:'Task',
         required:(true,"task id empty")
     },
+    UserId:{
+        type:mongoose.Types.ObjectId,
+        ref:'User',
+        required:(true,"user id empty")
+    },
     Amount:{
         type:Number
     },

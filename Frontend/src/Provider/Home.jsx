@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { FaSearch, FaPen, FaComments, FaCheckCircle, FaHome, FaUser, FaSignOutAlt, FaBars } from 'react-icons/fa'; // Importing icons
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { taskList_Bidders } from '../Redux/Action/BidderAction';
+import { getBidListForBidders, taskList_Bidders } from '../Redux/Action/BidderAction';
 
 const BidderHome = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility
     const dispatch=useDispatch();
     const navi=useNavigate();
+    const selector=useSelector((state)=>state.bidder);
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
     const HandleTaskExplore=()=>{
         dispatch(taskList_Bidders());
         navi("/bidder-task-explore")
+    }
+    const HandleMyBids=()=>{
+        dispatch(getBidListForBidders(selector?.bidder?._id));
+        navi("/bidder-my-bid")
     }
 
     return (
@@ -34,7 +39,7 @@ const BidderHome = () => {
             <div>
                 <div >
                     <div>Home</div>
-                    <div onClick={()=>navi("/bidder-my-bid")}>My Bids</div>
+                    <div onClick={HandleMyBids}>My Bids</div>
                     <div onClick={()=>navi("/bidder-profile")}>Profile</div>
                 </div>
                 <div >

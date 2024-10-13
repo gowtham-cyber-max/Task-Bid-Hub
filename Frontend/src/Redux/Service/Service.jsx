@@ -97,6 +97,20 @@ class Service {
     addMessage(messageData){
         return this.axios.post(`${this.apiUrl}/message/new-message`,messageData);
     }
+    delOneMessage(id){
+        return this.axios.delete(`${this.apiUrl}/message/del-one-message`,{
+            params: {
+                id:id
+            }
+        });
+    }
+    bidder_getBidListForBidders(BidderId){
+        return this.axios.get(`${this.apiUrl}/bid/log-bidder`,{
+            params: {
+                BidderId
+            }
+        });
+    }
 }
 
 export default new Service();

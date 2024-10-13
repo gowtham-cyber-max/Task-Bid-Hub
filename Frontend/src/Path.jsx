@@ -20,7 +20,7 @@ import TaskDetail from './Provider/TaskDetail';
 import MyBids from './Provider/MyBids';
 import MyTask from './Client/Pages/MyTask';
 import TaskBidDetails from './Client/Pages/TaskBidDetails';
-import UserMessage from './Client/Pages/UserMessage';
+import UserMessage from './Mutual/UserMessage';
 
 function Path() {
   return (
@@ -45,9 +45,9 @@ function Path() {
             <Route path='/user-signup' element={<UserSignUp/>}/>
             <Route path='/user-my-task' element={<MyTask/>}/>
             <Route path='/user-task-bid-list' element={<TaskBidDetails/>}/>
-            <Route path='/user-message' element={<UserMessage/>}/>
 
-
+            {/* common */}
+            <Route path='/message' element={<UserMessage/>}/>
             
             
         </Routes>

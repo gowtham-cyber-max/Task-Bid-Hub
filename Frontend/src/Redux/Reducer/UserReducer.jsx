@@ -52,12 +52,12 @@ const UserReducer=(state=initialState,action)=>{
                 ...state,
                 bids:[]
             }
-        case "GET_ALL_MESSAGE":
+        case "GET_USER_MESSAGE":
             return{
                 ...state,
                 message: [...state.message,...action.payload],
             }
-        case "EMPTY_ALL_MESSAGE":
+        case "EMPTY_USER_MESSAGE":
             return{
                 ...state,
                 message:[]

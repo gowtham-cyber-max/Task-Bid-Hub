@@ -23,22 +23,26 @@
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Softer green for user messages */
 .user-message {
-    background-color: #13e416;
+    background-color: #a2d5ac; /* Soft green */
     align-self: flex-end;
     margin-left: auto;
     text-align: right;
+    color: #0a4823; /* Darker green text */
 }
 
+/* Softer purple for bidder messages */
 .bidder-message {
-    background-color: #cc35c7;
+    background-color: #d1b3e8; /* Soft lavender */
     align-self: flex-start;
     margin-right: auto;
     text-align: left;
+    color: #4a1768; /* Darker purple text */
 }
 
 .delete-button {
-    color: red;
+    color: #ff5c5c; /* Soft red */
     cursor: pointer;
     background: none;
     border: none;

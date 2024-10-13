@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { addMessage, getAllMessage } from '../../Redux/Action/MessageAction';
-import '../Style/UserMessage.css'; // Importing the CSS file
-
-function UserMessage() {
+import { addMessage, delOneMessage, getAllMessage } from '../Redux/Action/MessageAction';
+import './UserMessage.css'; 
+function Message() {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.user);
     const location = useLocation();
@@ -32,23 +31,24 @@ function UserMessage() {
             const messageData = {
                 message: newMessage,
                 taskId: bid.TaskId,
-                userId: selector.user._id, 
-                role: 'user',
+                userId: bid.UserId,
+                bidderId:bid.BidderId, 
+                role: selector?.user?'user':'bidder',
                 bidLogId: bid._id,
             };
 
             dispatch(addMessage(messageData)).then(() => {
-                setNewMessage(''); // Clear input after adding message
+                setNewMessage(''); 
                 fetchMessages(); // fetch the message
             });
         }
     };
 
-    // Handle deleting a message
+    
     const handleDeleteMessage = (messageId) => {
-        // dispatch(deleteMessage(messageId)).then(() => {
-        //     dispatch(getAllMessage(bid._id)); // Refresh messages after deleting
-        // });
+        dispatch(delOneMessage(messageId)).then(() => {
+                    fetchMessages(); // fetch the message
+        });
     };
 
     return (
@@ -63,16 +63,15 @@ function UserMessage() {
                                 key={msg._id}
                                 className={`message-item ${msg.role === 'user' ? 'user-message' : 'bidder-message'}`}
                             >
-                                <p><strong>{msg.role === 'user' ? 'You' : 'Bidder'}:</strong> {msg.message}</p>
+                                <p><strong>{msg.role === 'user' ? 'user' : 'Bidder'}:</strong> {msg.message}</p>
                                 <p><small>{new Date(msg.time).toLocaleString()}</small></p>
-                                {msg.userId === selector.user._id && (
+                                
                                     <button
                                         onClick={() => handleDeleteMessage(msg._id)}
                                         className="delete-button"
                                     >
                                         Delete
                                     </button>
-                                )}
                             </li>
                         ))}
                     </ul>
@@ -98,4 +97,4 @@ function UserMessage() {
     );
 }
 
-export default UserMessage;
+export default Message;

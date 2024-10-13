@@ -1,3 +1,4 @@
+
 import Serv from "../Service/Service"
 const serv=Serv;
 
@@ -72,5 +73,17 @@ export const addViewToTask=(taskId)=>async(dispatch,getState)=>{
         console.log(er);
     }
     
+}
+
+export const getBidListForBidders=(BidderId)=>async(dispatch,getState)=>{
+    try{
+        const res=await serv.bidder_getBidListForBidders(BidderId);
+        dispatch({type:"EMPTY_BIDDER_BIDS"});
+        dispatch({type:"ADD_BIDDER_BIDS",payload:res.data});
+        console.log(res.data);
+    }
+    catch(er){
+        console.log(er);
+    }
 }
 

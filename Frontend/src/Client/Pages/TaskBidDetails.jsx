@@ -17,7 +17,7 @@ function TaskBidDetails() {
     
     const handleMessage = (bid) => {
         dispatch(getAllMessage(bid._id));
-      navi("/user-message" ,{state:bid})
+      navi("/message" ,{state:bid})
         
     };
 
