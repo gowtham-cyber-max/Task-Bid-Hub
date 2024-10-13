@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {addBidder,getAllBidder,bidderLogin}=require("../Controllers/Bidder")
+const {addBidder,getAllBidder,bidderLogin, addLogToBidder}=require("../Controllers/Bidder")
 
 router.route("/sign-up")
         .post(addBidder)

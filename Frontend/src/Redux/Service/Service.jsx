@@ -64,6 +64,11 @@ class Service {
         return this.axios.post(`${this.apiUrl}/task/addnew`,data);
     }
 
+    bidder_addBidLog(preparedData){
+        console.log(preparedData);
+        return this.axios.post(`${this.apiUrl}/task/addlog`, preparedData);
+    }
+
 }
 
 export default new Service();

@@ -12,7 +12,7 @@ const BidLogSchema=mongoose.Schema({
         required:(true,"task id empty")
     },
     Amount:{
-        type:number
+        type:Number
     },
     Description:{       
         type:String

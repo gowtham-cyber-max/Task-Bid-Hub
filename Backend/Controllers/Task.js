@@ -1,5 +1,5 @@
 const TaskModel=require('../Models/Task');
-const {addLogToBidder,addTaskToQueue,addTaskToCompleted}=require("../Controllers/Bidder");
+const {addTaskToCompleted}=require("../Controllers/Bidder");
 
 const {otpGenerator}=require("../Controllers/Components")
 
@@ -36,17 +36,24 @@ async function addTask(req, res)  {
 
 
 // add one bid into both task model and bidder model
-async function addLog(req,res){
-    // add task into bidder model
-     addLogToBidder(req,res);
-
-    console.log(req.body.TaskId);
-    const task=await TaskModel.findById(req.body.TaskId);
-     task.BidderList.push(req.body.BidderId);
-    await task.save();
-
-    res.json(task);
+async function addLogToTask(req, res) {
+    try {
+       
+        console.log(req.body)
+        const task = await TaskModel.findById(req.body.TaskId);
+        if (task) {
+            task.BidderList.push(req.body.BidderId);
+            await task.save();
+            return task;
+        } else {
+            res.status(404).json({ message: "Task not found" });
+        }
+    } catch (er) {
+        console.log(er);
+        res.status(500).json({ message: "Error adding log" });
+    }
 }
+
 
 // get all task from the task model
 async function getAllTask(req,res){
@@ -62,19 +69,21 @@ async function getAllTask(req,res){
 }
 
 // mark one task completed after all process
-async function markAsCompleted(req,res){
+async function TaskMarkAsCompleted(req,res){
     try{
-        addTaskToCompleted(req,res);
         const task=await TaskModel.findById(req.body.taskId);
-        task.completedBy=req.body.bidderId;
-        task.completedAt=Date.now();
-        await task.save();
-        res.json(task);
+        if(task){
+
+            task.completedBy=req.body.bidderId;
+            task.completedAt=Date.now();
+            await task.save();
+            return task;
         }
-        catch(err){
+    }
+    catch(err){
             console.error(err);
             res.status(500).json({ message: "Error marking task as completed" });
-        }
+    }
 }
 
 // get all bidders and by skills and use the $geoWithin to get the tasks within 20 km
@@ -122,17 +131,20 @@ async function getTasksForBidder(req, res) {
 
 
 // after messaging user will select that bidder for their task by accept
-async function accepted(req,res){
+async function TaskAccepted(req,res){
+
     const {taskId,bidderId}=req.body;
-    addTaskToQueue(req,res);
     try{
         otpGenerator(req,res);
         const task=await TaskModel.findById(taskId);
+        if(task){
         task.allogatedTo=bidderId;
         task.allogatedDate=Date.now();
         task.otp=res.otp;
         await task.save();
-        res.json(task);
+        return task;
+        }
+        return null;
     }
     catch(er){
         console.log(er);
@@ -171,4 +183,4 @@ async function addViews(req,res){
     }
 }
 
-module.exports={addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted,setTheRequest,addViews};
+module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,setTheRequest,addViews};

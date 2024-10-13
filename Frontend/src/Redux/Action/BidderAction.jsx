@@ -45,7 +45,19 @@ export const taskList_Bidders=()=>async(dispatch,getState)=>{
     } catch (error) {
         console.error('Error fetching tasks:', error.message);
     }
-    
-    
-
+}
+export const addBidLog=(data)=>async(dispatch,getState)=>{
+    try{
+        
+        const  BidderId= getState().bidder.bidder?._id;
+        const preparedData={
+            BidderId,
+            ...data
+        }
+        const res=await serv.bidder_addBidLog(preparedData);
+        console.log(res.data);
+    }
+    catch(er){
+        console.log(er);
+    }
 }

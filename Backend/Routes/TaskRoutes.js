@@ -1,28 +1,32 @@
 const express = require('express')
 const router = express.Router()
 
-const {addTask,addLog,getAllTask,markAsCompleted,getTasksForBidder,accepted,addViews}=require("../Controllers/Task")
+const {addTask,getAllTask,getTasksForBidder,addViews}=require("../Controllers/Task")
 
-router.route("/addnew")
-        .post(addTask)
+const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
+        router.route("/addnew")
+                .post(addTask)
 
-router.route("/addlog")
-        .post(addLog)
+        
+        router.route("/getall")
+                .get(getAllTask)
+        
+        
+        router.route("/getforbidders")
+                .post(getTasksForBidder)
+        
+        
+        router.route("/add-view")
+                .post(addViews)
+        // ---------------------------- circular
 
-router.route("/getall")
-        .get(getAllTask)
+        router.route("/addlog")
+                .post(addBidLog)
+        
+        router.route("/accepted")
+                .post(Accepted)
 
-router.route("/completedby")
-        .put(markAsCompleted)
-
-router.route("/getforbidders")
-        .post(getTasksForBidder)
-
-router.route("/accepted")
-        .post(accepted)
-
-router.route("/add-view")
-        .post(addViews)
-
-
+        router.route("/completedby")
+                .put(markAsCompleted)
+                
 module.exports = router

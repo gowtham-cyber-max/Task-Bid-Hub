@@ -34,14 +34,25 @@ async function addBidder (req, res) {
 };
 
 //add the bid in bidder Model
-async function addLogToBidder(req,res){
-    const Bidder=await BidderModel.findById(req.body.bidderId);
-    console.log(Bidder);
-    Bidder.TaskBidded.push(req.body.taskId);
-
-    await Bidder.save();
-
+async function addLogToBidder(req, res) {
+    try {
+        const bidder = await BidderModel.findById(req.body.BidderId);
+        if (bidder) {
+            console.log(bidder);
+            bidder.TaskBidded.push(req.body.TaskId);
+            await bidder.save();
+            return bidder; 
+        } else {
+            res.status(404).json({ message: "Bidder not found" });
+            return null; 
+        }
+    } catch (er) {
+        console.error(er);
+        res.status(500).json({ message: "Error adding log to bidder" });
+        return null; 
+    }
 }
+
 
 // get All Bidders from model
 async function getAllBidder(req,res){
@@ -56,7 +67,7 @@ async function getAllBidder(req,res){
 }
 
 // add the tasks into bidder queue which is yet to completed
-async function addTaskToQueue(req,res){
+async function addTaskToBidderQueue(req,res){
     const {bidderId,taskId}=req.body;
     try{
         const bidder=await BidderModel.findById(bidderId);
@@ -124,4 +135,4 @@ async function bidderLogin(req,res){
 
 
 
-module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin};
+module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToBidderQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin};
