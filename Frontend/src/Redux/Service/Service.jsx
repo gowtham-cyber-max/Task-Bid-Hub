@@ -68,7 +68,35 @@ class Service {
         console.log(preparedData);
         return this.axios.post(`${this.apiUrl}/task/addlog`, preparedData);
     }
-
+    bidder_addViewToTask(taskId){
+        console.log(taskId);
+        return this.axios.post(`${this.apiUrl}/task/add-view`,{taskId});
+    }
+    user_getAllTask(userId){
+        console.log(userId);
+        return this.axios.get(`${this.apiUrl}/task/getall`,{
+            params: {
+              userId:userId
+            }
+        });
+    }
+    user_getAllBidsForTask(taskId){
+        return this.axios.get(`${this.apiUrl}/bid/log-task`,{
+            params: {
+                taskId:taskId
+            }
+        });
+    }
+    getAllMessage(bidLogId){
+        return this.axios.get(`${this.apiUrl}/message/get-message-bid-log`,{
+            params: {
+                bidLogId
+            }
+        });
+    }
+    addMessage(messageData){
+        return this.axios.post(`${this.apiUrl}/message/new-message`,messageData);
+    }
 }
 
 export default new Service();

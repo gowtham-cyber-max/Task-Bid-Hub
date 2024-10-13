@@ -1,10 +1,13 @@
 const initialState={
     user:null,
     img:[],
-    task:[]
+    task:[],
+    bids:[],
+    message:[]
 }
 
 const UserReducer=(state=initialState,action)=>{
+    console.log(action.type);
     switch(action.type){
         case "USER_LOGIN":
             // console.log(action.payload)
@@ -16,7 +19,8 @@ const UserReducer=(state=initialState,action)=>{
             return {
                 ...state,
                 user:null,
-                img:[]
+                img:[],
+                task:[]
             };
         case "USER_ADD_IMG":
             return {
@@ -27,6 +31,36 @@ const UserReducer=(state=initialState,action)=>{
             return{
                 ...state,
                 img: state.img.filter(img=>img.id!==action.payload.id)
+            }
+        case "ADD_USER_TASK":
+            return{
+                ...state,
+                task: [...state.task,...action.payload],
+            }
+        case "EMPTY_USER_TASK":
+            return{
+                ...state,
+                task:[]
+            }
+        case "ADD_USER_BIDS":
+            return{
+                ...state,
+                bids: [...state.bids,...action.payload],
+            }
+        case "EMPTY_USER_BIDS":
+            return{
+                ...state,
+                bids:[]
+            }
+        case "GET_ALL_MESSAGE":
+            return{
+                ...state,
+                message: [...state.message,...action.payload],
+            }
+        case "EMPTY_ALL_MESSAGE":
+            return{
+                ...state,
+                message:[]
             }
         default:
             return state;

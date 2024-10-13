@@ -17,6 +17,15 @@ const messageSchema=new mongoose.Schema({
         ref:'Bidder',
         default:null
     },
+    bidLogId:{
+        type:mongoose.Types.ObjectId,
+        ref:'BidLog',
+        default:null
+    },
+    role:{
+        type:String,
+        default:'user'
+    },
     time:{
         type:Date,
         default:Date.now()

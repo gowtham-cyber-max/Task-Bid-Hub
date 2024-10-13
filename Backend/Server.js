@@ -22,6 +22,7 @@ const BidderRoutes=require("./Routes/BidderRoutes")
 const TaskRoutes=require("./Routes/TaskRoutes")
 const ComponentRoutes=require("./Routes/ComponentRoutes")
 const MessageRoutes=require("./Routes/Message")
+const BidLogRoutes=require("./Routes/BidLogRoutes")
 
 
 
@@ -36,6 +37,8 @@ app.use("/bidder",BidderRoutes);
 app.use("/components",ComponentRoutes);
 
 app.use("/message",MessageRoutes);
+
+app.use("/bid",BidLogRoutes);
 
 
 app.listen(5000, () => {

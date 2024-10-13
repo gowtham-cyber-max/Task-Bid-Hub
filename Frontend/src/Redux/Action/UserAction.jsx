@@ -42,4 +42,30 @@ export const addTask = (data) => async (dispatch, getState) => {
     }
 };
 
+export const getUserTask=(userId)=>async(dispatch,getState)=>{
+    try{
+        const res=await serv.user_getAllTask(userId);
+        console.log(res.data);
+        
+        dispatch({type:'EMPTY_USER_TASK'})
+        dispatch({type:'ADD_USER_TASK',payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+export const getBidForTask=(taskId)=>async(dispatch,getState)=>{
+    try{
+        
+        const res=await serv.user_getAllBidsForTask(taskId);
+        // console.log(res.data);
+        
+        dispatch({type:'EMPTY_USER_BIDS'})
+        dispatch({type:'ADD_USER_BIDS',payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+
 

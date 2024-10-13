@@ -1,0 +1,85 @@
+.user-message-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.message-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.message-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+    background-color: #13e416;
+    align-self: flex-end;
+    margin-left: auto;
+    text-align: right;
+}
+
+.bidder-message {
+    background-color: #cc35c7;
+    align-self: flex-start;
+    margin-right: auto;
+    text-align: left;
+}
+
+.delete-button {
+    color: red;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 14px;
+}
+
+.no-message {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+}
+
+.new-message-container {
+    margin-top: 20px;
+}
+
+.new-message-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.message-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    resize: none;
+}
+
+.send-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: #45a049;
+}

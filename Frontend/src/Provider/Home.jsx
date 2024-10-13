@@ -34,7 +34,7 @@ const BidderHome = () => {
             <div>
                 <div >
                     <div>Home</div>
-                    <div>My Bids</div>
+                    <div onClick={()=>navi("/bidder-my-bid")}>My Bids</div>
                     <div onClick={()=>navi("/bidder-profile")}>Profile</div>
                 </div>
                 <div >

@@ -12,11 +12,23 @@ async function addOneMessage(req,res){
     }
 }
 
-async function getMessage(req,res){
+async function getMessageByIds(req,res){
     try{
         const { taskId, userId, bidderId } = req.body;
         const message = await MessageModel.find({ taskId: taskId, userId: userId, bidderId: bidderId }).sort({ time: 1 });
         console.log(message);
+
+        res.json(message);
+
+    }
+    catch(er){
+        console.log(er)
+    }
+}
+async function getMessageByLog(req,res){
+    try{
+        const bidLogId=req.query.bidLogId;
+        const message = await MessageModel.find({ bidLogId:bidLogId }).sort({ time: 1 });
 
         res.json(message);
 
@@ -50,4 +62,4 @@ async function deleteTaskMessage(req,res){
 }
 
 
-module.exports={addOneMessage,getMessage,deleteOneMessage,deleteTaskMessage};
+module.exports={addOneMessage,getMessageByIds,deleteOneMessage,deleteTaskMessage,getMessageByLog};

@@ -12,5 +12,16 @@ async function AddLog(req,res){
     }   
 }
 
+async function getAllBidsForTask(req,res){
+    try{
+        const taskId=req.query.taskId;
+        console.log(taskId);
+        const bids=await BidLog.find({TaskId:taskId});
+        res.json(bids);
+    }
+    catch(er){
+        res.status(500).json({message:er.message})
+    }
+}
 
-module.exports={AddLog};
+module.exports={AddLog,getAllBidsForTask};

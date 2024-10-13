@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getUserTask } from '../../Redux/Action/UserAction';
 
 const UserHome = () => {
     // Sample data for services
     const navi=useNavigate();
+    const dispatch=useDispatch();
+    const selector=useSelector((state)=>state.user);
+    const HandleMyTask=()=>{
+        dispatch(getUserTask(selector?.user?._id))
+        navi("/user-my-task");
+    }
     return (
         <div>
             {/* Navigation Bar */}
@@ -30,6 +38,9 @@ const UserHome = () => {
                         </li>
                         <li >
                             <a href="/#/user-profile">Profile</a>
+                        </li>
+                        <li >
+                            <h2 onClick={HandleMyTask}>My Task</h2>
                         </li>
                         <li >
                             <a href="#" >Logout</a>

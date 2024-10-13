@@ -2,13 +2,16 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addViewToTask } from '../Redux/Action/BidderAction';
 
 function TaskExplore() {
+  const dispatch=useDispatch();
   const navi=useNavigate();
   const selector = useSelector(state => state.bidder);
   console.log("Tasks:", selector?.task_explore);  // Log task_explore for debugging
   const HandleClick=(task)=>{
     if(task){
+      dispatch(addViewToTask(task._id));
       navi("/bidder-task-details" , {state:task})
     }
   }

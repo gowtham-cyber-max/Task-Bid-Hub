@@ -61,3 +61,16 @@ export const addBidLog=(data)=>async(dispatch,getState)=>{
         console.log(er);
     }
 }
+
+
+export const addViewToTask=(taskId)=>async(dispatch,getState)=>{
+    try{
+        const res=await serv.bidder_addViewToTask(taskId);
+        console.log(res.data);
+    }
+    catch(er){
+        console.log(er);
+    }
+    
+}
+

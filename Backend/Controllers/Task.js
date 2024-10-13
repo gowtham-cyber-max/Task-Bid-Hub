@@ -171,16 +171,39 @@ async function setTheRequest(req,res){
 // add the views
 async function addViews(req,res){
     try{
-        const id=req.query.id;
+        const id=req.body.taskId;
+
         const task=await TaskModel.findById(id);
+        if(task){
         task.views+=1;
         await task.save();
 
         res.json(task)
+    }
+        else{
+                res.status(201);
+        }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+// taskList for users
+async function userTasks(req,res){
+    const userId=req.query.userId;
+    try{
+    const task=await TaskModel.find({userId:userId});
+    if(task){
+        res.json(task);
+    }
+    else{
+        res.status(201);
+    }
+
     }
     catch(er){
         console.log(er);
     }
 }
 
-module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,setTheRequest,addViews};
+module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews};
