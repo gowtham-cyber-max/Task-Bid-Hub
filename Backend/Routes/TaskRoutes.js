@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {addTask,getAllTask,getTasksForBidder,addViews}=require("../Controllers/Task")
+const {addTask,getAllTask,getTasksForBidder,addViews,userTasks}=require("../Controllers/Task")
 
 const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
         router.route("/addnew")
@@ -18,6 +18,9 @@ const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
         
         router.route("/add-view")
                 .post(addViews)
+
+        router.route("/get-task-user")
+                .get(userTasks)
         // ---------------------------- circular
 
         router.route("/addlog")

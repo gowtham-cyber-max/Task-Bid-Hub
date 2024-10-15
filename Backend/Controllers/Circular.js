@@ -1,6 +1,6 @@
 const {addLogToTask,TaskMarkAsCompleted, TaskAccepted,}=require("./Task")
 const {addLogToBidder,addTaskToCompleted,addTaskToBidderQueue}=require("./Bidder")
-const {AddLog}=require("./BidLogController")
+const {AddLog,BidderAccepted}=require("./BidLogController")
 
 async function addBidLog(req,res){
     try{
@@ -37,9 +37,15 @@ async function Accepted(req,res){
     try{
         const task=await TaskAccepted(req,res);
         const bidder=await addTaskToBidderQueue(req,res);
-        if(bidder && task){
+        const bidlog=await BidderAccepted(req,res);
+        
+        if(bidder && task && bidlog){
+           
             res.json("sucess");
-            }
+        }
+        else{
+            res.json("failed in accepting ");
+        }
     }
     catch(er){
         console.log(er);

@@ -21,6 +21,7 @@ function TaskExplore() {
       {selector?.task_explore?.map((task, index) => (
         <div key={index} onClick={() => HandleClick(task)}>
           <p>Location: {task.location?.coordinates?.join(", ")}</p>
+          <p>task name: {task.taskName}</p>
           <p>Budget: {task.budget}</p>
           <p>Image ID: {task.imageIds}</p>
           <p>User ID: {task.userId}</p>

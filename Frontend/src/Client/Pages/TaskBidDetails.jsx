@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllMessage } from '../../Redux/Action/MessageAction';
+import { acceptTheBidder } from '../../Redux/Action/UserAction';
 
 function TaskBidDetails() {
   const navi=useNavigate();
@@ -10,9 +11,8 @@ function TaskBidDetails() {
     const bids = selector?.bids || []; 
     console.log(bids);
 
-    const handleAccept = (bidId) => {
-      alert("accepted bid with ID:"+ bidId);
-      
+    const handleAccept = (bid) => {
+      dispatch(acceptTheBidder(bid));
     };
     
     const handleMessage = (bid) => {
@@ -35,10 +35,15 @@ function TaskBidDetails() {
                             <p><strong>Description:</strong> {bid.Description}</p>
                             <p><strong>Availability:</strong> {new Date(bid.Availability).toLocaleDateString()}</p>
 
-                            <button onClick={() => handleAccept(bid._id)} style={{ marginRight: '10px', padding: '5px 10px' }}>
-                                Accept
-                            </button>
-                            <button onClick={() => handleMessage(bid)} style={{ padding: '5px 10px' }}>
+                            
+                                <button 
+                                    onClick={() => handleAccept(bid)} 
+                                    style={{ marginRight: '10px', padding: '5px 10px' }}
+                                    disabled={bid.Accepted}>
+                                    {!bid?.Accepted?"Accepted":"Already Accepted"}
+                                </button> 
+                            
+                            <button onClick={() => handleMessage(bid)} style={{ padding: '5px 10px' }} >
                                 Message
                             </button>
                         </li>

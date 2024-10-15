@@ -206,4 +206,5 @@ async function userTasks(req,res){
     }
 }
 
+
 module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews};

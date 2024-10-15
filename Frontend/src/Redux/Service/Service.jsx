@@ -74,7 +74,7 @@ class Service {
     }
     user_getAllTask(userId){
         console.log(userId);
-        return this.axios.get(`${this.apiUrl}/task/getall`,{
+        return this.axios.get(`${this.apiUrl}/task/get-task-user`,{
             params: {
               userId:userId
             }
@@ -110,6 +110,9 @@ class Service {
                 BidderId
             }
         });
+    }
+    user_acceptTheBidder(data){
+        return this.axios.post(`${this.apiUrl}/task/accepted`,data);
     }
 }
 

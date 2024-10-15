@@ -70,9 +70,11 @@ async function getAllBidder(req,res){
 async function addTaskToBidderQueue(req,res){
     const {bidderId,taskId}=req.body;
     try{
+        console.log(req.body);
         const bidder=await BidderModel.findById(bidderId);
         bidder.taskQueue.push(taskId);
         await bidder.save();
+        return bidder;
     }
     catch(er){
         console.error(er);

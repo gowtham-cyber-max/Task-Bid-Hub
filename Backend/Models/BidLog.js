@@ -24,6 +24,10 @@ const BidLogSchema=mongoose.Schema({
     },
     Availability:{
         type:Date
+    },
+    Accepted:{
+        type:Boolean,
+        default:false
     }
 
 });

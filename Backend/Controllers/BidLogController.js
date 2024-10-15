@@ -34,5 +34,20 @@ async function getAllBidsForBidder(req,res){
         res.status(500).json({message:er.message})
     }
 }
+async function BidderAccepted(req,res){
+    try{
+        const {bidLogId}=req.body;
+        const bidlog=await BidLog.findById(bidLogId);
+        if(bidlog){
+            bidlog.Accepted=true;
+            await bidlog.save();
+            return bidlog;
+        }
+        return null;
+    }
+    catch(er){
+        res.status(500).json({message:er.message})
+    }
+}
 
-module.exports={AddLog,getAllBidsForTask,getAllBidsForBidder};
+module.exports={AddLog,getAllBidsForTask,getAllBidsForBidder,BidderAccepted};
