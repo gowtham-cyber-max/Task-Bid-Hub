@@ -12,19 +12,19 @@ const BidderSchema=new mongoose.Schema(
         pass:String,
         noOfCompletion:Number,
         skills:[String],
-        TaskCompleted:{
+        taskCompleted:{
             type:[mongoose.Types.ObjectId],
-            ref:"Task",
+            ref:"BidLog",
             default:[]
         },
-        TaskBidded:{
+        taskBidded:{
             type:[mongoose.Types.ObjectId],
-            ref:"Task",
+            ref:"BidLog",
             default:[]
         },// if i want to know the details of task bidded details, i will filter the task who is biidedid is equal to this biddedid
         taskQueue:{
             type:[mongoose.Types.ObjectId],
-            ref:"Task",
+            ref:"BidLog",
             default:[]
         },
         location: {

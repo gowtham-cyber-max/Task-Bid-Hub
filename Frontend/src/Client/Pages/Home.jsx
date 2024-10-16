@@ -43,7 +43,7 @@ const UserHome = () => {
                             <h2 onClick={HandleMyTask}>My Task</h2>
                         </li>
                         <li >
-                            <a href="#" >Logout</a>
+                            <a href="/#/user-login" >Logout</a>
                         </li>
                     </ul>
                 </nav>

@@ -55,7 +55,7 @@ class Service {
             skills,
             latitude,
             longitude,
-            radiusKM:1000000
+            radiusKM:25
         })
         
     }
@@ -104,10 +104,10 @@ class Service {
             }
         });
     }
-    bidder_getBidListForBidders(BidderId){
+    bidder_getBidListForBidders(bidderId){
         return this.axios.get(`${this.apiUrl}/bid/log-bidder`,{
             params: {
-                BidderId
+                bidderId
             }
         });
     }

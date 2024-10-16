@@ -32,6 +32,8 @@ const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
         router.route("/completedby")
                 .put(markAsCompleted)
 
+        // complete request circularcd
+
 
                
                 

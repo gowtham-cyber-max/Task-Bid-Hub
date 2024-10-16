@@ -1,5 +1,4 @@
 const TaskModel=require('../Models/Task');
-const {addTaskToCompleted}=require("../Controllers/Bidder");
 
 const {otpGenerator}=require("../Controllers/Components")
 
@@ -40,9 +39,9 @@ async function addLogToTask(req, res) {
     try {
        
         console.log(req.body)
-        const task = await TaskModel.findById(req.body.TaskId);
+        const task = await TaskModel.findById(req.body.taskId);
         if (task) {
-            task.BidderList.push(req.body.BidderId);
+            task.bidderList.push(req.body.bidderId);
             await task.save();
             return task;
         } else {
@@ -74,8 +73,7 @@ async function TaskMarkAsCompleted(req,res){
         const task=await TaskModel.findById(req.body.taskId);
         if(task){
 
-            task.completedBy=req.body.bidderId;
-            task.completedAt=Date.now();
+            task.completedBy=req.body.bidLogId;
             await task.save();
             return task;
         }
@@ -120,7 +118,7 @@ async function getTasksForBidder(req, res) {
                 }
             ]
         })
-        .select('taskName taskDescription userId endDate budget BidderList imageIds completedBy location views skills _id ');  // Project the required fields
+        .select('taskName taskDescription userId endDate budget BidderList imageIds completedBy location views skills _id postedDate');  // Project the required fields
 
         res.json(tasks);
     } catch (err) {
@@ -133,13 +131,12 @@ async function getTasksForBidder(req, res) {
 // after messaging user will select that bidder for their task by accept
 async function TaskAccepted(req,res){
 
-    const {taskId,bidderId}=req.body;
+    const {taskId,bidLogId}=req.body;
     try{
         otpGenerator(req,res);
         const task=await TaskModel.findById(taskId);
         if(task){
-        task.allogatedTo=bidderId;
-        task.allogatedDate=Date.now();
+        task.allogatedTo=bidLogId;
         task.otp=res.otp;
         await task.save();
         return task;

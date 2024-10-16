@@ -36,10 +36,10 @@ async function addBidder (req, res) {
 //add the bid in bidder Model
 async function addLogToBidder(req, res) {
     try {
-        const bidder = await BidderModel.findById(req.body.BidderId);
+        const bidder = await BidderModel.findById(req.body.bidderId);
         if (bidder) {
             console.log(bidder);
-            bidder.TaskBidded.push(req.body.TaskId);
+            bidder.taskBidded.push(req.body.taskId);
             await bidder.save();
             return bidder; 
         } else {
@@ -86,7 +86,6 @@ async function addTaskToBidderQueue(req,res){
 async function sendCompletedRequest(req,res){
     const {bidderId,taskId}=req.body;
     try{
-        setTheRequest(req,res);
         const bidder=await BidderModel.findById(bidderId);
         bidder.completeRequest.push(taskId);
         await bidder.save();
@@ -102,7 +101,7 @@ async function addTaskToCompleted(req,res){
     const {bidderId,taskId}=req.body;
     try{
         const bidder=await BidderModel.findById(bidderId);
-        bidder.TaskCompleted.push(taskId);
+        bidder.taskCompleted.push(bidLogId);
         await bidder.save();
     }
     catch(er){

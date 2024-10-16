@@ -8,13 +8,13 @@ const TaskSchema = new mongoose.Schema({
         required: [true, "user id is empty"]
     },
     taskDescription: String,
-    PostedDate: {
+    postedDate: {
         type: Date,
         default: Date.now  
     },
     endDate: Date,
     budget: Number,
-    BidderList: {
+    bidderList: {
         type: [mongoose.Types.ObjectId],
         ref: 'BidLog',
         default: [],
@@ -26,14 +26,8 @@ const TaskSchema = new mongoose.Schema({
     },
     completedBy: {
         type: mongoose.Types.ObjectId,
-        ref: 'Bidder',
+        ref: 'BidLog',
         default: null
-    },
-    startTime:{
-        type:Date
-    },
-    completedAt: {
-        type: Date
     },
     skills:{
         type: [String],
@@ -50,12 +44,8 @@ const TaskSchema = new mongoose.Schema({
     },
     allogatedTo:{
         type: mongoose.Types.ObjectId,
-        ref: 'Bidder',
+        ref: 'BidLog',
         default: null
-    },
-    allogatedDate:{
-        type:Date,
-        default:null
     },
     completeRequest:{
         type:Boolean,

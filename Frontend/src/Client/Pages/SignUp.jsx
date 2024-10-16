@@ -3,8 +3,10 @@ import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css'; // Still required for the input styles
 import { useDispatch } from 'react-redux';
 import { userLogin, userSinup } from '../../Redux/Action/UserAction';
+import { useNavigate } from 'react-router-dom';
 
 function UserSignUp() {
+  const navi=useNavigate();
   const dispatch=useDispatch();
   const [data, setData] = useState({
     name: "",
@@ -17,6 +19,7 @@ function UserSignUp() {
     e.preventDefault();
     console.log(data);
     dispatch(userSinup(data));
+    navi("/user-login");
     
   };
 

@@ -7,9 +7,9 @@ function TaskDetail() {
   const dispatch=useDispatch();
   const [visible, setVisible] = useState(false);
   const [LogData, setLogData] = useState({
-    Amount: 0,
-    Availability: "",
-    Description: "",
+    amount: 0,
+    availability: "",
+    description: "",
   });
 
   const location = useLocation();
@@ -23,7 +23,7 @@ function TaskDetail() {
   const HandleSubmit = (e) => {
     e.preventDefault();
     alert(JSON.stringify(LogData)); // JSON.stringify to show the object data in the alert
-    dispatch(addBidLog({...LogData,TaskId:task._id,UserId:task.userId}))
+    dispatch(addBidLog({...LogData,taskId:task._id,userId:task.userId}))
   };
 
   const HandleChange = (e) => {
@@ -39,9 +39,10 @@ function TaskDetail() {
         <p>Budget: {task?.budget}</p>
         <p>Image ID: {task?.imageIds}</p>
         <p>User ID: {task?.userId}</p>
-        <p>Bidder List: {task?.BidderList?.join(", ")}</p>
+        <p>Bidder List: {task?.bidderList?.join(", ")}</p>
         <p>Task Id: {task?._id}</p>
         <p>Task Views: {task?.views}</p>
+        <p>Task Date: {task?.postedDate} h</p>
         <button onClick={HandleClick}>Bid For The Task</button>
       </div>
       
@@ -52,8 +53,8 @@ function TaskDetail() {
               <label>Amount</label>
               <input
                 type="number"
-                name="Amount"
-                value={LogData.Amount}
+                name="amount"
+                value={LogData.amount}
                 onChange={HandleChange}
                 required
               />
@@ -61,8 +62,8 @@ function TaskDetail() {
             <div>
               <label>Description</label>
               <textarea
-                name="Description"
-                value={LogData.Description}
+                name="description"
+                value={LogData.description}
                 onChange={HandleChange}
                 required
               />
@@ -71,8 +72,8 @@ function TaskDetail() {
               <label>Availability</label>
               <input
                 type="date"
-                name="Availability"
-                value={LogData.Availability}
+                name="availability"
+                value={LogData.availability}
                 onChange={HandleChange}
                 required
               />

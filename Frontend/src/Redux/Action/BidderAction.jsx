@@ -50,9 +50,9 @@ export const taskList_Bidders=()=>async(dispatch,getState)=>{
 export const addBidLog=(data)=>async(dispatch,getState)=>{
     try{
         
-        const  BidderId= getState().bidder.bidder?._id;
+        const  bidderId= getState().bidder.bidder?._id;
         const preparedData={
-            BidderId,
+            bidderId,
             ...data
         }
         const res=await serv.bidder_addBidLog(preparedData);
@@ -75,9 +75,9 @@ export const addViewToTask=(taskId)=>async(dispatch,getState)=>{
     
 }
 
-export const getBidListForBidders=(BidderId)=>async(dispatch,getState)=>{
+export const getBidListForBidders=(bidderId)=>async(dispatch,getState)=>{
     try{
-        const res=await serv.bidder_getBidListForBidders(BidderId);
+        const res=await serv.bidder_getBidListForBidders(bidderId);
         dispatch({type:"EMPTY_BIDDER_BIDS"});
         dispatch({type:"ADD_BIDDER_BIDS",payload:res.data});
         console.log(res.data);

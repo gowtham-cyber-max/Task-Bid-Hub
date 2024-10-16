@@ -72,8 +72,8 @@ export const acceptTheBidder=(bid)=>async(dispatch,getState)=>{
         try{
             
             const data={
-                taskId:bid.TaskId,
-                bidderId:bid.BidderId,
+                taskId:bid.taskId,
+                bidderId:bid.bidderId,
                 bidLogId:bid._id
             };
             const res=await serv.user_acceptTheBidder(data);
@@ -81,7 +81,7 @@ export const acceptTheBidder=(bid)=>async(dispatch,getState)=>{
 
             // to refresh that bid 
             
-            getBidForTask(bid.TaskId);
+            getBidForTask(bid.taskId);
             
         }
         catch(er){

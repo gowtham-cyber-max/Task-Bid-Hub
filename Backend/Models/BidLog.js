@@ -1,33 +1,41 @@
 const mongoose=require("mongoose")
 
 const BidLogSchema=mongoose.Schema({
-    BidderId:{
+    bidderId:{
         type:mongoose.Types.ObjectId,
         ref:'Bidder',
         required:(true,"bidder id empty")
     },
-    TaskId:{
+    taskId:{
         type:mongoose.Types.ObjectId,
         ref:'Task',
         required:(true,"task id empty")
     },
-    UserId:{
+    userId:{
         type:mongoose.Types.ObjectId,
         ref:'User',
         required:(true,"user id empty")
     },
-    Amount:{
+    amount:{
         type:Number
     },
-    Description:{       
+    description:{       
         type:String
     },
-    Availability:{
+    availability:{
         type:Date
     },
-    Accepted:{
+    accepted:{
         type:Boolean,
         default:false
+    },
+    start:{
+        type:Date,
+        default:Date.now(),
+    },
+    end:{
+        type:Date,
+        default:Date.now(),
     }
 
 });

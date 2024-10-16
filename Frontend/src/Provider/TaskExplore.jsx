@@ -25,7 +25,7 @@ function TaskExplore() {
           <p>Budget: {task.budget}</p>
           <p>Image ID: {task.imageIds}</p>
           <p>User ID: {task.userId}</p>
-          <p>Bidder List: {task.BidderList}</p>
+          <p>Bidder List: {task.bidderList}</p>
           <p>Task Id: {task._id}</p>
           <p>Task Views: {task.views}</p>
           <p>----------------------------------***********-------------------------------</p>

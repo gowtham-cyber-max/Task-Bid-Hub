@@ -25,7 +25,7 @@ function MyTask() {
                             <h2>Task Name: {task.taskName}</h2>
                             <p><strong>Description:</strong> {task.taskDescription}</p>
                             <p><strong>Budget:</strong> ${task.budget}</p>
-                            <p><strong>Posted Date:</strong> {new Date(task.PostedDate).toLocaleDateString()}</p>
+                            <p><strong>Posted Date:</strong> {new Date(task.postedDate).toLocaleDateString()}</p>
                             <p><strong>End Date:</strong> {new Date(task.endDate).toLocaleDateString()}</p>
                             <p><strong>Skills Required:</strong> {task.skills.join(', ')}</p>
                             <p><strong>Location:</strong> {task.location ? `Lat: ${task.location.coordinates[1]}, Lon: ${task.location.coordinates[0]}` : 'Not specified'}</p>

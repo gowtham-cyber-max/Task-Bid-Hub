@@ -20,9 +20,9 @@ function MyBids() {
           {bids.map((bid) => (
             <div key={bid._id} className="bid-item">
               <div className="bid-info">
-                <p><strong>Bid Amount:</strong> {bid.Amount}</p>
-                <p><strong>Task ID:</strong> {bid.TaskId}</p>
-                <p><strong>Bidder ID:</strong> {bid.BidderId}</p>
+                <p><strong>Bid Amount:</strong> {bid.amount}</p>
+                <p><strong>Task ID:</strong> {bid.taskId}</p>
+                <p><strong>Bidder ID:</strong> {bid.bidderId}</p>
               </div>
                  <button className="message-button" onClick={() =>HandleMessage(bid)}>Message</button>
               <p>---*---</p>
