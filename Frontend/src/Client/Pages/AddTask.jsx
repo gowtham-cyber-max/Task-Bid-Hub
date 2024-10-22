@@ -59,17 +59,41 @@ const AddTask = () => {
     // Get current location
     const getLocation = () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                setTask({
-                    ...task,
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                });
-            });
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setTask({
+                        ...task,
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    });
+                },
+                (error) => {
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("User denied the request for Geolocation.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Location information is unavailable.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("The request to get user location timed out.");
+                            break;
+                        default:
+                            alert("An unknown error occurred.");
+                            break;
+                    }
+                },
+                {
+                    enableHighAccuracy: true,  // Enables high accuracy mode (using GPS when available)
+                    timeout: 10000,            // Set a maximum wait time of 10 seconds
+                    maximumAge: 0              // Disable caching of location data
+                }
+            );
         } else {
             alert("Geolocation is not supported by this browser.");
         }
     };
+    
 
     return (
         <form onSubmit={handleSubmit}>

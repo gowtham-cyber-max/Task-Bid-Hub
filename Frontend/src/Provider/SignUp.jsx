@@ -1,151 +1,198 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import { bidderSignup } from '../Redux/Action/BidderAction';
+import { getPreDefineSkills } from '../Redux/Action/CommonAction';
 
 function BidderSignUp() {
-    const dispatch=useDispatch();
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    pass: "",
-    companyName: "",
-    phone: "",
-    proof: "",
-    skills: [],
-    mobile: "",
-    longitude: 0, 
-    latitude: 0
-  });
-  
-  const [skillInput, setSkillInput] = useState(""); // Input field for adding skills manually
-  const [showDropdown, setShowDropdown] = useState(false); // Toggle dropdown
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const predefinedSkills = ["Plumbing", "Electricals", "Carpentry", "Painting", "Masonry"];
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        pass: "",
+        companyName: "",
+        mobile: "",
+        proof: "",
+        skills: [],
+        longitude: 0,
+        latitude: 0
+    });
 
-  const navigate = useNavigate();
+    const [skillInput, setSkillInput] = useState(""); // Input for adding skills manually
+    const [showDropdown, setShowDropdown] = useState(false); // Toggle dropdown
+    const [predefinedSkills, setPredefinedSkills] = useState([]);
+    const [selectedSkillIndex, setSelectedSkillIndex] = useState(-1); // Track the selected index
 
-  const onSubmiting = async (event) => {
-    event.preventDefault();
-    console.log(data);
-    dispatch(bidderSignup(data));
+    useEffect(() => {
+        const fetchSkills = async () => {
+            const list = await dispatch(getPreDefineSkills());
+            setPredefinedSkills(list);
+           
+        };
+        fetchSkills();
+    }, [dispatch]);
 
-  };
+    const onSubmiting = async (event) => {
+        event.preventDefault();
+        console.log(data);
+        dispatch(bidderSignup(data));
+        // Optionally navigate after signup
+        // navigate('/some-route');
+    };
 
-  const handleSkillAdd = () => {
-    if (skillInput.trim() && !data.skills.includes(skillInput)) {
-      setData({ ...data, skills: [...data.skills, skillInput.trim()] });
-    }
-    setSkillInput(""); 
-  };
+    const handleSkillAdd = () => {
+        if (skillInput.trim() && !data.skills.includes(skillInput)) {
+            setData(prevData => ({ ...prevData, skills: [...prevData.skills, skillInput.trim()] }));
+        }
+        setSkillInput("");
+        setShowDropdown(false);
+        setSelectedSkillIndex(-1); // Reset the index
+    };
 
-  const handleSelectSkill = (skill) => {
-    if (!data.skills.includes(skill)) {
-      setData({ ...data, skills: [...data.skills, skill] });
-    }
-    setShowDropdown(false);
-  };
+    const handleSelectSkill = (skill) => {
+        if (!data.skills.includes(skill)) {
+            setData(prevData => ({ ...prevData, skills: [...prevData.skills, skill] }));
+        }
+        setShowDropdown(false);
+        setSkillInput("");
+        setSelectedSkillIndex(-1); // Reset the index
+    };
 
-  const removeSkill = (skillToRemove) => {
-    const updatedSkills = data.skills.filter((skill) => skill !== skillToRemove);
-    setData({ ...data, skills: updatedSkills });
-  };
+    const removeSkill = (skillToRemove) => {
+        setData(prevData => ({
+            ...prevData,
+            skills: prevData.skills.filter(skill => skill !== skillToRemove)
+        }));
+    };
 
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setData({ ...data, latitude: position.coords.latitude, longitude: position.coords.longitude });
-      });
-    } else {
-      alert("Please allow the location for the task location.");
-    }
-  };
+    // Show all skills if input is empty, otherwise filter by input value
+    const filteredSkills = skillInput.trim() === ""
+        ? predefinedSkills
+        : predefinedSkills.filter(skill =>
+            skill.toLowerCase().includes(skillInput.toLowerCase())
+        );
 
-  return (
-    <div>
-      <div>
-        <form onSubmit={onSubmiting}>
-          <input
-            type='text'
-            placeholder='Username'
-            onChange={(e) => setData({ ...data, name: e.target.value })}
-          />
-          
-          <input
-            type='email'
-            placeholder='Email'
-            onChange={(e) => setData({ ...data, email: e.target.value })}
-          />
-          
-          <input
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setData({ ...data, pass: e.target.value })}
-          />
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setData(prevData => ({
+                        ...prevData,
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    }));
+                },
+                (error) => {
+                    alert("Error obtaining location: " + error.message);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    };
 
-          <input
-            type='text'
-            placeholder='Company Name'
-            onChange={(e) => setData({ ...data, companyName: e.target.value })}
-          />
+    // Handle keyboard navigation in the skills dropdown
+    const handleKeyDown = (e) => {
+        if (e.key === 'ArrowDown') {
+            setSelectedSkillIndex((prevIndex) => (prevIndex < filteredSkills.length - 1 ? prevIndex + 1 : prevIndex));
+        } else if (e.key === 'ArrowUp') {
+            setSelectedSkillIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+        } else if (e.key === 'Enter' && selectedSkillIndex >= 0) {
+            handleSelectSkill(filteredSkills[selectedSkillIndex]);
+        }
+    };
 
-          <PhoneInput
-            value={data.mobile}
-            onChange={(value) => setData({ ...data, mobile: value })}
-            placeholder="Mobile Number"
-          />
+    return (
+        <div>
+            <form onSubmit={onSubmiting}>
+                <input
+                    type='text'
+                    placeholder='Username'
+                    onChange={(e) => setData(prevData => ({ ...prevData, name: e.target.value }))}
+                />
+                <input
+                    type='email'
+                    placeholder='Email'
+                    onChange={(e) => setData(prevData => ({ ...prevData, email: e.target.value }))}
+                />
+                <input
+                    type='password'
+                    placeholder='Password'
+                    onChange={(e) => setData(prevData => ({ ...prevData, pass: e.target.value }))}
+                />
+                <input
+                    type='text'
+                    placeholder='Company Name'
+                    onChange={(e) => setData(prevData => ({ ...prevData, companyName: e.target.value }))}
+                />
+                <PhoneInput
+                    value={data.mobile}
+                    onChange={(value) => setData(prevData => ({ ...prevData, mobile: value }))}
+                    placeholder="Mobile Number"
+                />
+                <input
+                    type='text'
+                    placeholder='Proof (e.g., ID Number)'
+                    onChange={(e) => setData(prevData => ({ ...prevData, proof: e.target.value }))}
+                />
+                <br />
 
-          <input
-            type='text'
-            placeholder='Proof (e.g., ID Number)'
-            onChange={(e) => setData({ ...data, proof: e.target.value })}
-          />
-          <br />
+                {/* Skill Input */}
+                <div style={{ position: "relative" }}>
+                    <input
+                        type='text'
+                        placeholder='Enter a skill'
+                        value={skillInput}
+                        onChange={(e) => {
+                            setSkillInput(e.target.value);
+                            setShowDropdown(true);
+                        }}
+                        onFocus={() => setShowDropdown(true)} // Show dropdown when focused
+                        onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Close after a delay
+                        onKeyDown={handleKeyDown} // Add key down handler
+                    />
+                    <button type="button" onClick={handleSkillAdd}>Add Skill</button>
 
-          {/* Manual Skill input */}
-          <div style={{ position: "relative" }}>
-            <input
-              type='text'
-              placeholder='Enter a skill'
-              value={skillInput}
-              onChange={(e) => setSkillInput(e.target.value)}
-              onFocus={() => setShowDropdown(true)}
-              onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Delay to allow click on dropdown
-            />
-            <button type="button" onClick={handleSkillAdd}>Add Skill</button>
-{/*  it will show the options  */}
-            {showDropdown && (
-              <ul style={{ position: "absolute", border: "1px solid #ccc", backgroundColor: "#fff", width: "200px", zIndex: 1, listStyle: "none", padding: "10px", margin: "5px 0" }}>
-                {predefinedSkills.map((skill, index) => (
-                  <li
-                    key={index}
-                    style={{ padding: "5px", cursor: "pointer" ,color:"black"}}
-                    onMouseDown={() => handleSelectSkill(skill)}
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          {/* list of selected skills  */}
-          <ul>
-            {data.skills.map((skill, index) => (
-                <li key={index} >
-                    {skill} <button type="button" onClick={() => removeSkill(skill)}>Remove</button>
-                </li>
+                    {/* Dropdown for predefined skills */}
+                    {showDropdown && (
+                        <ul style={{ position: "absolute", border: "1px solid #ccc", backgroundColor: "#fff", width: "200px", zIndex: 1, listStyle: "none", padding: "10px", margin: "5px 0" }}>
+                            {filteredSkills.map((skill, index) => (
+                                <li
+                                    key={index}
+                                    style={{ padding: "5px", cursor: "pointer", color: selectedSkillIndex === index ? "blue" : "black", backgroundColor: selectedSkillIndex === index ? "#e0e0e0" : "white" }}
+                                    onMouseDown={() => handleSelectSkill(skill)}
+                                    onMouseEnter={() => setSelectedSkillIndex(index)} // Set the index on hover
+                                >
+                                    {skill}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
 
-            ))}
-          </ul>
+                {/* List of selected skills */}
+                <ul>
+                    {data.skills.map((skill, index) => (
+                        <li key={index}>
+                            {skill} <button type="button" onClick={() => removeSkill(skill)}>Remove</button>
+                        </li>
+                    ))}
+                </ul>
 
-          <button type='button' onClick={getLocation}>Get Current Location</button>
-          <button type='submit'>Submit</button>
-        </form>
-      </div>
-    </div>
-  );
+                <button type='button' onClick={getLocation}>Get Current Location</button>
+                <button type='submit'>Submit</button>
+            </form>
+        </div>
+    );
 }
 
 export default BidderSignUp;

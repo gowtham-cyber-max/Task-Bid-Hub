@@ -133,6 +133,9 @@ class Service {
     bidder_otpValidationStartTheWorkRemoveFromQueue(data){
         return this.axios.post(`${this.apiUrl}/task/validate-start`,data);
     }
+    common_getPreDefineSkills(){
+        return this.axios.get(`${this.apiUrl}/components/getskills`);
+    }
 }
 
 export default new Service();

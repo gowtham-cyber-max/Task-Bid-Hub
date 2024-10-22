@@ -3,7 +3,7 @@ const router=express.Router();
 
 const {getSkillSet,otpGenerator}=require("../Controllers/Components")
 
-router.route("/getskillset")
+router.route("/getskills")
     .get(getSkillSet)
 
 router.route("/otp")

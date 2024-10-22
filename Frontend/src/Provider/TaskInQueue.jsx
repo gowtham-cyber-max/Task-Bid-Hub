@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { otpValidationStartTheWorkRemoveFromQueue } from '../Redux/Action/BidderAction';
 
 function TaskInQueue() {
     const navi = useNavigate();
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const selector = useSelector((state) => state.bidder);
     const bids = selector?.bids || [];
 
@@ -13,43 +13,51 @@ function TaskInQueue() {
     const [selectedBid, setSelectedBid] = useState(null);
     const [otp, setOtp] = useState(Array(6).fill('')); // Array for 6 OTP digits
 
-    
+    const otpRefs = useRef([...Array(6)].map(() => React.createRef())); // Create refs for each input
 
     const HandleMessage = (bid) => {
         navi("/message", { state: bid });
     };
 
     const handleStart = (bid) => {
-        //store the bid for api call
+        // Store the bid for API call
         setSelectedBid(bid);
         setShowOtpPopup(true);
     };
 
     const handleOtpSubmit = async () => {
-        // convert the char array into single number by parseInt base 10
+        // Convert the char array into single number by parseInt base 10
         const otpCode = parseInt(otp.join(''), 10); 
         console.log(`OTP entered: ${otpCode} for bid ${selectedBid._id}`);
 
-        const data={
-            bidLogId:selectedBid._id,
-            otp:otpCode,
-            taskId:selectedBid.taskId,
-            bidderId:selectedBid.bidderId
-        }
-        const res=await dispatch(otpValidationStartTheWorkRemoveFromQueue(data));
-        if(res){
-        setShowOtpPopup(false);
-        setOtp(Array(6).fill(''));
+        const data = {
+            bidLogId: selectedBid._id,
+            otp: otpCode,
+            taskId: selectedBid.taskId,
+            bidderId: selectedBid.bidderId
+        };
+        const res = await dispatch(otpValidationStartTheWorkRemoveFromQueue(data));
+        if (res) {
+            setShowOtpPopup(false);
+            setOtp(Array(6).fill(''));
         }
     };
 
     const handleOtpChange = (value, index) => {
         const newOtp = [...otp];
-        if (/^\d$/.test(value)) { 
+
+        // Handle OTP input change and navigation between inputs
+        if (value === '') { 
+            newOtp[index] = ''; // Clear the current value
+            setOtp(newOtp);
+            if (index > 0) {
+                otpRefs.current[index - 1].current.focus(); // Move focus to the previous input
+            }
+        } else if (/^\d$/.test(value)) { // Ensure it's a valid digit
             newOtp[index] = value;
             setOtp(newOtp);
-            if (index < 5 && value !== '') {
-                document.getElementById(`otp-${index + 1}`)?.focus();
+            if (index < 5) {
+                otpRefs.current[index + 1].current.focus(); // Move to the next input
             }
         }
     };
@@ -92,7 +100,7 @@ function TaskInQueue() {
                             {otp.map((digit, index) => (
                                 <input
                                     key={index}
-                                    id={`otp-${index}`}
+                                    ref={otpRefs.current[index]} // Set ref for each input
                                     type="text"
                                     value={digit}
                                     onChange={(e) => handleOtpChange(e.target.value, index)}
