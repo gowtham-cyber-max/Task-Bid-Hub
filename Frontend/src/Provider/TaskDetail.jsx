@@ -24,6 +24,7 @@ function TaskDetail() {
     e.preventDefault();
     alert(JSON.stringify(LogData)); // JSON.stringify to show the object data in the alert
     dispatch(addBidLog({...LogData,taskId:task._id,userId:task.userId}))
+    
   };
 
   const HandleChange = (e) => {

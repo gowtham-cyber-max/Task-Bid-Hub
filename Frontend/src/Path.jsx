@@ -21,6 +21,7 @@ import MyBids from './Provider/MyBids';
 import MyTask from './Client/Pages/MyTask';
 import TaskBidDetails from './Client/Pages/TaskBidDetails';
 import UserMessage from './Mutual/UserMessage';
+import TaskInQueue from './Provider/TaskInQueue';
 
 function Path() {
   return (
@@ -35,6 +36,7 @@ function Path() {
             <Route path='/bidder-task-explore' element={<TaskExplore/>}/>
             <Route path='/bidder-task-details' element={<TaskDetail/>}/>
             <Route path='/bidder-my-bid' element={<MyBids/>}/>
+            <Route path='/bidder-queue' element={<TaskInQueue/>}/>
 
             {/* client */}
             <Route path='/user-login' element={<UserLogin/>}/>

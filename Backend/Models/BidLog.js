@@ -31,11 +31,11 @@ const BidLogSchema=mongoose.Schema({
     },
     start:{
         type:Date,
-        default:Date.now(),
+        default:null
     },
     end:{
         type:Date,
-        default:Date.now(),
+        default:null,
     }
 
 });

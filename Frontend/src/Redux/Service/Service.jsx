@@ -55,7 +55,7 @@ class Service {
             skills,
             latitude,
             longitude,
-            radiusKM:25
+            radiusKM:20000000000000000000
         })
         
     }
@@ -113,6 +113,25 @@ class Service {
     }
     user_acceptTheBidder(data){
         return this.axios.post(`${this.apiUrl}/task/accepted`,data);
+    }
+    bidder_getBidsForQueue(bidLogIds){
+        return this.axios.get(`${this.apiUrl}/bid/get-bidder-ids`,{
+            params:{
+                bidLogIds:bidLogIds
+            }
+        }
+        )
+    }
+    user_getOtpForTask(taskId){
+        return this.axios.get(`${this.apiUrl}/task/get-task-otp`,{
+            params:{
+                taskId:taskId
+            }
+    })
+    }
+
+    bidder_otpValidationStartTheWorkRemoveFromQueue(data){
+        return this.axios.post(`${this.apiUrl}/task/validate-start`,data);
     }
 }
 

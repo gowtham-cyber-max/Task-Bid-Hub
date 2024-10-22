@@ -1,6 +1,6 @@
-const {addLogToTask,TaskMarkAsCompleted, TaskAccepted,setTheRequest}=require("./Task")
-const {addLogToBidder,addTaskToCompleted,addTaskToBidderQueue,sendCompletedRequest}=require("./Bidder")
-const {addLog,bidderAccepted}=require("./BidLogController")
+const {addLogToTask,TaskMarkAsCompleted, TaskAccepted,setTheRequest,otpValidation}=require("./Task")
+const {addLogToBidder,addTaskToCompleted,addTaskToBidderQueue,sendCompletedRequest,removeTaskFromQueue}=require("./Bidder")
+const {addLog,bidderAccepted,startTheWork}=require("./BidLogController")
 
 async function addBidLog(req,res){
     try{
@@ -23,7 +23,6 @@ async function markAsCompleted(req,res){
     try{
         const task=await TaskMarkAsCompleted(req,res);
         const bidder=await addTaskToCompleted(req,res);
-        // const bidlog=
         if(bidder && task){
             console.log(bidder)
             console.log(task)
@@ -68,4 +67,31 @@ async function CompleteRequestToUser(req,res){
         console.log(er);
     }
 }
-module.exports={addBidLog,markAsCompleted,Accepted,CompleteRequestToUser};
+async function otpValidateStarWork(req,res){
+    const {otp,taskId,bidLogId,bidderId}=req.body;
+    try{
+        if(!otp || !taskId || !bidLogId || !bidderId ){
+            res.status(400).json({message:"Otp or taskId or bidLogId is not found"});
+            return; 
+        }
+        const validate=await otpValidation(req,res);
+        if(!validate){
+            res.status(400).json({message:"Wrong Otp"});
+        }
+        else{
+            const bidLog=startTheWork(req,res);
+            //remove the task from bidder queue
+            const bidder=removeTaskFromQueue(req,res);
+            if(bidLog && bidder){
+                res.status(200).json({message:"success"});
+            }
+            else{
+                res.status(400).json({message:"problem in start the work"});
+            }
+        }
+    }
+    catch(er){
+
+    }
+}
+module.exports={addBidLog,markAsCompleted,Accepted,CompleteRequestToUser,otpValidateStarWork};

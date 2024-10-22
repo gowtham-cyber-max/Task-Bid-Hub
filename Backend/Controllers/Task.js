@@ -91,16 +91,16 @@ async function TaskMarkAsCompleted(req,res){
 
 // get tasks for the bidder based on location and skill set
 async function getTasksForBidder(req, res) {
-    const { longitude, latitude, skills, radiusKM = 20 } = req.body;
+    console.log(req.body);
+    const { longitude, latitude, skills, radiusKM} = req.body;
     if (!(latitude) || !(longitude)) {
         return res.status(400).json({ error: "Invalid latitude or longitude" });
     }
     
     // Ensure radiusKM is a valid number
-    const radius = isNaN(radiusKM) ? 20 : radiusKM;  
+    const radius = isNaN(radiusKM) ? 25 : radiusKM;  
     try {
-        const distance = radius/ 6378.1;  
-
+        const distance = radius/ 6378.1;
         const tasks = await TaskModel.find({
             $and: [
                 {
@@ -118,8 +118,9 @@ async function getTasksForBidder(req, res) {
                 }
             ]
         })
-        .select('taskName taskDescription userId endDate budget BidderList imageIds completedBy location views skills _id postedDate');  // Project the required fields
-
+        .select('taskName taskDescription userId endDate budget bidderList imageIds completedBy location views skills _id postedDate');  // Project the required fields
+        
+        console.log(tasks);
         res.json(tasks);
     } catch (err) {
         console.error(err);
@@ -202,6 +203,32 @@ async function userTasks(req,res){
         console.log(er);
     }
 }
+async function getOtpForTask(req,res){
+    const taskId=req.query.taskId;
+    try{
+        const task=await TaskModel.findById(taskId);
+        if(task){
+            res.json({otp:task.otp});
+        }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+async function otpValidation(req,res){
+    const {taskId,otp}=req.body;
+    try{
+        const task=await TaskModel.findById(taskId);
+        if(task && task.otp===otp){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch(er){
+        console.log(er);   
+    }
+}
 
-
-module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews};
+module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews,getOtpForTask,otpValidation};

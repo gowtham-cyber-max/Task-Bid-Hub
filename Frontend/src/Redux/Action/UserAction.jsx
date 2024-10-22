@@ -89,5 +89,15 @@ export const acceptTheBidder=(bid)=>async(dispatch,getState)=>{
             
         }
 }
+export const getOtpForTask=(taskId)=>async(dispatch,getState)=>{
+    try{
+        const res=await serv.user_getOtpForTask(taskId);
+        console.log(res.data.otp);
+        return res.data.otp;
+    }
+    catch(er){
+        console.log(er);
+    }
+}
 
 

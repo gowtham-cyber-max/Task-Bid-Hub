@@ -68,11 +68,11 @@ async function getAllBidder(req,res){
 
 // add the tasks into bidder queue which is yet to completed
 async function addTaskToBidderQueue(req,res){
-    const {bidderId,taskId}=req.body;
+    const {bidderId,bidLogId}=req.body;
     try{
         console.log(req.body);
         const bidder=await BidderModel.findById(bidderId);
-        bidder.taskQueue.push(taskId);
+        bidder.taskQueue.push(bidLogId);
         await bidder.save();
         return bidder;
     }
@@ -133,7 +133,28 @@ async function bidderLogin(req,res){
     }
 }
 
+async function  removeTaskFromQueue(req,res){
+    const {bidderId,bidLogId}=req.body;
+    try{
+        const bidder=await BidderModel.findById(bidderId);
+        if(bidder){
+
+            bidder.taskQueue = bidder.taskQueue.filter(task => task !== bidLogId);
+            await bidder.save();
+            console.log(bidder);
+            console.log(bidLogId);
+            return bidder;
+        }
+        else{
+            res.status(404).json({message:"Bidder not found"})
+        }
+
+    }
+    catch(er){
+        console.error(er);
+    }
+
+}
 
 
-
-module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToBidderQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin};
+module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToBidderQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin,removeTaskFromQueue};

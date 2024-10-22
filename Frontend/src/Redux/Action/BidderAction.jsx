@@ -86,4 +86,29 @@ export const getBidListForBidders=(bidderId)=>async(dispatch,getState)=>{
         console.log(er);
     }
 }
+export const getBidsForQueue=(bidLogIds)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.bidder_getBidsForQueue(bidLogIds);
+        dispatch({type:"EMPTY_BIDDER_BIDS"});
+        dispatch({type:"ADD_BIDDER_BIDS",payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+export const otpValidationStartTheWorkRemoveFromQueue=(data)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.bidder_otpValidationStartTheWorkRemoveFromQueue(data);
+        console.log(res.data);
+        if(res.data?.message==="success"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
 

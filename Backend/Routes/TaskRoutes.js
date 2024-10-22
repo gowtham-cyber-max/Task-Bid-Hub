@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const {addTask,getAllTask,getTasksForBidder,addViews,userTasks}=require("../Controllers/Task")
+const {addTask,getAllTask,getTasksForBidder,addViews,userTasks, getOtpForTask}=require("../Controllers/Task")
 
-const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
+const {addBidLog,markAsCompleted,Accepted, otpValidateStarWork}=require("../Controllers/Circular");
         router.route("/addnew")
                 .post(addTask)
 
@@ -21,6 +21,8 @@ const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
 
         router.route("/get-task-user")
                 .get(userTasks)
+        router.route("/get-task-otp")
+                .get(getOtpForTask)
         // ---------------------------- circular
 
         router.route("/addlog")
@@ -31,6 +33,9 @@ const {addBidLog,markAsCompleted,Accepted}=require("../Controllers/Circular");
 
         router.route("/completedby")
                 .put(markAsCompleted)
+                
+        router.route("/validate-start")
+                .post(otpValidateStarWork)
 
         // complete request circularcd
 
