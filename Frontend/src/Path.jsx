@@ -22,6 +22,9 @@ import MyTask from './Client/Pages/MyTask';
 import TaskBidDetails from './Client/Pages/TaskBidDetails';
 import UserMessage from './Mutual/UserMessage';
 import TaskInQueue from './Provider/TaskInQueue';
+import CompletedTask from './Provider/CompletedTask';
+import TaskInProgress from './Provider/TakInProgress';
+import Notification from './Client/Pages/Notification';
 
 function Path() {
   return (
@@ -37,6 +40,9 @@ function Path() {
             <Route path='/bidder-task-details' element={<TaskDetail/>}/>
             <Route path='/bidder-my-bid' element={<MyBids/>}/>
             <Route path='/bidder-queue' element={<TaskInQueue/>}/>
+            <Route path='/bidder-completed-task' element={<CompletedTask/>}/>
+            <Route path='/bidder-in-progress' element={<TaskInProgress/>}/>
+
 
             {/* client */}
             <Route path='/user-login' element={<UserLogin/>}/>
@@ -47,6 +53,7 @@ function Path() {
             <Route path='/user-signup' element={<UserSignUp/>}/>
             <Route path='/user-my-task' element={<MyTask/>}/>
             <Route path='/user-task-bid-list' element={<TaskBidDetails/>}/>
+            <Route path='/user-notification' element={<Notification/>}/>
 
             {/* common */}
             <Route path='/message' element={<UserMessage/>}/>

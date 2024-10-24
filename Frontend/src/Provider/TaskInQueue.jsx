@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { otpValidationStartTheWorkRemoveFromQueue } from '../Redux/Action/BidderAction';
+import { otpValidationStartTheWorkRemoveFromQueue, sendCompleteRequest } from '../Redux/Action/BidderAction';
 
 function TaskInQueue() {
     const navi = useNavigate();
@@ -61,6 +61,15 @@ function TaskInQueue() {
             }
         }
     };
+    const HandleEnd=async(bid)=>{
+        const data={
+            bidLogId:bid._id,
+            taskId:bid.taskId,
+            bidderId:bid.bidderId
+        }
+        const res=await dispatch(sendCompleteRequest(data));
+        console.log(res?res:null);
+    }
 
     return (
         <div className="my-bids-container">
@@ -82,7 +91,11 @@ function TaskInQueue() {
                             </div>
                             <button className="message-button" onClick={() => HandleMessage(bid)}>Message</button>
                             {bid.start === null &&
-                                <button className="start-button" onClick={() => handleStart(bid)}>Start</button>}
+                                <button className="start-button" onClick={() => handleStart(bid)}>Start</button>
+                            }
+                            {bid.start !== null &&
+                                <button className="end-button" onClick={() => HandleEnd(bid)}>End</button>
+                            }
                             <hr />
                         </div>
                     ))}

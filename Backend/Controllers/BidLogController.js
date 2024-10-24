@@ -50,26 +50,24 @@ async function bidderAccepted(req,res){
         res.status(500).json({message:er.message})
     }
 }
-async function getBidLogByIds(req,res){
-    try{
-        const {bidLogIds}=req.query;
-
-        if(bidLogIds.length===0){
-            res.json([]);
-        }
-        const bidlogs=await BidLog.find({ _id : { $in : bidLogIds } });
-        
-        console.log(bidLogIds)
-        
-        res.json(bidlogs);
-        
-        
-
+async function getBidLogByIds(req, res) {
+    try {
+      const { bidLogIds } = req.query;
+  
+      // If bidLogIds is empty or not provided, return an empty array
+      if (!bidLogIds || bidLogIds.length === 0) {
+        return res.json([]);
+      }
+  
+      const bidlogs = await BidLog.find({ _id: { $in: bidLogIds } });
+      
+      // Return the found bidlogs, or an empty array if none are found
+      res.json(bidlogs.length > 0 ? bidlogs : []);
+    } catch (er) {
+      res.status(500).json({ message: er.message });
     }
-    catch(er){
-        res.status(500).json({message:er.message})
-    }
-}
+  }
+  
 async function startTheWork(req,res){
     const {bidLogId}=req.body;
     try{
@@ -88,4 +86,38 @@ async function startTheWork(req,res){
     }
 
 }
-module.exports={addLog,getAllBidsForTask,getAllBidsForBidder,bidderAccepted,getBidLogByIds,startTheWork};
+async function getLogsInProgress(req,res) {
+    const bidderId=req.query.bidderId;
+    if(!bidderId){
+        return res.status(400).json({message:"bidderId is required"})
+    }
+    try{
+            const task=await BidLog.find({bidderId:bidderId,start:{$ne:null},end:{$ne:null},complete:true});
+            if(task){
+                res.json(task);
+            }
+            else{
+                res.json([]);
+            }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+async function setEndInLog(req,res){
+    const {bidLogId}=req.body;
+    try{
+        const bidlog=await BidLog.findById(bidLogId);
+        if(bidlog){
+            bidlog.end=Date.now();
+            bidlog.complete=true;
+            await bidlog.save();
+            return bidlog;
+        }
+        return null;
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+module.exports={addLog,getAllBidsForTask,getAllBidsForBidder,bidderAccepted,getBidLogByIds,startTheWork,getLogsInProgress,setEndInLog};

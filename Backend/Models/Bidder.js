@@ -14,7 +14,7 @@ const BidderSchema=new mongoose.Schema(
         skills:[String],
         taskCompleted:{
             type:[mongoose.Types.ObjectId],
-            ref:"BidLog",
+            ref:"Task",
             default:[]
         },
         taskBidded:{

@@ -1,6 +1,6 @@
 const BidderModel=require("../Models/Bidder")
-
-const {setTheRequest}=require("./Task")
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
 
 
 
@@ -89,6 +89,7 @@ async function sendCompletedRequest(req,res){
         const bidder=await BidderModel.findById(bidderId);
         bidder.completeRequest.push(taskId);
         await bidder.save();
+        return bidder;  
     }
     catch(er){
         console.error(er);
@@ -99,10 +100,19 @@ async function sendCompletedRequest(req,res){
 // add task into completed task list in bidder model
 async function addTaskToCompleted(req,res){
     const {bidderId,taskId}=req.body;
+    console.log(req.body);
     try{
         const bidder=await BidderModel.findById(bidderId);
-        bidder.taskCompleted.push(bidLogId);
+        
+        if(bidder){
+            
+        
+        
+        bidder.taskCompleted.push(taskId);
         await bidder.save();
+        return bidder;
+        }
+        return null;
     }
     catch(er){
         console.error(er);
@@ -139,10 +149,11 @@ async function  removeTaskFromQueue(req,res){
         const bidder=await BidderModel.findById(bidderId);
         if(bidder){
 
-            bidder.taskQueue = bidder.taskQueue.filter(task => task !== bidLogId);
-            await bidder.save();
-            console.log(bidder);
+            console.log(bidder.taskQueue);
             console.log(bidLogId);
+            bidder.taskQueue = bidder.taskQueue.filter(task => !task.equals(new ObjectId(bidLogId)));
+            console.log(bidder.taskQueue);
+            await bidder.save();
             return bidder;
         }
         else{

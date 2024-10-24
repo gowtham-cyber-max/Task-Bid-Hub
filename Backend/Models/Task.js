@@ -44,7 +44,7 @@ const TaskSchema = new mongoose.Schema({
     },
     allogatedTo:{
         type: mongoose.Types.ObjectId,
-        ref: 'BidLog',
+        ref: 'Bidder',
         default: null
     },
     completeRequest:{

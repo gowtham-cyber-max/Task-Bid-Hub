@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUserTask } from '../../Redux/Action/UserAction';
+import { getNotification, getUserTask } from '../../Redux/Action/UserAction';
 
 const UserHome = () => {
     // Sample data for services
@@ -11,6 +11,10 @@ const UserHome = () => {
     const HandleMyTask=()=>{
         dispatch(getUserTask(selector?.user?._id))
         navi("/user-my-task");
+    }
+    const HandleNotification=async()=>{
+        dispatch(getNotification(selector?.user?._id));
+            navi("/user-notification");
     }
     return (
         <div>
@@ -41,6 +45,9 @@ const UserHome = () => {
                         </li>
                         <li >
                             <h2 onClick={HandleMyTask}>My Task</h2>
+                        </li>
+                        <li >
+                            <h2 onClick={HandleNotification}>Notification</h2>
                         </li>
                         <li >
                             <a href="/#/user-login" >Logout</a>

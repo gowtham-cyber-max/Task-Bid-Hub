@@ -1,6 +1,6 @@
 const {addLogToTask,TaskMarkAsCompleted, TaskAccepted,setTheRequest,otpValidation}=require("./Task")
 const {addLogToBidder,addTaskToCompleted,addTaskToBidderQueue,sendCompletedRequest,removeTaskFromQueue}=require("./Bidder")
-const {addLog,bidderAccepted,startTheWork}=require("./BidLogController")
+const {addLog,bidderAccepted,startTheWork, setEndInLog}=require("./BidLogController")
 
 async function addBidLog(req,res){
     try{
@@ -24,9 +24,12 @@ async function markAsCompleted(req,res){
         const task=await TaskMarkAsCompleted(req,res);
         const bidder=await addTaskToCompleted(req,res);
         if(bidder && task){
-            console.log(bidder)
-            console.log(task)
-            res.json("sucess");
+            res.json("success");
+        }
+        else{
+            console.log(bidder);
+            console.log(task);
+            res.json("failed");
         }
     }
     catch(er){
@@ -56,10 +59,18 @@ async function CompleteRequestToUser(req,res){
     try{
             const task=await setTheRequest(req,res);
             const bidder=await sendCompletedRequest(req,res);
-            if(task && bidder){
-                res.json("sucess")
+            
+            //remove the task from bidder queue
+            const bidder2=await removeTaskFromQueue(req,res);
+
+            const bidlog=await setEndInLog(req,res);
+            if(task && bidder && bidlog && bidder2){
+                res.json("success")
             }
             else{
+                console.log(task);
+                console.log(bidder);
+                console.log(bidlog);
                 res.json("fail")
             }
     }
@@ -80,9 +91,7 @@ async function otpValidateStarWork(req,res){
         }
         else{
             const bidLog=startTheWork(req,res);
-            //remove the task from bidder queue
-            const bidder=removeTaskFromQueue(req,res);
-            if(bidLog && bidder){
+            if(bidLog){
                 res.status(200).json({message:"success"});
             }
             else{

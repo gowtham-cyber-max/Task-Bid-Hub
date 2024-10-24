@@ -2,7 +2,8 @@ const TaskModel=require('../Models/Task');
 
 const {otpGenerator}=require("../Controllers/Components")
 
-
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
 
 
 // add new task 
@@ -73,7 +74,7 @@ async function TaskMarkAsCompleted(req,res){
         const task=await TaskModel.findById(req.body.taskId);
         if(task){
 
-            task.completedBy=req.body.bidLogId;
+            task.completedBy=req.body.bidderId;
             await task.save();
             return task;
         }
@@ -132,12 +133,12 @@ async function getTasksForBidder(req, res) {
 // after messaging user will select that bidder for their task by accept
 async function TaskAccepted(req,res){
 
-    const {taskId,bidLogId}=req.body;
+    const {taskId,bidderId}=req.body;
     try{
         otpGenerator(req,res);
         const task=await TaskModel.findById(taskId);
         if(task){
-        task.allogatedTo=bidLogId;
+        task.allogatedTo=bidderId;
         task.otp=res.otp;
         await task.save();
         return task;
@@ -155,8 +156,9 @@ async function setTheRequest(req,res){
     const {taskId}=req.body;
     try{
         const task=await TaskModel.findById(taskId);
-        task.completeRequest=!task.completeRequest;
+        task.completeRequest=true;
         await task.save();
+        return task;
     }
     catch(er){
         console.log(er);
@@ -230,5 +232,49 @@ async function otpValidation(req,res){
         console.log(er);   
     }
 }
+async function completedTaskList(req,res){
+    const id=req.query.id;
 
-module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews,getOtpForTask,otpValidation};
+    if(!id){
+        res.status(400).json({message:"Please provide user id"});
+    }
+    console.log(id)
+    try{
+        const task = await TaskModel.find({
+        $or: [
+          { userId: id, completedBy: { $ne: null } },//ne= not equal
+          { allogatedTo: id, completedBy: { $ne: null }}
+        ]
+      });
+      
+        if(task){
+            res.json(task);
+        }
+        else{
+            res.status(404).json([]);
+        }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+async function getTaskForNotifyToComplete(req,res){
+    const id=req.query.userId;
+    console.log(id);
+    try{
+        const task = await TaskModel.find({userId:new ObjectId(id)});
+        console.log(task)
+        if(task){
+            res.json(task);
+          }
+        else{
+               res.json([]);
+         }            
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+
+
+module.exports={addTask,addLogToTask,getAllTask,TaskMarkAsCompleted,getTasksForBidder,TaskAccepted,userTasks,setTheRequest,addViews,getOtpForTask,otpValidation,completedTaskList,getTaskForNotifyToComplete};

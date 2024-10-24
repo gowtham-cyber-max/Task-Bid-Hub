@@ -36,6 +36,10 @@ const BidLogSchema=mongoose.Schema({
     end:{
         type:Date,
         default:null,
+    },
+    complete:{
+        type:Boolean,
+        default:false
     }
 
 });

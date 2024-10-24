@@ -3,7 +3,7 @@ const router = express.Router()
 
 const { addUser,getAllUser,login} = require('../Controllers/User')
 
-const {userTasks}=require("../Controllers/Task")
+const {userTasks, getTaskForNotifyToComplete}=require("../Controllers/Task")
 router.route('/sign-up')
        .post(addUser)
 
@@ -14,5 +14,8 @@ router.route('/login')
 
 router.route('/my-task')
        .get(userTasks)
+
+router.route("/get-notification")
+       .get(getTaskForNotifyToComplete)
 
 module.exports = router

@@ -101,3 +101,36 @@ export const getOtpForTask=(taskId)=>async(dispatch,getState)=>{
 }
 
 
+export const getCompletedTaskList=(userId)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.common_completedTaskList(userId);
+        console.log(res.data);
+        dispatch({type:'EMPTY_USER_TASK'})
+        dispatch({type:'ADD_USER_TASK',payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+
+}
+export const completeTheTask=(data)=>async(dispatch,getState)=>{
+    try{
+        console.log(data)
+        const res = await serv.user_completeTheTask(data);
+        console.log(res.data);
+    }
+    catch(Er){
+        console.log(Er);
+    }
+}
+export const getNotification=(userId)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.user_getNotification(userId);
+        console.log(res.data);
+        dispatch({type:'EMPTY_USER_TASK'})
+        dispatch({type:'ADD_USER_TASK',payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+}

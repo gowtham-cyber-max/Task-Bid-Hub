@@ -111,4 +111,43 @@ export const otpValidationStartTheWorkRemoveFromQueue=(data)=>async(dispatch,get
         console.log(er);
     }
 }
+export const getCompletedTaskList=(bidderId)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.common_completedTaskList(bidderId);
+        console.log(res.data);
+        dispatch({ type: "EMPTY_TASK_BIDDERS" });
+        dispatch({ type: "GET_TASK_BIDDER", payload:(res.data) });
+    }
+    catch(er){
+        console.log(er);
+    }
+
+}
+export const getBidsInProgress=(bidderId)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.bidder_getBidsInProgress(bidderId);
+        console.log(res.data);
+        dispatch({type:"EMPTY_BIDDER_BIDS"});
+        dispatch({type:"ADD_BIDDER_BIDS",payload:res.data});
+    }
+    catch(er){
+        console.log(er);
+    }
+
+}
+export const sendCompleteRequest=(data)=>async(dispatch,getState)=>{
+    try{
+        const res = await serv.bidder_sendCompleteRequest(data);
+        console.log(res.data);
+        if(res.data==="success"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch(er){
+        console.log(er);
+    }
+}
 

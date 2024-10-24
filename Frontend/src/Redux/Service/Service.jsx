@@ -136,6 +136,35 @@ class Service {
     common_getPreDefineSkills(){
         return this.axios.get(`${this.apiUrl}/components/getskills`);
     }
+    common_completedTaskList(id){
+        return this.axios.get(`${this.apiUrl}/task/get-completed-task`,{
+            params:{
+                id:id
+            }
+        })
+    }
+    bidder_getBidsInProgress(bidderId){
+        
+        return this.axios.get(`${this.apiUrl}/bid/in-progress`,{
+            params:{
+                bidderId:bidderId
+            }
+        });
+    }
+    bidder_sendCompleteRequest(data){
+        return this.axios.post(`${this.apiUrl}/task/complete-request`,data);
+    }
+    user_completeTheTask(data){
+        return this.axios.post(`${this.apiUrl}/task/complete-approve`,data);
+    }
+    user_getNotification(userId){
+        console.log(userId);
+        return this.axios.get(`${this.apiUrl}/user/get-notification`,{
+            params:{
+                userId:userId
+            }
+        });
+    }
 }
 
 export default new Service();
