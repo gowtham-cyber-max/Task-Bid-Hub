@@ -30,9 +30,9 @@ function Message() {
         if (newMessage.trim()) {
             const messageData = {
                 message: newMessage,
-                taskId: bid.TaskId,
-                userId: bid.UserId,
-                bidderId:bid.BidderId, 
+                taskId: bid.taskId,
+                userId: bid.userId,
+                bidderId:bid.bidderId, 
                 role: selector?.user?'user':'bidder',
                 bidLogId: bid._id,
             };

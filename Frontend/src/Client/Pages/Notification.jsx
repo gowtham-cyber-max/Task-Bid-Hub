@@ -34,7 +34,11 @@ function Notification() {
                             <p><strong>Location:</strong> {task.location ? `Lat: ${task.location.coordinates[1]}, Lon: ${task.location.coordinates[0]}` : 'Not specified'}</p>
                             <p><strong>Views:</strong> {task.views}</p>
                             <p><strong>OTP:</strong> {task.otp}</p>
-                            <button onClick={() => HandleClick(task)}>Approve to complete</button>
+                            <button onClick={() => HandleClick(task)} disabled={task.completedBy!==null}>{task.completedBy!==null?"Aproved":"Approve to complete"}</button>
+                            
+                            
+                            
+
                             <p>-------</p>
                         </div>
                     ))}

@@ -262,7 +262,7 @@ async function getTaskForNotifyToComplete(req,res){
     const id=req.query.userId;
     console.log(id);
     try{
-        const task = await TaskModel.find({userId:new ObjectId(id)});
+        const task = await TaskModel.find({userId:new ObjectId(id),completeRequest:true});
         console.log(task)
         if(task){
             res.json(task);

@@ -113,6 +113,7 @@ function BidderSignUp() {
 
     return (
         <div>
+        <h2>Bidder Signup</h2>
             <form onSubmit={onSubmiting}>
                 <input
                     type='text'

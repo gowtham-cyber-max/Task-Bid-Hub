@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../../Redux/Action/UserAction';
+import { getPreDefineSkills } from '../../Redux/Action/CommonAction';
+import '../Style/User-AddTask.css';
+import { IoIosRemoveCircle } from "react-icons/io";
 
 const AddTask = () => {
-  const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const [task, setTask] = useState({
         taskName: '',
         taskDescription: '',
@@ -14,49 +17,59 @@ const AddTask = () => {
         longitude: '',
     });
 
-    const [skillInput, setSkillInput] = useState(''); // Input field for adding skills manually
-    const [showDropdown, setShowDropdown] = useState(false); // Toggle dropdown
-    const predefinedSkills = ['Plumbing', 'Electricals', 'Carpentry', 'Painting', 'Masonry'];
+    const [skillInput, setSkillInput] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [predefinedSkills, setPredefinedSkills] = useState([]);
 
+    useEffect(() => {
+        const fetchSkills = async () => {
+            const list = await dispatch(getPreDefineSkills());
+            setPredefinedSkills(list);
+        };
+        fetchSkills();
+    }, [dispatch]);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setTask({
             ...task,
-            [name]: type === 'checkbox' ? checked : value,
+            [name]: value,
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(task);
-        dispatch(addTask(task));
-
+        if (task.taskName.length >= 4 && task.budget > 0) {
+            dispatch(addTask(task));
+            alert("Task added successfully!");
+        } else {
+            alert("Please ensure task name is at least 4 characters and budget is positive.");
+        }
     };
 
-    // Add skill manually
     const handleSkillAdd = () => {
         if (skillInput.trim() && !task.skills.includes(skillInput)) {
             setTask({ ...task, skills: [...task.skills, skillInput.trim()] });
         }
-        setSkillInput(''); 
+        setSkillInput('');
+        setShowDropdown(false);
     };
 
-    // Select skill from dropdown
     const handleSelectSkill = (skill) => {
         if (!task.skills.includes(skill)) {
             setTask({ ...task, skills: [...task.skills, skill] });
         }
         setShowDropdown(false);
+        setSkillInput('');
     };
 
-    // Remove skill from selected list
     const removeSkill = (skillToRemove) => {
-        const updatedSkills = task.skills.filter((skill) => skill !== skillToRemove);
-        setTask({ ...task, skills: updatedSkills });
+        setTask({
+            ...task,
+            skills: task.skills.filter(skill => skill !== skillToRemove),
+        });
     };
 
-    // Get current location
     const getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -68,99 +81,83 @@ const AddTask = () => {
                     });
                 },
                 (error) => {
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            alert("User denied the request for Geolocation.");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            alert("Location information is unavailable.");
-                            break;
-                        case error.TIMEOUT:
-                            alert("The request to get user location timed out.");
-                            break;
-                        default:
-                            alert("An unknown error occurred.");
-                            break;
-                    }
+                    alert(`Error obtaining location: ${error.message}`);
                 },
                 {
-                    enableHighAccuracy: true,  // Enables high accuracy mode (using GPS when available)
-                    timeout: 10000,            // Set a maximum wait time of 10 seconds
-                    maximumAge: 0              // Disable caching of location data
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0,
                 }
             );
         } else {
-            alert("Geolocation is not supported by this browser.");
+            alert('Geolocation is not supported by this browser.');
         }
     };
-    
+
+    const filteredSkills = skillInput.trim() === ''
+        ? predefinedSkills
+        : predefinedSkills.filter(skill => skill.toLowerCase().includes(skillInput.toLowerCase()));
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Task Name:
+        <div className='user-add-task'>
+        <form onSubmit={handleSubmit} className="add-task-form">
+        <h1>Post New Task</h1>
+            <label className="add-task-label">Task Name:
                 <input
                     type="text"
                     name="taskName"
                     value={task.taskName}
                     onChange={handleChange}
                     required
+                    className="add-task-input"
                 />
             </label>
-            <br />
 
-            <label>
-                Task Description:
+            <label className="add-task-label">Task Description:
                 <textarea
                     name="taskDescription"
                     value={task.taskDescription}
                     onChange={handleChange}
+                    className="add-task-textarea"
                 />
             </label>
-            <br />
 
-            <label>
-                End Date:
+            <label className="add-task-label">End Date:
                 <input
                     type="date"
                     name="endDate"
                     value={task.endDate}
                     onChange={handleChange}
+                    className="add-task-input"
                 />
             </label>
-            <br />
 
-            <label>
-                Budget:
+            <label className="add-task-label">Budget:
                 <input
                     type="number"
                     name="budget"
                     value={task.budget}
                     onChange={handleChange}
+                    required
+                    className="add-task-input"
                 />
             </label>
-            <br />
 
-            {/* Manual Skill input */}
-            <div style={{ position: 'relative' }}>
+            <div className="add-task-skill-container">
                 <input
                     type="text"
                     placeholder="Enter a skill"
                     value={skillInput}
                     onChange={(e) => setSkillInput(e.target.value)}
                     onFocus={() => setShowDropdown(true)}
-                    onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Delay to allow click on dropdown
+                    className="add-task-input"
                 />
-                <button type="button" onClick={handleSkillAdd}>Add Skill</button>
+                <button type="button" onClick={handleSkillAdd} className="add-task-button">Add Skill</button>
 
                 {showDropdown && (
-                    <ul style={{ position: 'absolute', border: '1px solid #ccc', backgroundColor: '#fff', width: '200px', zIndex: 1, listStyle: 'none', padding: '10px', margin: '5px 0' }}>
-                        {predefinedSkills.map((skill, index) => (
-                            <li
-                                key={index}
-                                style={{ padding: '5px', cursor: 'pointer', color: 'black' }}
-                                onMouseDown={() => handleSelectSkill(skill)}
-                            >
+                    <ul className="add-task-dropdown">
+                        {filteredSkills.map((skill, index) => (
+                            <li key={index} onMouseDown={() => handleSelectSkill(skill)} className="add-task-dropdown-item">
                                 {skill}
                             </li>
                         ))}
@@ -168,17 +165,16 @@ const AddTask = () => {
                 )}
             </div>
 
-            {/* Selected Skills List */}
-            <ul>
+            <ul className="add-task-skill-list">
                 {task.skills.map((skill, index) => (
-                    <li key={index}>
-                        {skill} <button type="button" onClick={() => removeSkill(skill)}>Remove</button>
+                    <li key={index} className="add-task-skill-item">
+                        {skill}
+                        <IoIosRemoveCircle type="button" onClick={() => removeSkill(skill)} className="add-task-remove-skill">Remove</IoIosRemoveCircle>
                     </li>
                 ))}
             </ul>
 
-            <label>
-                Latitude:
+            <label className="add-task-label">Latitude:
                 <input
                     type="number"
                     name="latitude"
@@ -186,11 +182,11 @@ const AddTask = () => {
                     onChange={handleChange}
                     placeholder="Latitude"
                     required
+                    className="add-task-input"
                 />
             </label>
-            <br />
-            <label>
-                Longitude:
+
+            <label className="add-task-label">Longitude:
                 <input
                     type="number"
                     name="longitude"
@@ -198,15 +194,14 @@ const AddTask = () => {
                     onChange={handleChange}
                     placeholder="Longitude"
                     required
+                    className="add-task-input"
                 />
             </label>
-            <br />
 
-            <button type="button" onClick={getLocation}>Get Current Location</button>
-            <br />
-
-            <button type="submit">Add Task</button>
+            <button type="button" onClick={getLocation} className="add-task-location-button">Get Current Location</button>
+            <button type="submit" className="add-task-submit-button">Add Task</button>
         </form>
+    </div>
     );
 };
 

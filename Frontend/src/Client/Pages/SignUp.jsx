@@ -25,6 +25,7 @@ function UserSignUp() {
 
   return (
     <>
+    <h2>User Signup</h2>
       <form onSubmit={submitting}>
       <input type='text' placeholder='userName' onChange={(e) => { setData({ ...data, name: e.target.value })}} />
        <input type='email' placeholder='email' onChange={(e)=>{setData({...data,email:e.target.value})}}  />
