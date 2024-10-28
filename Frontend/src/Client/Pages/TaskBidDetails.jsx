@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllMessage } from '../../Redux/Action/MessageAction';
 import { acceptTheBidder, getOtpForTask } from '../../Redux/Action/UserAction';
+import '../Style/User-Task-Bid-Detail.css';
 
 function TaskBidDetails() {
   const navi = useNavigate();
@@ -12,8 +13,6 @@ function TaskBidDetails() {
   
   const [showOtpPopup, setShowOtpPopup] = useState(false); 
   const [otp, setOtp] = useState(null);
-
-  console.log(bids);
 
   const handleAccept = (bid) => {
     dispatch(acceptTheBidder(bid));
@@ -25,69 +24,55 @@ function TaskBidDetails() {
   };
 
   const handleOtp = async (taskId) => {
-    if (!showOtpPopup) {
-      let result = await dispatch(getOtpForTask(taskId)); // Wait for OTP result
-      setOtp(result); 
-      console.log(result)
-    }
-    setShowOtpPopup(!showOtpPopup); 
+    let result = await dispatch(getOtpForTask(taskId));
+    setOtp(result); 
+    setShowOtpPopup(true); 
   };
 
-  return (
-    <div>
-      <h1>Task Bid Details</h1>
-      {selector && bids.length === 0 ? (
-        <p>No bids available.</p>
-      ) : (
-        <ul>
-          {bids.map((bid) => (
-            <li
-              key={bid._id}
-              style={{
-                margin: '10px 0',
-                border: '1px solid #ccc',
-                padding: '10px',
-                borderRadius: '5px',
-              }}
-            >
-              <h2>Bidder ID: {bid.bidderId}</h2>
-              <p>
-                <strong>Amount:</strong> ${bid.amount}
-              </p>
-              <p>
-                <strong>Description:</strong> {bid.description}
-              </p>
-              <p>
-                <strong>Availability:</strong> {new Date(bid.availability).toLocaleDateString()}
-              </p>
+  const closeOtpPopup = () => setShowOtpPopup(false);
 
-              <button
-                onClick={() => handleAccept(bid)}
-                style={{ marginRight: '10px', padding: '5px 10px' }}
-                disabled={bid.accepted}
-              >
+  return (
+    <div className="task-bid-container">
+      <h1 className="task-bid-title">Task Bid Details</h1>
+      {selector && bids.length === 0 ? (
+        <p className="no-bids">No bids available.</p>
+      ) : (
+        <ul className="bids-list">
+          {bids.map((bid) => (
+            <li key={bid._id} className="bid-item">
+              <h2 className="bidder-id">Bidder ID: {bid.bidderId}</h2>
+              <p className="bid-info"><strong>Amount:</strong> ${bid.amount}</p>
+              <p className="bid-info"><strong>Description:</strong> {bid.description}</p>
+              <p className="bid-info"><strong>Availability:</strong> {new Date(bid.availability).toLocaleDateString()}</p>
+              <div className='item-btns'>
+
+              <button onClick={() => handleAccept(bid)} className="action-button accept-button" disabled={bid.accepted}>
                 {!bid?.accepted ? 'Accept' : 'Already Accepted'}
               </button>
 
-              <button
-                onClick={() => handleMessage(bid)}
-                style={{ padding: '5px 10px' }}
-              >
+              <button onClick={() => handleMessage(bid)} className="action-button message-button">
                 Message
               </button>
 
-              {bid.accepted && !showOtpPopup && (
-                <button onClick={() => handleOtp(bid.taskId)}>OTP</button>
+              {bid.accepted && (
+                <button onClick={() => handleOtp(bid.taskId)} className="action-button otp-button">
+                  OTP
+                </button>
               )}
-
-              {showOtpPopup && otp && (
-                <>
-                  <h2>OTP For Task : {otp}</h2>
-                </>
-              )}
+              </div>
             </li>
           ))}
         </ul>
+      )}
+
+      {showOtpPopup && (
+        <div className="otp-popup-overlay">
+          <div className="otp-popup">
+            <h2>OTP For Task</h2>
+            <p className="otp-code">{otp}</p>
+            <button onClick={closeOtpPopup} className="close-button">Close</button>
+          </div>
+        </div>
       )}
     </div>
   );

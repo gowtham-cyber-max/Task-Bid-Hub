@@ -8,16 +8,17 @@ import '../Style/User-Login.css';
 function UserLogin() {
   const dispatch = useDispatch();
   const selector = useSelector(state => state.user);
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", passWord: "" });
   const [error, setError] = useState("");
   
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (data.email.length >= 4 && data.password.length >= 2) {
+    if (data.email.length >= 4 && data.passWord.length >= 2) {
       dispatch(userLogin(data));
       if (selector?.user) {
+        console.log(selector.user);
         navigate('/user-home');
       }
     } else {
@@ -48,7 +49,7 @@ function UserLogin() {
             type="password"
             className="user-login-input"
             placeholder="Password"
-            onChange={(e) => setData({ ...data, password: e.target.value })}
+            onChange={(e) => setData({ ...data, passWord: e.target.value })}
           />
         </div>
         {error && <p className="user-login-error">{error}</p>}

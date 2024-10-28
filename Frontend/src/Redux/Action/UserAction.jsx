@@ -3,7 +3,7 @@ import Serv from "../Service/Service";
 const serv=Serv;
 
 export const userLogin=(data)=>async(dispatch,getState)=>{
-    // console.log(data);
+    console.log(data);
     try{
         const response=await serv.user_login(data);
         // console.log(response.data);
@@ -24,8 +24,7 @@ export const userSinup=(data)=>async(dispatch,getState)=>{
 }
 export const addTask = (data) => async (dispatch, getState) => {
     try {
-        const { latitude, longitude } = data;
-        const userId=getState().user.user._id;
+        const userId=getState().user?.user?._id;
                
         const taskData = {
             ...data,
@@ -34,7 +33,12 @@ export const addTask = (data) => async (dispatch, getState) => {
         };
         if(userId){
         const res = await serv.user_addTask(taskData);
-        console.log(res.data);}
+        console.log(res.data);
+        
+        }
+        else{
+            console.log("user id not found");
+        }
 
 
     } catch (error) {
@@ -80,9 +84,9 @@ export const acceptTheBidder=(bid)=>async(dispatch,getState)=>{
             console.log(res.data);
 
             // to refresh that bid 
-            
-            getBidForTask(bid.taskId);
-            
+            if(res){
+            dispatch(getBidForTask(bid.taskId));
+            }
         }
         catch(er){
             console.log(er);

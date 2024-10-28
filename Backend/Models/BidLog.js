@@ -40,6 +40,10 @@ const BidLogSchema=mongoose.Schema({
     complete:{
         type:Boolean,
         default:false
+    },
+    request:{
+        type:Boolean,
+        default:false
     }
 
 });

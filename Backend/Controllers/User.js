@@ -35,7 +35,7 @@ async function login(req, res){
             if (user.pass === req.body.passWord) {
                 res.json(user);
             } else {
-                res.json("pass failfail");
+                res.json("pass fail");
             }
         } else {
             res.json("not exist");

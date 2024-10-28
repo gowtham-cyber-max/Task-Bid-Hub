@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaSearch, FaPen, FaComments, FaCheckCircle, FaHome, FaUser, FaSignOutAlt, FaBars } from 'react-icons/fa'; // Importing icons
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getCompletedTaskList, getBidListForBidders, getBidsForQueue, taskList_Bidders, getBidsInProgress } from '../Redux/Action/BidderAction';
+import { getCompletedTaskList, getBidListForBidders, getBidsForQueue, taskList_Bidders, getBidsInProgress, refreshTheBidder } from '../Redux/Action/BidderAction';
 
 const BidderHome = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility
@@ -20,16 +20,17 @@ const BidderHome = () => {
         dispatch(getBidListForBidders(selector?.bidder?._id));
         navi("/bidder-my-bid")
     }
-    const HandleTaskQueue=()=>{
-        dispatch(getBidsForQueue(selector?.bidder?.taskQueue));
-        navi("/bidder-queue")
+    const HandleTaskQueue=async()=>{
+        
+        if(dispatch(getBidsForQueue()))
+            navi("/bidder-queue")
         
     }
-    const HandleCompleted=()=>{
-         dispatch(getCompletedTaskList(selector?.bidder?._id));
+    const HandleCompleted=async()=>{
+        dispatch(getCompletedTaskList(selector?.bidder?._id));
         navi("/bidder-completed-task")
     }
-    const HandleInProgress=()=>{
+    const HandleInProgress=async()=>{
         dispatch(getBidsInProgress(selector?.bidder?._id));
         navi("/bidder-in-progress")
     }

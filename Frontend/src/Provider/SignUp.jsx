@@ -5,10 +5,13 @@ import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import { bidderSignup } from '../Redux/Action/BidderAction';
 import { getPreDefineSkills } from '../Redux/Action/CommonAction';
+import "./Style/Bidder-Signup.css"
+
+import { FaTimes } from 'react-icons/fa'; 
 
 function BidderSignUp() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navi = useNavigate();
 
     const [data, setData] = useState({
         name: "",
@@ -39,9 +42,11 @@ function BidderSignUp() {
     const onSubmiting = async (event) => {
         event.preventDefault();
         console.log(data);
-        dispatch(bidderSignup(data));
-        // Optionally navigate after signup
-        // navigate('/some-route');
+        const res=await dispatch(bidderSignup(data));
+        if(res){
+        navi("/bidder-login")
+        }
+        
     };
 
     const handleSkillAdd = () => {
@@ -112,9 +117,11 @@ function BidderSignUp() {
     };
 
     return (
-        <div>
+        <div className='bidder-signup'>
+
+        <div className='bidder-signup-container'>
         <h2>Bidder Signup</h2>
-            <form onSubmit={onSubmiting}>
+            <form onSubmit={onSubmiting} className='bidder-signup-form'>
                 <input
                     type='text'
                     placeholder='Username'
@@ -161,7 +168,7 @@ function BidderSignUp() {
                         onBlur={() => setTimeout(() => setShowDropdown(false), 200)} // Close after a delay
                         onKeyDown={handleKeyDown} // Add key down handler
                     />
-                    <button type="button" onClick={handleSkillAdd}>Add Skill</button>
+                    <button type="button" className='button-2' onClick={handleSkillAdd}>Add Skill</button>
 
                     {/* Dropdown for predefined skills */}
                     {showDropdown && (
@@ -184,15 +191,16 @@ function BidderSignUp() {
                 <ul>
                     {data.skills.map((skill, index) => (
                         <li key={index}>
-                            {skill} <button type="button" onClick={() => removeSkill(skill)}>Remove</button>
+                            {skill} <FaTimes   onClick={() => removeSkill(skill)} className='button-3'>Remove</FaTimes>
                         </li>
                     ))}
                 </ul>
 
-                <button type='button' onClick={getLocation}>Get Current Location</button>
-                <button type='submit'>Submit</button>
+                <button type='button' onClick={getLocation} className='button-1'>Get Current Location</button>
+                <button type='submit' className='button-0'>Submit</button>
             </form>
         </div>
+     </div>
     );
 }
 

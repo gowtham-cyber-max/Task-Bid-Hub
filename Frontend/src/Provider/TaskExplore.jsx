@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addViewToTask } from '../Redux/Action/BidderAction';
+import calculateDistance from '../Mutual/Components/DistanceCalculator';
 
 function TaskExplore() {
   const dispatch=useDispatch();
@@ -28,6 +29,7 @@ function TaskExplore() {
           <p>Bidder List: {task.bidderList}</p>
           <p>Task Id: {task._id}</p>
           <p>Task Views: {task.views}</p>
+          <p>Disatance in Km : {calculateDistance(task.location?.coordinates[0],task.location?.coordinates[1],selector.bidder?.location?.coordinates[0],selector.bidder?.location?.coordinates[1])}</p>
           <p>----------------------------------***********-------------------------------</p>
         </div>
       ))}

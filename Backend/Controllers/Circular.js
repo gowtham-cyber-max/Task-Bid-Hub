@@ -1,6 +1,6 @@
 const {addLogToTask,TaskMarkAsCompleted, TaskAccepted,setTheRequest,otpValidation}=require("./Task")
 const {addLogToBidder,addTaskToCompleted,addTaskToBidderQueue,sendCompletedRequest,removeTaskFromQueue}=require("./Bidder")
-const {addLog,bidderAccepted,startTheWork, setEndInLog}=require("./BidLogController")
+const {addLog,bidderAccepted,startTheWork, setEndInLog, logMarkAsCompleted}=require("./BidLogController")
 
 async function addBidLog(req,res){
     try{
@@ -23,7 +23,8 @@ async function markAsCompleted(req,res){
     try{
         const task=await TaskMarkAsCompleted(req,res);
         const bidder=await addTaskToCompleted(req,res);
-        if(bidder && task){
+        const bidlog=await logMarkAsCompleted(req,res);
+        if(bidder && task && bidlog){
             res.json("success");
         }
         else{

@@ -165,6 +165,13 @@ class Service {
             }
         });
     }
+    bidder_getById(bidderId){
+        return this.axios.get(`${this.apiUrl}/bidder/get-by-id`,{
+            params:{
+                bidderId:bidderId
+            }
+        });
+    }
 }
 
 export default new Service();

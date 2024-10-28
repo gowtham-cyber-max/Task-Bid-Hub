@@ -68,7 +68,7 @@ function TaskInQueue() {
             bidderId:bid.bidderId
         }
         const res=await dispatch(sendCompleteRequest(data));
-        console.log(res?res:null);
+        console.log(res);
     }
 
     return (

@@ -1,3 +1,4 @@
+const { request } = require("express");
 const BidLog=require("../Models/BidLog")
 
 async function addLog(req,res){
@@ -63,7 +64,7 @@ async function getBidLogByIds(req, res) {
       
       // Return the found bidlogs, or an empty array if none are found
       res.json(bidlogs.length > 0 ? bidlogs : []);
-    } catch (er) {
+    } catch (er) {  
       res.status(500).json({ message: er.message });
     }
   }
@@ -92,7 +93,7 @@ async function getLogsInProgress(req,res) {
         return res.status(400).json({message:"bidderId is required"})
     }
     try{
-            const task=await BidLog.find({bidderId:bidderId,start:{$ne:null},end:{$ne:null},complete:true});
+            const task=await BidLog.find({bidderId:bidderId,start:{$ne:null},end:{$ne:null},complete:false,request:true});
             if(task){
                 res.json(task);
             }
@@ -110,7 +111,7 @@ async function setEndInLog(req,res){
         const bidlog=await BidLog.findById(bidLogId);
         if(bidlog){
             bidlog.end=Date.now();
-            bidlog.complete=true;
+            bidlog.request=true;
             await bidlog.save();
             return bidlog;
         }
@@ -120,4 +121,21 @@ async function setEndInLog(req,res){
         console.log(er);
     }
 }
-module.exports={addLog,getAllBidsForTask,getAllBidsForBidder,bidderAccepted,getBidLogByIds,startTheWork,getLogsInProgress,setEndInLog};
+async function logMarkAsCompleted(req,res){
+    const {bidLogId}=req.body;
+    try{
+        const bidlog=await BidLog.findById(bidLogId);
+        if(bidLogId){
+            bidLogId.complete=true;
+            await bidlog.save();
+            return bidlog;
+        }
+        else{
+            return null;
+        }
+    }
+    catch(Er){
+        console.log(er);
+    }
+}
+module.exports={addLog,getAllBidsForTask,getAllBidsForBidder,bidderAccepted,getBidLogByIds,startTheWork,getLogsInProgress,setEndInLog,logMarkAsCompleted};

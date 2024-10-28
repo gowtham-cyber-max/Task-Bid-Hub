@@ -166,6 +166,22 @@ async function  removeTaskFromQueue(req,res){
     }
 
 }
+async function  getBidderById(req,res){
+    const id=req.query.bidderId;
+    console.log(id);
+    try{
+        const bidder=await BidderModel.findById(id);
+        if(bidder){
+            res.json(bidder);
+            }
+            else{
+                res.status(404).json({message:"Bidder not found"})
+            }
+    }
+    catch(er){
+        console.error(er);
+    }
+}
 
 
-module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToBidderQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin,removeTaskFromQueue};
+module.exports={addBidder,addLogToBidder,getAllBidder,addTaskToBidderQueue,sendCompletedRequest,addTaskToCompleted,bidderLogin,removeTaskFromQueue,getBidderById};

@@ -16,7 +16,10 @@ function BidderLogin() {
     e.preventDefault();
     if (data.email.length >= 4 && data.password.length >= 2) {
       dispatch(bidderLogin(data));
-      if (bidder) navigate('/bidder-home');
+      if (bidder) 
+        {navigate('/bidder-home');
+          console.log(bidder)
+        }
     } else {
       alert('Invalid input: Username/Email must be at least 4 characters, and Password at least 2.');
     }
