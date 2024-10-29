@@ -157,8 +157,8 @@ export const getBidsInProgress=(bidderId)=>async(dispatch,getState)=>{
 export const sendCompleteRequest=(data)=>async(dispatch,getState)=>{
 
     try{
-        const hell=await dispatch(getBidsForQueue());
         const res = await serv.bidder_sendCompleteRequest(data);
+        const hell=await dispatch(getBidsForQueue());
         console.log(res.data);
         if(res.data==="success" && hell){
             return true;
