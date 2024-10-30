@@ -113,10 +113,10 @@ export const getBidsForQueue=()=>async(dispatch,getState)=>{
 export const otpValidationStartTheWorkRemoveFromQueue=(data)=>async(dispatch,getState)=>{
     try{
         
+        const res = await serv.bidder_otpValidationStartTheWorkRemoveFromQueue(data);
         const hell=await dispatch(getBidsForQueue());
-        if(hell){
-           const res = await serv.bidder_otpValidationStartTheWorkRemoveFromQueue(data);
-            console.log(res.data);
+        console.log(res.data);
+        if(hell && res){
             if(res.data?.message==="success"){
             
                  return true;

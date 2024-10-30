@@ -120,6 +120,7 @@ export const getCompletedTaskList=(userId)=>async(dispatch,getState)=>{
 export const completeTheTask=(data)=>async(dispatch,getState)=>{
     try{
         console.log(data)
+        const ref =await dispatch(getNotification(data.userId));
         const res = await serv.user_completeTheTask(data);
         console.log(res.data);
     }
