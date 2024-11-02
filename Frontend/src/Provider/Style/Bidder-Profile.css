@@ -1,0 +1,117 @@
+/* General Container */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #333;
+    color: #f4d03f;
+  }
+  
+  /* Title */
+  .profile-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #f4d03f;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile Card */
+  .profile-card {
+    width: 100%;
+    background-color: #222;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  
+  /* Tab Navigation */
+  .tab-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 1rem;
+  }
+  
+  .tab-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f4d03f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab-btn:hover, .tab-btn.active {
+    background-color: #d4a017;
+    color: #fff;
+  }
+  
+  .tab-content {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  /* Section Headers */
+  .task-section h3 {
+    font-size: 20px;
+    color: #f4d03f;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f4d03f;
+    padding-bottom: 5px;
+  }
+  
+  /* Profile Information */
+  .general-info, .skill-section {
+    margin-bottom: 20px;
+  }
+  
+  /* Profile Items */
+  .profile-item {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #e8e8e8;
+  }
+  
+  /* Skill List */
+  .skill-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .skill-item {
+    background-color: #f4d03f;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  
+  /* Task List */
+  .task-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .task-item {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #f4d03f;
+  }
+  

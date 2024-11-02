@@ -1,0 +1,92 @@
+/* Main container */
+.task-progress-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #1C1C1E; /* Midnight Black */
+  border-radius: 12px;
+  color: #F9F9F9; /* Ivory White */
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Deep shadow for 3D effect */
+}
+
+/* Header */
+.task-progress-header {
+  font-size: 2rem;
+  color: #FFD700; /* Gold Accent */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid #FFD700;
+  padding-bottom: 0.5rem;
+}
+
+/* List container */
+.task-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual bid card */
+.task-progress-card {
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #2E2E2E, #1C1C1E); /* Gradient for depth */
+  border-radius: 10px;
+  color: #F9F9F9;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Soft shadow for lift */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-progress-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Darker shadow on hover */
+}
+
+/* Bid details */
+.task-progress-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.task-progress-detail {
+  font-size: 1rem;
+  color: #C0C0C0; /* Muted Silver for secondary text */
+}
+
+.task-label {
+  font-weight: 600;
+  color: #FFD700; /* Gold label text */
+}
+
+/* Message button */
+.task-message-button {
+  display: inline-block;
+  background: linear-gradient(145deg, #FFD700, #E6B800); /* Gradient Gold Accent */
+  color: #1C1C1E; /* Dark text for contrast */
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); /* Gold shadow */
+}
+
+.task-message-button:hover {
+  background: linear-gradient(145deg, #E6B800, #FFD700); /* Reverse gradient on hover */
+  color: #F9F9F9; /* Light text on hover */
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.5); /* Stronger shadow on hover */
+}
+
+/* No bids message */
+.no-bids-message {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #C0C0C0; /* Muted Silver */
+  margin-top: 2rem;
+}

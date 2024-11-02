@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { addBidLog } from '../Redux/Action/BidderAction';
+import "./Style/Bidder-Task-Detail.css"
 
 function TaskDetail() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [LogData, setLogData] = useState({
     amount: 0,
@@ -23,8 +24,7 @@ function TaskDetail() {
   const HandleSubmit = (e) => {
     e.preventDefault();
     alert(JSON.stringify(LogData)); // JSON.stringify to show the object data in the alert
-    dispatch(addBidLog({...LogData,taskId:task._id,userId:task.userId}))
-    
+    dispatch(addBidLog({...LogData, taskId: task._id, userId: task.userId}))
   };
 
   const HandleChange = (e) => {
@@ -34,25 +34,26 @@ function TaskDetail() {
 
   return (
     <>
-      <div>
-        <h2>Task Details</h2>
-        <p>Location: {task?.location?.coordinates?.join(", ")}</p>
-        <p>Budget: {task?.budget}</p>
-        <p>Image ID: {task?.imageIds}</p>
-        <p>User ID: {task?.userId}</p>
-        <p>Bidder List: {task?.bidderList?.join(", ")}</p>
-        <p>Task Id: {task?._id}</p>
-        <p>Task Views: {task?.views}</p>
-        <p>Task Date: {task?.postedDate} h</p>
-        <button onClick={HandleClick}>Bid For The Task</button>
+      <div className="task-detail-container">
+        <h2 className="task-detail-title">Task Details</h2>
+        <p className="task-detail-info">Location: {task?.location?.coordinates?.join(", ")}</p>
+        <p className="task-detail-info">Budget: {task?.budget}</p>
+        <p className="task-detail-info">Image ID: {task?.imageIds}</p>
+        <p className="task-detail-info">User ID: {task?.userId}</p>
+        <p className="task-detail-info">Bidder List: {task?.bidderList?.join(", ")}</p>
+        <p className="task-detail-info">Task Id: {task?._id}</p>
+        <p className="task-detail-info">Task Views: {task?.views}</p>
+        <p className="task-detail-info">Task Date: {task?.postedDate} h</p>
+        <button className="task-detail-bid-button" onClick={HandleClick}>Bid For The Task</button>
       </div>
       
       {visible && (
-        <div>
-          <form onSubmit={HandleSubmit}>
-            <div>
-              <label>Amount</label>
+        <div className="task-detail-form-container">
+          <form className="task-detail-form" onSubmit={HandleSubmit}>
+            <div className="task-detail-form-group">
+              <label className="task-detail-form-label">Amount</label>
               <input
+                className="task-detail-form-input"
                 type="number"
                 name="amount"
                 value={LogData.amount}
@@ -60,18 +61,20 @@ function TaskDetail() {
                 required
               />
             </div>
-            <div>
-              <label>Description</label>
+            <div className="task-detail-form-group">
+              <label className="task-detail-form-label">Description</label>
               <textarea
+                className="task-detail-form-textarea"
                 name="description"
                 value={LogData.description}
                 onChange={HandleChange}
                 required
               />
             </div>
-            <div>
-              <label>Availability</label>
+            <div className="task-detail-form-group">
+              <label className="task-detail-form-label">Availability</label>
               <input
+                className="task-detail-form-input"
                 type="date"
                 name="availability"
                 value={LogData.availability}
@@ -79,9 +82,9 @@ function TaskDetail() {
                 required
               />
             </div>
-            <button type="submit">Submit</button>
+            <button className="task-detail-submit-button" type="submit">Submit</button>
           </form>
-          <button onClick={() => setVisible(false)}>Close</button>
+          <button className="task-detail-close-button" onClick={() => setVisible(false)}>Close</button>
         </div>
       )}
     </>

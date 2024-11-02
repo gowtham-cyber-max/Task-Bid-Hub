@@ -1,0 +1,99 @@
+.task-detail-container {
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 20px; /* Padding around the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+.task-detail-title {
+    color: #ffd700; /* Gold title */
+    margin-bottom: 15px; /* Spacing below the title */
+}
+
+.task-detail-info {
+    margin-bottom: 10px; /* Spacing between details */
+    font-size: 16px; /* Font size for details */
+}
+
+.task-detail-bid-button {
+    background-color: #ffd700; /* Gold background */
+    color: #1a1a1a; /* Dark text */
+    border: none;
+    border-radius: 5px; /* Rounded button */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover Effect for Bid Button */
+.task-detail-bid-button:hover {
+    background-color: #e6b800; /* Slightly darker gold on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.task-detail-form-container {
+    background-color: #333333; /* Slightly lighter dark background */
+    padding: 20px; /* Padding for form container */
+    border-radius: 10px; /* Rounded corners */
+    margin-top: 20px; /* Spacing above the form */
+}
+
+.task-detail-form {
+    display: flex; /* Flex layout for form */
+    flex-direction: column; /* Column layout */
+}
+
+.task-detail-form-group {
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.task-detail-form-label {
+    color: #ffd700; /* Gold label */
+    margin-bottom: 5px; /* Spacing below label */
+}
+
+.task-detail-form-input,
+.task-detail-form-textarea {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for input/textarea */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #555555; /* Dark border */
+    background-color: #444444; /* Dark input background */
+    color: #ffffff; /* White text */
+    font-size: 14px; /* Font size */
+}
+
+.task-detail-form-textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.task-detail-submit-button {
+    background-color: #ffd700; /* Gold background */
+    color: #1a1a1a; /* Dark text */
+    border: none;
+    border-radius: 5px; /* Rounded button */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover Effect for Submit Button */
+.task-detail-submit-button:hover {
+    background-color: #e6b800; /* Slightly darker gold on hover */
+    transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.task-detail-close-button {
+    background-color: transparent; /* Transparent background */
+    color: #ffd700; /* Gold text */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    margin-top: 10px; /* Spacing above close button */
+    transition: color 0.3s; /* Color transition */
+}
+
+/* Hover Effect for Close Button */
+.task-detail-close-button:hover {
+    color: #e6b800; /* Slightly darker gold on hover */
+}
