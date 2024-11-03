@@ -1,68 +1,27 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getNotification, getUserTask } from '../../Redux/Action/UserAction';
+import '../Style/UserHome.css'; // Ensure this CSS file exists for styles
 
 const UserHome = () => {
-    // Sample data for services
-    const navi=useNavigate();
-    const dispatch=useDispatch();
-    const selector=useSelector((state)=>state.user);
-    const HandleMyTask=()=>{
-        dispatch(getUserTask(selector?.user?._id))
-        navi("/user-my-task");
-    }
-    const HandleNotification=async()=>{
-        dispatch(getNotification(selector?.user?._id));
-            navi("/user-notification");
-    }
+    const navi = useNavigate();
+    
     return (
-        <div>
-            {/* Navigation Bar */}
-        
-                <div>
-                    <img 
-                        src= "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcF1hpnk1QJrYWiU8FdUbfK01kAajQulUK6g&s" 
-                        alt="TaskBidHub Logo" 
-                        style={{height:50,width:50}}
-                        
-                    />
-                    <span >TaskBidHub</span>
-                </div>
-                <nav>
-                    <ul >
-                        <li >
-                            <a href="/#/user-home" >Home</a>
-                        </li>
-                        <li >
-                            <a href="/#/user-service-list" >Services</a>
-                        </li>
-                        <li >
-                            <a href="/#/user-add-task" >Post a Task</a>
-                        </li>
-                        <li >
-                            <a href="/#/user-profile">Profile</a>
-                        </li>
-                        <li >
-                            <h2 onClick={HandleMyTask}>My Task</h2>
-                        </li>
-                        <li >
-                            <h2 onClick={HandleNotification}>Notification</h2>
-                        </li>
-                        <li >
-                            <a href="/#/user-login" >Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-         
-
+        <div className="user-home">
             {/* Hero Section */}
-            <section >
+            <section className="hero-section">
                 <h1>Welcome, User!</h1>
                 <p>Explore services to get your tasks done by professionals.</p>
-                <button onClick={()=>navi("/user-add-task")} >Post a New Task</button>
+                <button onClick={() => navi("/user-add-task")} className="post-task-button">Post a New Task</button>
             </section>
 
+            {/* Motivational Image Section */}
+            <div className="motivation-section">
+                <img 
+                    src="https://source.unsplash.com/600x400/?motivation,success" 
+                    alt="Motivational" 
+                    className="motivation-image"
+                />
+            </div>
         </div>
     );
 }

@@ -21,20 +21,55 @@ function CompletedTask() {
   return (
     <div className="completed-task-container">
       <h2 className="completed-task-title">Completed Tasks</h2>
-      <p className="completed-task-count">TaskExplore: {selector?.task_explore?.length}</p>
+      <p className="completed-task-count">Total Tasks: {selector?.task_explore?.length}</p>
       {selector?.task_explore?.map((task, index) => (
         <div key={index} className="completed-task-item" onClick={() => HandleClick(task)}>
-          <p>Location: {task.location?.coordinates?.join(", ")}</p>
-          <p>Task Name: {task.taskName}</p>
-          <p>Budget: {task.budget}</p>
-          <p>Image ID: {task.imageIds}</p>
-          <p>User ID: {task.userId}</p>
-          <p>Bidder List: {task.bidderList.join(", ")}</p>
-          <p>Task Id: {task._id}</p>
-          <p>Task Views: {task.views}</p>
+          <div className="task-details-row">
+            <span className="task-details-question">Location:</span>
+            <span className="task-details-answer">{task.location?.coordinates?.join(", ")}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task Name:</span>
+            <span className="task-details-answer">{task.taskName}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task Description:</span>
+            <span className="task-details-answer">{task.taskDescription}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task Completed By:</span>
+            <span className="task-details-answer">{task.completedBy}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task Allogated To:</span>
+            <span className="task-details-answer">{task.allogatedTo}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Budget:</span>
+            <span className="task-details-answer">{task.budget}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Image ID:</span>
+            <span className="task-details-answer">{task.imageIds}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">User ID:</span>
+            <span className="task-details-answer">{task.userId}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Bidder List:</span>
+            <span className="task-details-answer">{task.bidderList.join(", ")}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task ID:</span>
+            <span className="task-details-answer">{task._id}</span>
+          </div>
+          <div className="task-details-row">
+            <span className="task-details-question">Task Views:</span>
+            <span className="task-details-answer">{task.views}</span>
+          </div>
         </div>
       ))}
-      <button onClick={() => navi("/some-route")}>Some Action</button>
     </div>
   );
 }

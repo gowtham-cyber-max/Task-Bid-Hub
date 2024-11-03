@@ -1,0 +1,89 @@
+/* Sidebar container */
+.user-sidebar {
+    margin-top: 30px;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden off-screen */
+    width: 250px;
+    height: 100%;
+    background-color: #1f1f1f; /* Dark background color */
+    color: #ffffff;
+    padding-top: 20px;
+    transition: left 0.3s ease; /* Smooth slide-in transition */
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+/* Sidebar open state */
+.user-sidebar.open {
+    left: 0; /* Slide in from the left */
+}
+
+/* Main content shift */
+.content {
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
+}
+
+/* Shifted content when sidebar is open */
+.content.shift {
+    margin-left: 250px; /* Adjust this value to match sidebar width */
+}
+
+/* Sidebar list styling */
+.user-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Sidebar list items */
+.user-sidebar li {
+    margin: 15px 0;
+    text-align: left;
+}
+
+/* Sidebar links and clickable items */
+.user-sidebar a, .user-sidebar h2 {
+    color: #ffd700; /* Gold color for text */
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease; /* Smooth background color change */
+    cursor: pointer;
+}
+
+/* Hover effect for links */
+.user-sidebar a:hover, .user-sidebar h2:hover {
+    background-color: #333333; /* Darker background on hover */
+}
+
+/* Sidebar Toggle Button */
+.user-sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: #1f1f1f;
+    color: #ffd700;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1100; /* Ensure it’s above the sidebar */
+}
+
+.user-sidebar-toggle:focus {
+    outline: none;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .user-sidebar {
+        width: 200px; /* Narrower sidebar for smaller screens */
+    }
+
+    .user-sidebar a, .user-sidebar h2 {
+        font-size: 16px; /* Smaller font size for smaller screens */
+    }
+}

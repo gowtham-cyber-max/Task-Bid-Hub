@@ -1,0 +1,64 @@
+/* UserHome.css */
+.user-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4; /* Light background for better contrast */
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #666;
+}
+
+.post-task-button {
+    background-color: #ffd700; /* Gold color for the button */
+    color: #1f1f1f;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.post-task-button:hover {
+    background-color: #e6c200; /* Darker gold on hover */
+}
+
+/* Motivation Section */
+.motivation-section {
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    margin-top: 20px;
+}
+
+.motivation-image {
+    width: 600px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for aesthetic */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .motivation-image {
+        width: 100%; /* Full width on smaller screens */
+        max-width: 400px; /* Limit max width */
+    }
+}
