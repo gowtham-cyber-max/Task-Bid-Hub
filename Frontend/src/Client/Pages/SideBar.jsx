@@ -38,7 +38,7 @@ const HandleNotification = async () => {
       <nav className={`user-sidebar ${isOpen ? 'open' : ''}`}>
         <ul>
           <li><a href="/#/user-home" onClick={handleClick}>Home</a></li>
-          <li><a href="/#/user-service-list" onClick={handleClick}>Services</a></li>
+          {/* <li><a href="/#/user-service-list" onClick={handleClick}>Services</a></li> */}
           <li><a href="/#/user-add-task" onClick={handleClick}>Post a Task</a></li>
           <li><a href="/#/user-profile" onClick={handleClick}>Profile</a></li>
           <li onClick={HandleMyTask}><h2 >My Task</h2></li>

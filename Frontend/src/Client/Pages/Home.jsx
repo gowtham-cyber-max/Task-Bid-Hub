@@ -7,17 +7,15 @@ const UserHome = () => {
     
     return (
         <div className="user-home">
-            {/* Hero Section */}
-            <section className="hero-section">
-                <h1>Welcome, User!</h1>
-                <p>Explore services to get your tasks done by professionals.</p>
+            <div className="content-section">
+                <h1 className="hero-title">Welcome, User!</h1>
+                <p className="hero-description">Easily create a new task and connect with skilled professionals who are eager to help turn your ideas into reality!.</p>
                 <button onClick={() => navi("/user-add-task")} className="post-task-button">Post a New Task</button>
-            </section>
+            </div>
 
-            {/* Motivational Image Section */}
-            <div className="motivation-section">
+            <div className="image-section">
                 <img 
-                    src="https://source.unsplash.com/600x400/?motivation,success" 
+                    src="https://media.istockphoto.com/id/1681619429/photo/silhouette-of-positive-man-celebrating-on-mountain-top-with-arms-raised-up-silhouette-of-man.jpg?s=612x612&w=0&k=20&c=qPt67d0B535UZrtk7kP3N_T7uZ-Nl_DdxB-xZIIhLRw=" 
                     alt="Motivational" 
                     className="motivation-image"
                 />

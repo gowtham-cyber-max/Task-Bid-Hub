@@ -69,7 +69,7 @@ function TaskInQueue() {
 
     return (
         <div className="task-in-queue-container">
-            <h1 className="task-in-queue-header">My Bids</h1>
+            <h1 className="task-in-queue-header">Queue</h1>
             {bids.length > 0 ? (
                 bids.map((bid) => (
                     <div key={bid._id} className="task-in-queue-bid-item">

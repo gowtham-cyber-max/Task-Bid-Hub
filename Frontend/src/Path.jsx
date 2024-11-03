@@ -29,16 +29,22 @@ import TaskInProgress from './Provider/TakInProgress';
 // Common Pages
 import UserMessage from './Mutual/UserMessage';
 import UserNavBar from './Client/Pages/NavBar';
-import SideBar from './Client/Pages/SideBar';
+import BidderNavBar from './Provider/Navbar';
 
 function Path() {
   const selector = useSelector((state) => state.user);
+  const selectorBidder = useSelector((state) => state.bidder);
 
   return (
     <>
       {selector?.user && (
         <>
           <UserNavBar />
+        </>
+      )}
+      {selectorBidder?.bidder && (
+        <>
+          <BidderNavBar />
         </>
       )}
 

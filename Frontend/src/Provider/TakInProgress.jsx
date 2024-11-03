@@ -15,7 +15,7 @@ function TaskInProgress() {
 
   return (
     <div className="task-progress-container">
-      <h1 className="task-progress-header">My Bids</h1>
+      <h1 className="task-progress-header">Progress</h1>
       {bids.length > 0 ? (
         <div className="task-progress-list">
           {bids.map((bid) => (

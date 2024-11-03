@@ -1,71 +1,40 @@
 import React, { useState } from 'react';
-import { FaSearch, FaPen, FaComments, FaCheckCircle, FaHome, FaUser, FaSignOutAlt, FaBars } from 'react-icons/fa'; // Importing icons
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getCompletedTaskList, getBidListForBidders, getBidsForQueue, taskList_Bidders, getBidsInProgress, refreshTheBidder } from '../Redux/Action/BidderAction';
+import { taskList_Bidders } from '../Redux/Action/BidderAction';
+import './Style/Bidder-Home.css';
 
 const BidderHome = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility
-    const dispatch=useDispatch();
-    const navi=useNavigate();
-    const selector=useSelector((state)=>state.bidder);
+    const dispatch = useDispatch();
+    const navi = useNavigate();
+    const selector = useSelector((state) => state.bidder);
+
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
-    const HandleTaskExplore=()=>{
+
+    const handleTaskExplore = () => {
         dispatch(taskList_Bidders());
-        navi("/bidder-task-explore")
-    }
-    const HandleMyBids=()=>{
-        dispatch(getBidListForBidders(selector?.bidder?._id));
-        navi("/bidder-my-bid")
-    }
-    const HandleTaskQueue=async()=>{
-        
-        if(dispatch(getBidsForQueue()))
-            navi("/bidder-queue")
-        
-    }
-    const HandleCompleted=async()=>{
-        dispatch(getCompletedTaskList(selector?.bidder?._id));
-        navi("/bidder-completed-task")
-    }
-    const HandleInProgress=async()=>{
-        dispatch(getBidsInProgress(selector?.bidder?._id));
-        navi("/bidder-in-progress")
-    }
+        navi("/bidder-task-explore");
+    };
 
     return (
-        <div >
-            <div >
-                <div  onClick={toggleSidebar}>
-                    <FaBars  />
-                    {isSidebarOpen && 'Menu'}
-                </div>
-                {isSidebarOpen && (
-                    <>
-                        <div> Home</div>
-                        <div> Profile</div>
-                        <div> Logout</div>
-                    </>
-                )}
+        <div className="bidder-home-container">
+            <div className="bidder-home-header">
+                <h1>Welcome Bidder!</h1>
+                {/* <p>TaskBidHub is the perfect platform to find tasks that match your skills and earn rewards.</p> */}
+                <p>Explore available tasks and start bidding to get hired for jobs that suit your expertise!.</p>
+                <button className="bidder-home-button" onClick={handleTaskExplore}>
+                    Explore Tasks
+                </button>
             </div>
-            <div>
-                <div >
-                    <div>Home</div>
-                    <div onClick={HandleMyBids}>My Bids</div>
-                    <div onClick={()=>navi("/bidder-profile")}>Profile</div>
-                    <div onClick={HandleTaskQueue}>Task Queue</div>
-                    <div onClick={HandleCompleted}>Task Completed</div>
-                    <div onClick={HandleInProgress}>Task in Progress</div>
-                </div>
-                <div >
-                    <h1>Welcome, Bidder!</h1>
-                    <p>Here's how you can use TaskBidHub to get started:</p>
-                    <button onClick={HandleTaskExplore} >Task Explore</button>
-                </div>
-
-                
+            <div className="bidder-home-image">
+                <img
+                    src="https://media.licdn.com/dms/image/D5612AQFqPG4xXzDXHg/article-cover_image-shrink_720_1280/0/1676526760415?e=2147483647&v=beta&t=UIMVR0r_jYkSiVMnIDBnSEakubOeT9BX_20Ry7yd5uQ" // Replace with a relevant image URL
+                    alt="Motivational"
+                    className="motivational-image"
+                />
             </div>
         </div>
     );
