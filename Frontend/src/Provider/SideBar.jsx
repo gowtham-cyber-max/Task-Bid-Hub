@@ -7,7 +7,7 @@ import { getBidListForBidders, getBidsForQueue, getBidsInProgress, getCompletedT
 function SideBar() {
     const navi = useNavigate();
     const dispatch = useDispatch();
-    const selector = useSelector((state) => state.user);
+    const selector = useSelector((state) => state.bidder);
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -20,6 +20,7 @@ function SideBar() {
 
     
   const HandleMyBids=()=>{
+    console.log(selector.bidder)
       dispatch(getBidListForBidders(selector?.bidder?._id));
       handleClick();
       navi("/bidder-my-bid")

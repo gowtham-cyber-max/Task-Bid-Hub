@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { otpValidationStartTheWorkRemoveFromQueue, sendCompleteRequest } from '../Redux/Action/BidderAction';
-import "./Style/Bidder-Queue.css";
+import './Style/Bidder-Queue.css';
 
 function TaskInQueue() {
     const navi = useNavigate();
@@ -32,7 +32,7 @@ function TaskInQueue() {
             bidLogId: selectedBid._id,
             otp: otpCode,
             taskId: selectedBid.taskId,
-            bidderId: selectedBid.bidderId
+            bidderId: selectedBid.bidderId,
         };
         const res = await dispatch(otpValidationStartTheWorkRemoveFromQueue(data));
         if (res) {
@@ -62,7 +62,7 @@ function TaskInQueue() {
         const data = {
             bidLogId: bid._id,
             taskId: bid.taskId,
-            bidderId: bid.bidderId
+            bidderId: bid.bidderId,
         };
         await dispatch(sendCompleteRequest(data));
     };
@@ -76,6 +76,8 @@ function TaskInQueue() {
                         <div className="task-in-queue-bid-info">
                             <p><strong>Bid Amount:</strong> {bid.amount}</p>
                             <p><strong>Task ID:</strong> {bid.taskId}</p>
+                            <p><strong>Start Time:</strong> {bid.start}</p>
+                            <p><strong>End Time:</strong> {bid.end}</p>
                             <p><strong>Accepted:</strong> {bid.accepted ? 'Yes' : 'No'}</p>
                             <p><strong>Availability:</strong> {new Date(bid.availability).toLocaleDateString()}</p>
                         </div>
@@ -99,7 +101,7 @@ function TaskInQueue() {
                             {otp.map((digit, index) => (
                                 <input
                                     key={index}
-                                    ref={el => otpRefs.current[index] = el}
+                                    ref={otpRefs.current[index]}
                                     type="text"
                                     value={digit}
                                     onChange={(e) => handleOtpChange(e.target.value, index)}
@@ -108,8 +110,8 @@ function TaskInQueue() {
                                 />
                             ))}
                         </div>
-                        <button 
-                            className={`task-in-queue-otp-submit-button ${otpSubmitted ? 'submitted' : ''}`} 
+                        <button
+                            className={`task-in-queue-otp-submit-button ${otpSubmitted ? 'submitted' : ''}`}
                             onClick={handleOtpSubmit}
                         >
                             Submit

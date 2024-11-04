@@ -25,6 +25,8 @@ function TaskInProgress() {
                 <p className="task-progress-detail"><span className="task-label">Description:</span> {bid.description}</p>
                 <p className="task-progress-detail"><span className="task-label">Task ID:</span> {bid.taskId}</p>
                 <p className="task-progress-detail"><span className="task-label">User ID:</span> {bid.userId}</p>
+                <p className="task-progress-detail"><span className="task-label">Start time:</span> {bid.start}</p>
+                <p className="task-progress-detail"><span className="task-label">End Time:</span> {bid.end}</p>
               </div>
               <button 
                 className="task-message-button" 

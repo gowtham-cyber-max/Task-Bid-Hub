@@ -1,0 +1,87 @@
+.user-signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #1e1e1e; /* Dark background for elegant look */
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+}
+
+.user-signup-title {
+    font-size: 2.5rem;
+    color: #ffd700; /* Dark yellow color for the title */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 3D effect with shadow */
+    margin-bottom: 20px;
+}
+
+.user-signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4); /* Outer shadow for depth */
+}
+
+.user-signup-input, .user-signup-phone-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background-color: #333333; /* Darker input field */
+    color: #ffffff;
+    font-size: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.user-signup-input:focus, .user-signup-phone-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ffd700, inset 0 0 5px #ffd700; /* Gold glow on focus */
+    transform: translateY(-2px); /* Slight lift on focus */
+}
+
+.user-signup-button {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 20px;
+    background-color: #ffd700;
+    color: #3a2020;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.user-signup-button:hover {
+    background-color: #e6c200; /* Darker yellow on hover */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+.user-signup-button:active {
+    transform: translateY(1px); /* Pressed down effect */
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 600px) {
+    .user-signup-form {
+        padding: 20px;
+    }
+
+    .user-signup-title {
+        font-size: 2rem;
+    }
+
+    .user-signup-button {
+        font-size: 1rem;
+    }
+}

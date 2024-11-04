@@ -79,6 +79,7 @@ export const addViewToTask=(taskId)=>async(dispatch,getState)=>{
 
 export const getBidListForBidders=(bidderId)=>async(dispatch,getState)=>{
     try{
+        console.log(bidderId)
         const res=await serv.bidder_getBidListForBidders(bidderId);
         dispatch({type:"EMPTY_BIDDER_BIDS"});
         dispatch({type:"ADD_BIDDER_BIDS",payload:res.data});

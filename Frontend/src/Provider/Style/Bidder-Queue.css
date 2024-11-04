@@ -48,8 +48,9 @@
 }
 
 /* Button Styling */
-.task-in-queue-message-button {
-    width: 100px; /* Unique width for Message button */
+.task-in-queue-message-button,
+.task-in-queue-start-button,
+.task-in-queue-end-button {
     padding: 10px 15px;
     border-radius: 8px;
     font-size: 1rem;
@@ -60,41 +61,12 @@
     transition: background-color 0.3s, color 0.3s, transform 0.2s;
 }
 
-.task-in-queue-start-button,
-.task-in-queue-end-button {
-    width: 130px; /* Same width for Start and End buttons */
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #000000;
-    border: none;
-    color: #FFD700;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-/* Hover Effects */
 .task-in-queue-message-button:hover,
 .task-in-queue-start-button:hover,
 .task-in-queue-end-button:hover {
     background-color: #FFD700;
     color: #FFFFFF;
     transform: translateY(-2px);
-}
-
-.task-in-queue-end-button {
-    background-color: #FF4C4C;
-}
-
-.task-in-queue-end-button:hover {
-    background-color: #D43C3C;
-}
-
-/* No-bids message */
-.task-in-queue-no-bids {
-    color: #AAAAAA;
-    text-align: center;
-    font-style: italic;
 }
 
 /* OTP Popup Styling */
@@ -119,11 +91,12 @@
     text-align: center;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     color: #FFFFFF;
+    width: 30vw;
 }
 
 .task-in-queue-otp-inputs {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin: 20px 0;
 }
 
@@ -155,5 +128,11 @@
 }
 
 .task-in-queue-otp-cancel-button {
-    background-color: #AAAAAA;
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+.task-in-queue-otp-submit-button:hover,
+.task-in-queue-otp-cancel-button:hover {
+    opacity: 0.9;
 }

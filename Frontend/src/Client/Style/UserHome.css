@@ -5,6 +5,7 @@
     font-family: 'Poppins', sans-serif; /* Font family */
     color: white; /* Changed text color to white */
     background-color: #272727; /* Dark background for better contrast */
+    margin-top: -10px;
 }
 
 /* Content Section */

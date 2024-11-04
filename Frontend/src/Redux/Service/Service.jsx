@@ -55,7 +55,7 @@ class Service {
             skills,
             latitude,
             longitude,
-            radiusKM:25
+            radiusKM:250000000000000
         })
         
     }
