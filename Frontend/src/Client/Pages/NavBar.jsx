@@ -20,7 +20,7 @@ function UserNavBar() {
       {/* TaskBidHub Logo and Title */}
       <div className="navbar-logo">
         <img 
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcF1hpnk1QJrYWiU8FdUbfK01kAajQulUK6g&s" 
+          src="https://th.bing.com/th/id/OIG3.kGF3lW2XNtL7QGDChW.b?w=1024&h=1024&rs=1&pid=ImgDetMain" 
           alt="TaskBidHub Logo" 
           className="navbar-logo-image"
         />

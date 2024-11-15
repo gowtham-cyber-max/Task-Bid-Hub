@@ -1,99 +1,149 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Set global font */
+}
+
+/* Popup Form Overlay */
+.task-detail-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Form Container */
+.task-detail-form-container {
+    background-color: #333333;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    position: relative; /* Allow absolute positioning of close button */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close Button - Positioned at the top-right */
+.task-detail-close-button {
+    background-color: transparent;
+    color: #ffd700; /* Yellow color for prominence */
+    border: none;
+    cursor: pointer;
+    position: absolute; /* Positioned relative to the form container */
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.task-detail-close-button:hover {
+    color: #e6b800; /* Slightly darker yellow on hover */
+    transform: scale(1.1); /* Slight zoom-in effect on hover */
+}
+
+/* Form Label */
+.task-detail-form-label {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Form Input and Textarea */
+.task-detail-form-input,
+.task-detail-form-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #444444;
+    color: white;
+    border: 1px solid #666666;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Focus State for Inputs */
+.task-detail-form-input:focus,
+.task-detail-form-textarea:focus {
+    border-color: #ffd700; /* Highlight border color on focus */
+    outline: none;
+}
+
+/* Submit Button */
+.task-detail-submit-button {
+    background-color: #ffd700;
+    color: #333333;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.task-detail-submit-button:hover {
+    background-color: #e6b800; /* Slightly darker yellow on hover */
+}
+
+/* Form Group Styling */
+.task-detail-form-group {
+    margin-bottom: 20px;
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Button for Bidding (on the main page) */
+.task-detail-bid-button {
+    background-color: #ffd700;
+    color: #333333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.task-detail-bid-button:hover {
+    background-color: #e6b800;
+}
+
+/* Task Detail Container */
 .task-detail-container {
-    background-color: #1a1a1a; /* Dark background */
-    color: #ffffff; /* White text */
-    padding: 20px; /* Padding around the container */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    margin: 20px;
 }
 
 .task-detail-title {
-    color: #ffd700; /* Gold title */
-    margin-bottom: 15px; /* Spacing below the title */
+    font-size: 24px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 20px;
 }
 
 .task-detail-info {
-    margin-bottom: 10px; /* Spacing between details */
-    font-size: 16px; /* Font size for details */
-}
-
-.task-detail-bid-button {
-    background-color: #ffd700; /* Gold background */
-    color: #1a1a1a; /* Dark text */
-    border: none;
-    border-radius: 5px; /* Rounded button */
-    padding: 10px 15px; /* Padding for button */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Hover Effect for Bid Button */
-.task-detail-bid-button:hover {
-    background-color: #e6b800; /* Slightly darker gold on hover */
-    transform: scale(1.05); /* Slightly scale up on hover */
-}
-
-.task-detail-form-container {
-    background-color: #333333; /* Slightly lighter dark background */
-    padding: 20px; /* Padding for form container */
-    border-radius: 10px; /* Rounded corners */
-    margin-top: 20px; /* Spacing above the form */
-}
-
-.task-detail-form {
-    display: flex; /* Flex layout for form */
-    flex-direction: column; /* Column layout */
-}
-
-.task-detail-form-group {
-    margin-bottom: 15px; /* Spacing between form groups */
-}
-
-.task-detail-form-label {
-    color: #ffd700; /* Gold label */
-    margin-bottom: 5px; /* Spacing below label */
-}
-
-.task-detail-form-input,
-.task-detail-form-textarea {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding for input/textarea */
-    border-radius: 5px; /* Rounded corners */
-    border: 1px solid #555555; /* Dark border */
-    background-color: #444444; /* Dark input background */
-    color: #ffffff; /* White text */
-    font-size: 14px; /* Font size */
-}
-
-.task-detail-form-textarea {
-    resize: vertical; /* Allow vertical resizing */
-}
-
-.task-detail-submit-button {
-    background-color: #ffd700; /* Gold background */
-    color: #1a1a1a; /* Dark text */
-    border: none;
-    border-radius: 5px; /* Rounded button */
-    padding: 10px 15px; /* Padding for button */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Hover Effect for Submit Button */
-.task-detail-submit-button:hover {
-    background-color: #e6b800; /* Slightly darker gold on hover */
-    transform: scale(1.05); /* Slightly scale up on hover */
-}
-
-.task-detail-close-button {
-    background-color: transparent; /* Transparent background */
-    color: #ffd700; /* Gold text */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor */
-    margin-top: 10px; /* Spacing above close button */
-    transition: color 0.3s; /* Color transition */
-}
-
-/* Hover Effect for Close Button */
-.task-detail-close-button:hover {
-    color: #e6b800; /* Slightly darker gold on hover */
+    color: #555555;
+    font-size: 16px;
+    margin-bottom: 10px;
 }

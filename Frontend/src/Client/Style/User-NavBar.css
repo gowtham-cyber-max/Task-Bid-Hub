@@ -16,11 +16,13 @@
   margin-left: 30px;
   display: flex;
   align-items: center;
+
 }
 
 .navbar-logo-image {
   height: 50px;
   width: 50px;
+  border-radius: 100px;
   margin-right: 10px; /* Space between image and title */
 }
 
