@@ -1,3 +1,4 @@
+/* Overall container styling */
 .user-add-task {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0;
@@ -6,26 +7,35 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-}
-
-.add-task-form {
+    padding: 1rem;
+  }
+  
+  /* Form styling */
+  .add-task-form {
     background-color: black;
     color: white;
     padding: 2rem;
     width: 400px;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.add-task-label {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+  }
+  
+  .add-task-form:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Label styling */
+  .add-task-label {
     font-size: 1rem;
     margin-top: 1rem;
     display: block;
     color: #f1f1f1;
-}
-
-.add-task-input,
-.add-task-textarea {
+  }
+  
+  /* Input and textarea styling */
+  .add-task-input,
+  .add-task-textarea {
     width: 100%;
     padding: 0.75rem;
     margin-top: 0.5rem;
@@ -34,23 +44,36 @@
     font-size: 1rem;
     background-color: transparent;
     color: whitesmoke;
-}
-
-.add-task-textarea {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .add-task-input:focus,
+  .add-task-textarea:focus {
+    border-color: #ffdd57;
+    box-shadow: 0 0 5px rgba(255, 221, 87, 0.5);
+    outline: none;
+  }
+  
+  .add-task-textarea {
     resize: vertical;
-}
-
-.add-task-skill-container {
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+  
+  /* Skill input container */
+  .add-task-skill-container {
     position: relative;
     margin-top: 1rem;
-}
-
-.add-task-skill-input {
-    width: calc(100% - 90px);
-    margin-right: 5px;
-}
-
-.add-task-button {
+  }
+  
+  /* Button styling */
+  .add-task-button {
     width: 85px;
     background-color: #ffdd57;
     color: black;
@@ -60,9 +83,15 @@
     font-size: 1rem;
     cursor: pointer;
     margin-top: 0.5rem;
-}
-
-.add-task-dropdown {
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-task-button:hover {
+    background-color: #ffc107;
+  }
+  
+  /* Dropdown styling for skill suggestions */
+  .add-task-dropdown {
     position: absolute;
     background-color: white;
     width: 100%;
@@ -74,39 +103,55 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     z-index: 1;
-}
-
-.add-task-dropdown-item {
+  }
+  
+  .add-task-dropdown-item {
     padding: 10px;
     cursor: pointer;
     color: #ffc107;
-}
-
-.add-task-skill-list {
-    list-style-type: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-task-dropdown-item:hover {
+    background-color: rgba(255, 221, 87, 0.2);
+  }
+  
+  /* Updated Skills List Styling (pill design) */
+  .add-task-skill-list {
+    list-style: none;
     padding: 0;
     margin-top: 1rem;
-    color: #ffdd57;
-}
-
-.add-task-skill-item {
-    display: inline-block;
-    margin-right: 0.5rem;
-    color: #ffc107;
-}
-
-.add-task-remove-skill {
-    margin-left: 0.25rem;
-    margin-top: 0.25rem;
-    background: none;
-    border: none;
-    color: red;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .add-task-skill-item {
+    background-color: #222;             /* Dark background matching form */
+    border: 1px solid #ffdd57;            /* Yellow accent border */
+    border-radius: 20px;                  /* Rounded pill shape */
+    padding: 0.3rem 0.8rem;
+    color: #ffdd57;                      /* Yellow accent text */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-task-remove-skill {
+    margin-left: 0.5rem;
+    color: #ff5757;                      /* Red accent for remove icon */
     cursor: pointer;
-    font-size: 16px;
-}
-
-.add-task-location-button,
-.add-task-submit-button {
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .add-task-remove-skill:hover {
+    color: #ff0000;
+  }
+  
+  /* Location and Submit button styling */
+  .add-task-location-button,
+  .add-task-submit-button {
     width: 100%;
     padding: 0.75rem;
     background-color: #ffdd57;
@@ -116,8 +161,11 @@
     font-size: 1rem;
     cursor: pointer;
     margin-top: 1rem;
-}
-
-.add-task-submit-button:hover {
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-task-location-button:hover,
+  .add-task-submit-button:hover {
     background-color: #ffc107;
-}
+  }
+  
