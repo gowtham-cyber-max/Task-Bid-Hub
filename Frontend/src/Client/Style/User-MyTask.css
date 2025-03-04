@@ -1,0 +1,125 @@
+/* Main Container Background */
+.my-task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f3f0e9; /* Cool-toned, elegant beige-gray */
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+  
+  
+  
+  /* Title Styling */
+  .my-task-title {
+    font-size: 2.2rem;
+    color: #ffd700; /* Golden title color */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Empty Message */
+  .my-task-empty {
+    color: #333;
+    font-size: 1.3rem;
+    font-style: italic;
+  }
+  
+  /* Task List */
+  .my-task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+  }
+  
+  /* Task Card Styling */
+  .my-task-card {
+    background-color: #1a1a1a; /* Deep black resting state */
+    color: #ffffff; /* White text for high contrast */
+    padding: 25px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border: 2px solid transparent; /* For the glowing border effect */
+  }
+  
+  /* Gold Glow and Gradient Fill on Hover */
+  .my-task-card:hover {
+    background: linear-gradient(145deg, #ffd700, #ffef9f); /* Gold gradient background */
+    color: #333; /* Dark text on hover */
+    animation: goldenSheen 1.8s infinite linear; /* Subtle golden sheen effect */
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3), 0 0 25px rgba(255, 215, 0, 0.5); /* Golden glow effect */
+    border-color: #ffd700; /* Gold border */
+  }
+  
+  /* Subtle Animated Sheen Effect */
+  @keyframes goldenSheen {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* Glowing Border and Inner Glow on Hover */
+  .my-task-card:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Task Information */
+  .task-name {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .task-info {
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .my-task-container {
+      padding: 15px;
+    }
+  
+    .my-task-title {
+      font-size: 1.8rem;
+    }
+  
+    .my-task-list {
+      gap: 10px;
+    }
+  
+    .my-task-card {
+      padding: 20px;
+    }
+  
+    .task-name {
+      font-size: 1.3rem;
+    }
+  
+    .task-info {
+      font-size: 0.9rem;
+    }
+  }
+  

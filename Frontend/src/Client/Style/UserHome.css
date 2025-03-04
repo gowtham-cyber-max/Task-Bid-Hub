@@ -1,0 +1,109 @@
+/* UserHome.css */
+.user-home {
+    display: flex; /* Use flexbox to create a horizontal layout */
+    min-height: 100vh; /* Ensure full viewport height */
+    font-family: 'Poppins', sans-serif; /* Font family */
+    color: white; /* Changed text color to white */
+    background-color: #272727; /* Dark background for better contrast */
+    margin-top: -10px;
+}
+
+/* Content Section */
+.content-section {
+    flex: 1; /* Take up equal space */
+    display: flex; /* Flexbox for vertical centering */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    padding: 40px; /* Padding around content */
+    text-align: center; /* Center text alignment */
+}
+
+/* Hero Title */
+.hero-title {
+    font-size: 3rem; /* Increased font size for the header */
+    color: rgb(196, 196, 196); /* Changed text color to white */
+    font-weight: 700; /* Bold font for emphasis */
+    margin-bottom: 10px; /* Space below the header */
+}
+
+/* Hero Description */
+.hero-description {
+    font-size: 1.5rem; /* Increased font size for readability */
+    margin: 10px 0;
+    color: #cecdcd; /* Slightly lighter shade for better visibility */
+    max-width: 600px; /* Limit width for better readability */
+    margin-left: auto; /* Center the paragraph */
+    margin-right: auto; /* Center the paragraph */
+}
+
+/* Button Styling */
+.post-task-button {
+    background-color: #ffd700; /* Gold color for the button */
+    color: #1f1f1f; /* Text color */
+    padding: 10px 20px; /* Reduced padding for smaller button */
+    border: none;
+    border-radius: 8px; /* More pronounced rounding */
+    font-size: 1rem; /* Adjusted font size for the button text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Add transform transition */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    margin-top: 20px; /* Space above the button */
+}
+
+/* Button Hover Effect */
+.post-task-button:hover {
+    
+    background-color: #e6c200; /* Darker gold on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Image Section */
+.image-section {
+    flex: 1; /* Take up equal space */
+    display: flex; /* Center image horizontally */
+    justify-content: center; /* Center image */
+    align-items: center; /* Center image vertically */
+    padding: 20px; /* Padding around the image */
+}
+
+/* Motivation Image */
+.motivation-image {
+    width: 100%; /* Full width for responsiveness */
+    max-width: 800px; /* Set max width for larger screens */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 15px; /* More rounded corners for aesthetic */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for depth */
+    transition: transform 0.3s ease; /* Transition for scale effect */
+}
+
+/* Image Hover Effect */
+.motivation-image:hover {
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .user-home {
+        flex-direction: column; /* Stack content and image vertically on small screens */
+    }
+
+    .content-section {
+        padding: 20px; /* Reduced padding on smaller screens */
+    }
+
+    .hero-title {
+        font-size: 2.5rem; /* Adjust header size */
+    }
+
+    .hero-description {
+        font-size: 1.2rem; /* Adjust paragraph size */
+    }
+
+    .post-task-button {
+        font-size: 1rem; /* Adjust button size */
+    }
+
+    .motivation-image {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}

@@ -1,0 +1,123 @@
+.user-add-task {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.add-task-form {
+    background-color: black;
+    color: white;
+    padding: 2rem;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.add-task-label {
+    font-size: 1rem;
+    margin-top: 1rem;
+    display: block;
+    color: #f1f1f1;
+}
+
+.add-task-input,
+.add-task-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: whitesmoke;
+}
+
+.add-task-textarea {
+    resize: vertical;
+}
+
+.add-task-skill-container {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.add-task-skill-input {
+    width: calc(100% - 90px);
+    margin-right: 5px;
+}
+
+.add-task-button {
+    width: 85px;
+    background-color: #ffdd57;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.add-task-dropdown {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.add-task-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    color: #ffc107;
+}
+
+.add-task-skill-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1rem;
+    color: #ffdd57;
+}
+
+.add-task-skill-item {
+    display: inline-block;
+    margin-right: 0.5rem;
+    color: #ffc107;
+}
+
+.add-task-remove-skill {
+    margin-left: 0.25rem;
+    margin-top: 0.25rem;
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-task-location-button,
+.add-task-submit-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ffdd57;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.add-task-submit-button:hover {
+    background-color: #ffc107;
+}

@@ -1,0 +1,102 @@
+/* Bidder-Home.css */
+
+.bidder-home-container {
+    display: flex;
+    align-items: center;
+    margin-top: -9.9px;
+    justify-content: space-between; /* Space between content and image */
+    padding: 40px;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #292929 0%, #403c3c 100%); /* Gradient background */
+    min-height: 100vh; /* Full height to fill the viewport */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Strong outer shadow for depth */
+    overflow: hidden; /* Prevent content overflow */
+}
+
+.bidder-home-header {
+    flex: 1; /* Take up available space */
+    max-width: 600px; /* Limit max width for content */
+    margin-right: 40px; /* Space between content and image */
+    color: #ffd700; /* Dark yellow for text */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5); /* Stronger text shadow for 3D effect */
+}
+
+.bidder-home-header h1 {
+    font-size: 3.5rem; /* Increased font size for impact */
+    font-weight: 700; /* Bold text */
+}
+
+.bidder-home-header p {
+    font-size: 1.4rem; /* Increased paragraph size */
+    margin: 10px 0;
+    color: #f9f3f3; /* Grey text for secondary information */
+}
+
+.bidder-home-button {
+    background: linear-gradient(90deg, #ffd700 0%, #e6c200 100%); /* Gradient button */
+    color: #3a2020;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5); /* Strong shadow for button */
+}
+
+.bidder-home-button:hover {
+    background: linear-gradient(90deg, #e6c200 0%, #ffd700 100%); /* Reverse gradient on hover */
+    transform: translateY(-5px) scale(1.05); /* Lift and scale effect */
+}
+
+.bidder-home-image {
+    flex: 1; /* Take up available space */
+    display: flex;
+    justify-content: center; /* Center the image */
+    align-items: center; /* Center vertically */
+}
+
+.motivational-image {
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 600px; /* Limit max width for responsiveness */
+    border-radius: 20px; /* Increased rounded corners for elegance */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7); /* Strong shadow for depth */
+    transform: scale(1); /* Reset scaling */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for scaling and shadow */
+}
+
+.motivational-image:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.9); /* Stronger shadow on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bidder-home-container {
+        flex-direction: column; /* Stack on small screens */
+        padding: 20px;
+    }
+
+    .bidder-home-header {
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 20px; /* Space below content */
+    }
+
+    .bidder-home-header h1 {
+        font-size: 2.5rem; /* Slightly smaller on mobile */
+    }
+
+    .bidder-home-header p {
+        font-size: 1.1rem; /* Adjust paragraph size */
+    }
+
+    .bidder-home-button {
+        padding: 10px 20px; /* Smaller padding */
+        font-size: 1rem; /* Adjust button font size */
+    }
+
+    .motivational-image {
+        max-width: 100%; /* Full width on mobile */
+    }
+}
