@@ -13,7 +13,6 @@ class Service {
         console.log(data);
         const { email, passWord } = data;
 
-        // Use this.apiUrl instead of hardcoded URL
         return this.axios.post(`${this.apiUrl}/user/login`, {
             email,
             passWord

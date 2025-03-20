@@ -1,6 +1,9 @@
 const BidderModel=require("../Models/Bidder")
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Types;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 
 
@@ -121,27 +124,44 @@ async function addTaskToCompleted(req,res){
 }
 
 //bidder login by name or mail
-async function bidderLogin(req,res){
-    const {email,password}=req.body;
-    try{
-        const bidder=await BidderModel.findOne({ $or: [{ email: req.body.email }, { name: req.body.email }] });
-        if(bidder){
-            if(bidder.pass===password){
-                res.json(bidder);
-            }
-            else{
-                res.status(401).json({message:"Invalid password"})
-                }
-        
+async function bidderLogin(req, res) {
+    const { email, password } = req.body;
+    try {
+      const bidder = await BidderModel.findOne({ email });
+      if (!bidder) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+  
+      const isMatch = await bcrypt.compare(password, bidder.pass);
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Invalid email or password' });
+      }
+  
+      const payload = {
+        user: {
+          id: bidder.id,
+        },
+      };
+  
+      jwt.sign(
+        payload,
+        process.env.SECRET_KEY,
+        { expiresIn: '1h' },
+        (err, token) => {
+          if (err) throw err;
+          res.cookie('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+          });
+          res.json({ bidder: bidder });
         }
-        else{
-            res.status(401).json({message:"Invalid email"})
-        }
+      );
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
-    catch(er){
-        console.error(er);
-    }
-}
+  }
 
 async function  removeTaskFromQueue(req,res){
     const {bidderId,bidLogId}=req.body;

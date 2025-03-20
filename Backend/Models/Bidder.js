@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-
+const bcrypt = require('bcrypt')
 const BidderSchema=new mongoose.Schema(
     {
         companyName:{

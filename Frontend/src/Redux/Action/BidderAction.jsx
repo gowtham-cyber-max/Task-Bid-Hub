@@ -16,6 +16,7 @@ export const bidderLogin=(data)=>async(dispatch,getState)=>{
 export const bidderSignup=(data)=>async(dispatch,getState)=>{
         try{
             const res=await serv.bidder_signup(data);
+            console.log(res);
             if(res.data){
                 return true;
             }
